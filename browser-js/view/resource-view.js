@@ -1,3 +1,5 @@
+var undo = require('./undo-button-view');
+
 var template = _.template($('#resource-template').html());
 
 var ResourceView = module.exports = Backbone.View.extend({
@@ -29,6 +31,9 @@ var ResourceView = module.exports = Backbone.View.extend({
       confirm('Do you wish to delete this resource? All associated data and configuration will be permanently removed.') && del();
     } else {
       del();
+      undo.show('Delete ' + self.model.get('path'), function() {
+        self.parentView.collection.add(this.model, {at: self.model.get('order')});
+      });
     }
   },
 
