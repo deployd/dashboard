@@ -1,0 +1,12 @@
+{
+    "name": "application-name"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "2.5.x"
+    , "less": ">= 0.0.1"
+    , "ejs": ">= 0.0.1"
+    , "browserify": ">= 1.9.4"
+    , "bootware": ">= 0.1.0"
+  }
+}

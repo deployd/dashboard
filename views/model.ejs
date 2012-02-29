@@ -1,0 +1,109 @@
+<div class="ide-container active" id="property-editor">
+  <div class="component-sidebar">
+    <h3 class="component-header">Data Types</h3>
+    <ul id="value-type-components" class="components">
+      <li class="component">String</li>
+      <li class="component">Number</li>
+      <li class="component">Boolean</li>
+      <li class="component">Timestamp</li>
+    </ul>
+  </div>
+
+  <div class="main-area">
+    <ul id="schema-editor" class="panel top">
+      <li class="property locked">
+        <div class="header">
+          <span class="label label-info type">_id</span>
+        </div>
+      </li>
+      <li class="placeholder" id="insert-placeholder">
+        <input class="code" type="text" id="insert-name" />
+      </li>
+    </ul>
+    <div class="divider"></div>
+    <div id="data-viewer" class="panel bottom">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#">Sample Data</a>
+        </li>
+        <li>
+          <a href="#">Current Data</a>
+        </li>
+      </ul>
+      <div>
+        
+      </div>
+      <table id="sample-data" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="code">_id</th>
+            <!-- <th class="code">title</th>
+            <th class="code">completed</th>
+            <th class="code">order</th>
+            <th class="code">timestamp</th>-->
+            <th></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>...</td>
+           <!--  <td>lorem ispum dolor</td>
+            <td>true</td>
+            <td>23</td>
+            <td>2/17/2012 10:52</td> -->
+            <td><a href="#">remove</a></td>
+          </tr>
+          <tr>
+            <td>...</td>
+            <!-- <td>lorem ispum dolor</td>
+            <td>true</td>
+            <td>23</td>
+            <td>2/17/2012 10:52</td> -->
+            <td><a href="#">remove</a></td>
+          </tr>
+          <tr>
+            <td>...</td>
+            <!-- <td>lorem ispum dolor</td>
+            <td>true</td>
+            <td>23</td>
+            <td>2/17/2012 10:52</td> -->
+            <td><a href="#">remove</a></td>
+          </tr>
+          <tfoot>
+            <tr>
+              <td colspan="6"><a href="#">add</a></td>
+            </tr>
+          </tfoot>
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+</div>
+
+<div class="ide-container" id="event-editor">
+  <div class="component-sidebar">
+    <h3>Properties</h3>
+    <ul>
+      <li>
+        <span class="label label-info">_id</span>
+      </li>
+      <li>
+        <span class="label label-info">string</span>
+        <span class="code">title</span>
+      </li>
+      <li>
+        <span class="label label-info">boolean</span>
+        <span class="code">completed</span>
+      </li>
+      <li>
+        <span class="label label-info">number</span>
+        <span class="code">order</span>
+      </li>
+      <li>
+        <span class="label label-info">timestamp</span>
+        <span class="code">timestamp</span>
+      </li>
+    </ul>
+  </div>
+</div>

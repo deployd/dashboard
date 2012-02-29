@@ -1,0 +1,6 @@
+<h3 class="component-type-header">Resources</h3>
+<ul class="component-type-list">
+<% resourceTypes.each(function(typeModel) { var type = typeModel.toJSON() %>
+   <li class="component-type-item" data-cid="<%- typeModel.cid %>"><%- type.name %></li>
+<% }); %>
+</ul>
