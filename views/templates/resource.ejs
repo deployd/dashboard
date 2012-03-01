@@ -1,8 +1,11 @@
 <div class="header">
   <% if (resource.c_active) { %>
     <input type="text" class="code" name="path" value="<%- resource.path %>" />
+    <a href="#" class="save-btn">save</a>
+    <a href="#" class="cancel-btn">cancel</a>
   <% } else { %>
     <span class="code path"><%- resource.path %></span>
+    <a href="#" class="edit-btn">edit</a>
   <% } %>
   <a href="#" class="delete-btn pull-right">delete</a>
   <div class="tags pull-right">

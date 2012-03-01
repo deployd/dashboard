@@ -8,12 +8,12 @@ var ResourceView = module.exports = Backbone.View.extend({
   
   events: {
     'click .delete-btn': 'onDelete',
-    'mouseenter': 'onActivate',
-    'mouseleave': 'onDeactivate',
+    'click .edit-btn': 'onActivate',
+    'click .cancel-btn': 'onDeactivate',
+    'click .save-btn': 'onSave',
     'blur input[name="path"]': 'onDeactivate',
     'click input[name="path"]': 'onFocus',
-    'change input[name="path"]': 'onChangePath',
-    'keypress input[name="path"]': 'onSave'
+    'keypress input[name="path"]': 'onKeypress'
   },
   
   initialize: function(){
@@ -51,18 +51,16 @@ var ResourceView = module.exports = Backbone.View.extend({
 
   onActivate: function() {
     this.model.set({c_active: true});
+    this.$('input[name="path"]').focus();
   },
 
   onDeactivate: function(e) {
-    //e.currentTarget
+    this.model.set({c_active: false});  
+  },
 
-    if ($(e.currentTarget).is('input[name="path"]')) {
-      this.model.set({c_active: false});
-    } else {
-      if (!this.$('input[name="path"]').is(':focus')) {
-        this.model.set({c_active: false});
-      }
-    }
+  onSave: function() {
+    this.model.save({path: this.$('input[name="path"]').val()});
+    this.onDeactivate();
   },
 
   onFocus: function(e) {
@@ -73,11 +71,19 @@ var ResourceView = module.exports = Backbone.View.extend({
     this.model.save({path: $(e.currentTarget).val()});
   },
 
-  onSave: function(e) {
-    if (e.keyCode == 13) {
-      this.model.set({c_active: false});
-      this.model.save({path: $(e.currentTarget).val()});
+  onKeypress: function(e) {
+    var val = $(e.currentTarget).val();
+
+    if (!_.str.startsWith(val, '/')) {
+      val = '/' + val;
+      $(e.currentTarget).val(val);
     }
+
+    if (e.keyCode == 13) {
+      this.onSave();
+    }
+
+    
   },
 
   destroy: function() {
