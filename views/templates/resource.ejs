@@ -1,7 +1,11 @@
-  <div class="header">
-      <span class="code"><%- resource.path %></span>
-      <a href="#" class="delete-btn pull-right">delete</a>
-      <div class="tags pull-right">
-        <span class="label label-info type"><%- resource.typeName %></span>
-      </div>
+<div class="header">
+  <% if (resource.c_active) { %>
+    <input type="text" class="code" name="path" value="<%- resource.path %>" />
+  <% } else { %>
+    <span class="code path"><%- resource.path %></span>
+  <% } %>
+  <a href="#" class="delete-btn pull-right">delete</a>
+  <div class="tags pull-right">
+    <span class="label label-info type"><%- resource.typeName %></span>
   </div>
+</div>

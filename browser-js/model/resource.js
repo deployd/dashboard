@@ -3,8 +3,6 @@ var Resource = module.exports = Backbone.Model.extend({
     path: '',
     typeId: '',
     typeName: '',
-    order: 0,
-
-    c_saved: true
+    order: 0
   }
 });

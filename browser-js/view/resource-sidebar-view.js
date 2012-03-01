@@ -3,6 +3,10 @@ var template = _.template($('#resource-sidebar-template').html());
 var ResourceSidebarView = module.exports = Backbone.View.extend({
   el: '#resource-sidebar',
 
+  events: {
+    'dblclick li': 'onAddItem'
+  },
+
   initialize: function() {
     this.collection = this.options.collection;
 
@@ -24,6 +28,12 @@ var ResourceSidebarView = module.exports = Backbone.View.extend({
         appendTo: 'body'
       });
     })
+  },
+
+  onAddItem: function(e) {
+    var typeCid = $(e.currentTarget).attr('data-cid');
+    var type = this.collection.getByCid(typeCid);
+    this.options.listView.addItem(type); 
   },
 
 });

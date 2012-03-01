@@ -20,9 +20,10 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.compiler({ src:  path.resolve('./public'), enable: ['less'] }));
   app.use(browserify({entry: path.resolve('./browser-js/entry.js'), debug: true, watch: true}));
-  app.use(app.router);
   app.use(express.static(__dirname + '/public'));
   app.use(bootware({path: '../bootstrap'}));
+  require('./db-routes');
+  app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -55,34 +56,7 @@ app.get('/dashboard', function(req, res){
   });
 });
 
-//Schema
-app.get('/resourcetypes', function(req, res) {
-  res.send(JSON.stringify([
-    {
-      id: 'dataModel',
-      name: 'Data Model'
-    }, {
-      id: 'userModel',
-      name: 'User Model'
-    }
-  ]));
-});
 
-app.get('/resources', function(req, res) {
-  res.send(JSON.stringify([
-    {
-      path: '/todos',
-      typeId: 'dataModel',
-      typeName: 'Data Model',
-      order: 1
-    }, {
-      path: '/users',
-      typeId: 'userModel',
-      typeName: 'User Model',
-      order: 2
-    }
-  ]));
-});
 
 app.listen(process.env.PORT || 3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

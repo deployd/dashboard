@@ -4,6 +4,7 @@
   , "private": true
   , "dependencies": {
       "express": "2.5.x"
+    , "express-namespace": ">= 0.0.4"
     , "less": ">= 0.0.1"
     , "ejs": ">= 0.0.1"
     , "browserify": ">= 1.9.4"

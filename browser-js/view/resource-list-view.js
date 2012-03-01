@@ -23,8 +23,30 @@ var ResourceListView = module.exports = Backbone.View.extend({
       revert: false,
       placeholder: 'placeholder',
       cancel: '.placeholder',
+      distance: 10,
 
-      receive: _.bind(this.onReceiveComponent, this)
+      receive: _.bind(this.onReceiveComponent, this),
+      update: _.bind(this.onReorder, this)
+    });
+  },
+
+  addItem: function(type, index) {
+    if (isNaN(index)) {
+      index = this.collection.length;
+    }
+    
+    var resource = new Resource({
+      path: type.get('defaultPath'),
+      typeId: type.id,
+      typeName: type.get('name'),
+      order: index,
+
+      c_active: true
+    });
+    this.collection.add(resource, {at: index});
+
+    process.nextTick(function() {
+      this.$('#' + resource.cid).find('input[name="path"]').focus();
     });
   },
 
@@ -36,13 +58,35 @@ var ResourceListView = module.exports = Backbone.View.extend({
 
     $newItem.remove();
 
-    this.collection.add(new Resource({
-      path: '/' + type.get('id'),
-      typeId: type.get('id'),
-      typeName: type.get('name'),
-      order: index,
-      c_saved: false
-    }), {at: index});
+    this.addItem(type, index);
+  },
+
+  onReorder: function() {
+    var self = this;
+    var items = [];
+    
+    $(this.el).children().each(function() {
+      var item = self.collection.getByCid($(this).attr('id'));
+      if (item) {
+        items.push(item);  
+      }
+    });
+
+    var order = 0;
+    
+    _.each(items, function(item) {
+      order += 1;
+      if (!item.isNew()) {
+        item.save({order: order});
+      } else {
+        item.set({order: order});
+      }
+    });
+
+    this.collection.sort();
+
+    return false;
+    
   },
 
   render: function() {

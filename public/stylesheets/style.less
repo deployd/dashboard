@@ -6,6 +6,10 @@ body {
   font-family: 'Courier New', monospace;
 }
 
+input, textarea {
+  color: #333333;
+}
+
 .ide-container {
   position: absolute;
   top: 80px;
@@ -87,14 +91,22 @@ li.component-item {
   border: 1px #ddd solid;
   border-radius: 3px;
 
+  &.unsaved {
+    border-style: dashed;
+  }
+
   .header {
     border-radius: inherit; 
     padding: 10px; 
+
+    input {
+      margin-bottom: 0;
+    }
 
     .tags {
       margin-right: 10px;
     } 
   }
-  
+
 }
 

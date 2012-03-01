@@ -7,37 +7,82 @@ var ResourceView = module.exports = Backbone.View.extend({
   className: 'component-item',
   
   events: {
-    'click .delete-btn': 'onDelete'
+    'click .delete-btn': 'onDelete',
+    'mouseenter': 'onActivate',
+    'mouseleave': 'onDeactivate',
+    'blur input[name="path"]': 'onDeactivate',
+    'click input[name="path"]': 'onFocus',
+    'change input[name="path"]': 'onChangePath',
+    'keypress input[name="path"]': 'onSave'
   },
   
   initialize: function(){
     this.parentView = this.options.parentView;
+
+    this.model.on('change:c_active', this.render, this);
+    this.model.on('change:_id', this.render, this);
+    this.model.on('change:path', this.render, this);
   },
   
   render: function(){
-    $(this.el).attr('data-cid', this.model.cid).html(template({
+    var $el = $(this.el);
+    $el.attr('id', this.model.cid).html(template({
       resource: this.model.toJSON()
     }));
+
+    if (this.model.isNew()) {
+      $el.addClass('unsaved');
+    } else {
+      $el.removeClass('unsaved');
+    }
     return this;
   },
 
   onDelete: function() {
     var self = this;
-    var del = function() {
-      self.parentView.collection.remove(self.model);
-    };
-
-    if (self.model.get('c_saved')) {
-      confirm('Do you wish to delete this resource? All associated data and configuration will be permanently removed.') && del();
+    if (self.model.isNew()) {
+      self.model.destroy();
     } else {
-      del();
-      undo.show('Delete ' + self.model.get('path'), function() {
-        self.parentView.collection.add(this.model, {at: self.model.get('order')});
-      });
+      if (confirm('Do you wish to delete this resource? All associated data and configuration will be permanently removed.')) {
+        self.model.destroy({wait: true});
+      }
+    }
+  },
+
+  onActivate: function() {
+    this.model.set({c_active: true});
+  },
+
+  onDeactivate: function(e) {
+    //e.currentTarget
+
+    if ($(e.currentTarget).is('input[name="path"]')) {
+      this.model.set({c_active: false});
+    } else {
+      if (!this.$('input[name="path"]').is(':focus')) {
+        this.model.set({c_active: false});
+      }
+    }
+  },
+
+  onFocus: function(e) {
+    $(e.currentTarget).focus();
+  },
+
+  onChangePath: function(e) {
+    this.model.save({path: $(e.currentTarget).val()});
+  },
+
+  onSave: function(e) {
+    if (e.keyCode == 13) {
+      this.model.set({c_active: false});
+      this.model.save({path: $(e.currentTarget).val()});
     }
   },
 
   destroy: function() {
-
+    this.model.off('change:c_active', this.render);
+    this.model.off('change:_id', this.render);
+    this.model.off('change:path', this.render);
   }
 });
