@@ -11,10 +11,13 @@ Backbone.sync = function(method, model, options) {
   url = '/db' + url
 
   var data = options.data || model.toJSON();
-  data = _.reject(data, function(val, key) {
-    return _.str.startsWith(key, 'c_');
+  _.each(data, function(val, key) {
+    if (_.str.startsWith(key, 'c_')) {
+      delete data[key];
+    }
   });
-  options.data = data;
+  options.contentType = 'application/json';
+  options.data = JSON.stringify(data);
 
   options.url = options.url || url;
   return oldSync(method, model, options);

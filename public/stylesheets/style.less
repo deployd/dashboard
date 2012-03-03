@@ -1,3 +1,5 @@
+@import "../../bootstrap/less/bootstrap.less";
+
 body {
   padding-top: 80px;
 }
@@ -25,7 +27,7 @@ input, textarea {
   top: 0px;
   bottom: 0;
   width: 250px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: 1px solid #DDD;
   border-radius: 3px;   
 
@@ -74,7 +76,8 @@ li.component-type-item {
 }
 
 .component-list {
-  min-height: 100%;
+  overflow-y: auto;
+  height: 100%;
   margin: 0;
 
   .placeholder {
@@ -88,6 +91,7 @@ li.component-type-item {
 li.component-item {
   list-style: none;
   margin-bottom: 4px;
+  background: @wellBackground;
   border: 1px #ddd solid;
   border-radius: 3px;
 

@@ -7,13 +7,16 @@ var ResourceView = module.exports = Backbone.View.extend({
   className: 'component-item',
   
   events: {
-    'click .delete-btn': 'onDelete',
-    'click .edit-btn': 'onActivate',
-    'click .cancel-btn': 'onDeactivate',
-    'click .save-btn': 'onSave',
-    'blur input[name="path"]': 'onDeactivate',
+    'click .delete-btn': 'delete',
+    'click .edit-btn': 'gotoDetail',
+    'dblclick .header': 'gotoDetail',
+    'dblclick .path': 'activate',
+    'click .rename-btn': 'activate',
+    'click .cancel-btn': 'deactivate',
+    'click .save-btn': 'save',
     'click input[name="path"]': 'onFocus',
-    'keypress input[name="path"]': 'onKeypress'
+    'keypress input[name="path"]': 'onKeypress',
+    'keyup input[name="path"]': 'onKeyup'
   },
   
   initialize: function(){
@@ -22,6 +25,7 @@ var ResourceView = module.exports = Backbone.View.extend({
     this.model.on('change:c_active', this.render, this);
     this.model.on('change:_id', this.render, this);
     this.model.on('change:path', this.render, this);
+
   },
   
   render: function(){
@@ -38,8 +42,15 @@ var ResourceView = module.exports = Backbone.View.extend({
     return this;
   },
 
-  onDelete: function() {
-    var self = this;
+  gotoDetail: function() {
+    location.href = 'http://www.google.com/?q=' + this.model.get('path');
+
+    return false;
+  },
+
+
+  delete: function() {
+    var self = this; 
     if (self.model.isNew()) {
       self.model.destroy();
     } else {
@@ -47,28 +58,39 @@ var ResourceView = module.exports = Backbone.View.extend({
         self.model.destroy({wait: true});
       }
     }
+
+    return false;
   },
 
-  onActivate: function() {
+  activate: function() {
+
     this.model.set({c_active: true});
     this.$('input[name="path"]').focus();
+
+    return false;
   },
 
-  onDeactivate: function(e) {
-    this.model.set({c_active: false});  
+  deactivate: function() {
+
+    if (this.model.isNew()) {
+      this.delete();
+    } else {
+      this.model.set({c_active: false});
+    }
+
+    return false;
+    
   },
 
-  onSave: function() {
+  save: function() {
     this.model.save({path: this.$('input[name="path"]').val()});
-    this.onDeactivate();
+    this.model.set({c_active: false});
+
+    return false;
   },
 
   onFocus: function(e) {
     $(e.currentTarget).focus();
-  },
-
-  onChangePath: function(e) {
-    this.model.save({path: $(e.currentTarget).val()});
   },
 
   onKeypress: function(e) {
@@ -78,12 +100,17 @@ var ResourceView = module.exports = Backbone.View.extend({
       val = '/' + val;
       $(e.currentTarget).val(val);
     }
+    
+  },
 
+  onKeyup: function(e) {
     if (e.keyCode == 13) {
-      this.onSave();
+      this.save();
     }
 
-    
+    if (e.keyCode == 27) {
+      this.deactivate();
+    }
   },
 
   destroy: function() {

@@ -7,7 +7,8 @@ var express = require('express');
 var browserify = require('browserify');
 var path = require('path');
 var fs = require('fs');
-var bootware = require('bootware');
+// var bootware = require('bootware');
+
 
 var app = module.exports = express.createServer();
 
@@ -18,12 +19,13 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.compiler({ src:  path.resolve('./public'), enable: ['less'] }));
   app.use(browserify({entry: path.resolve('./browser-js/entry.js'), debug: true, watch: true}));
   app.use(express.static(__dirname + '/public'));
-  app.use(bootware({path: '../bootstrap'}));
+  app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
+
   require('./db-routes');
   app.use(app.router);
+
 });
 
 app.configure('development', function(){
@@ -60,3 +62,4 @@ app.get('/dashboard', function(req, res){
 
 app.listen(process.env.PORT || 3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+

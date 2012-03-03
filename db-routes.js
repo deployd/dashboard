@@ -12,17 +12,15 @@ app.use('/db', function(req, res, next) {
 app.namespace('/db', function() {
 
   app.get('/resourcetypes', function(req, res) {
-    res.send([
-      {
-        _id: 0,
-        name: 'Data Model',
-        defaultPath: '/dataModel',
-      }, {
-        _id: 1,
-        name: 'User Model',
-        defaultPath: '/users',
+    res.send({
+      Collection: {
+        defaultPath: '/collection'
+      },
+      UserCollection: {
+        label: 'User Collection',
+        defaultPath: '/users'
       }
-    ]);
+    });
   });
 
   app.get('/resources', function(req, res) {
@@ -30,14 +28,14 @@ app.namespace('/db', function() {
       {
         _id: 0,
         path: '/todos',
-        typeId: 0,
-        typeName: 'Data Model',
+        typeId: 'Collection',
+        typeName: 'Collection',
         order: 1
       }, {
         _id: 1,
         path: '/users',
-        typeId: 1,
-        typeName: 'User Model',
+        typeId: 'UserCollection',
+        typeName: 'User Collection',
         order: 2
       }
     ]));
@@ -49,12 +47,14 @@ app.namespace('/db', function() {
   });
 
   app.put('/resources/:id', function(req, res) {
+    console.log("Updating", req.url, req.body);
     res.send(req.body);
   });
 
   app.post('/resources', function(req, res) {
     var content = req.body;
     content._id = Math.round(Math.random() * 100);
+    console.log("Creating resource", content);
     res.send(content);
   });
 });

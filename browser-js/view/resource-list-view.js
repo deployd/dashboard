@@ -38,8 +38,8 @@ var ResourceListView = module.exports = Backbone.View.extend({
     var resource = new Resource({
       path: type.get('defaultPath'),
       typeId: type.id,
-      typeName: type.get('name'),
-      order: index,
+      typeName: type.get('label'),
+      order: index + 1,
 
       c_active: true
     });
@@ -50,18 +50,7 @@ var ResourceListView = module.exports = Backbone.View.extend({
     });
   },
 
-  onReceiveComponent: function() {
-    var $newItem = $($(this.el).data().sortable.currentItem);
-    var typeCid = $newItem.attr('data-cid');
-    var type = this.parentView.resourceTypes.getByCid(typeCid);
-    var index = $(this.el).children(':not(.placeholder)').index($newItem);
-
-    $newItem.remove();
-
-    this.addItem(type, index);
-  },
-
-  onReorder: function() {
+  updateOrder: function() {
     var self = this;
     var items = [];
     
@@ -77,19 +66,29 @@ var ResourceListView = module.exports = Backbone.View.extend({
     _.each(items, function(item) {
       order += 1;
       if (!item.isNew()) {
-        item.save({order: order});
+        item.save({order: order}, {silent: true});
       } else {
-        item.set({order: order});
+        item.set({order: order}, {silent: true});
       }
     });
-
-    this.collection.sort();
-
-    return false;
-    
   },
 
-  render: function() {
+  onReceiveComponent: function() {
+    var $newItem = $($(this.el).data().sortable.currentItem);
+    var typeCid = $newItem.attr('data-cid');
+    var type = this.parentView.resourceTypes.getByCid(typeCid);
+    var index = $(this.el).children(':not(.placeholder)').index($newItem);
+
+    $newItem.remove();
+
+    this.addItem(type, index);
+  },
+
+  onReorder: function() {
+    this.updateOrder();    
+  },
+
+  render: function(e) {
     var self = this;
     _.each(self.subViews, function(subView) {
       subView.destroy();
