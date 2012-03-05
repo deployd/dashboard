@@ -17,28 +17,29 @@ app.namespace('/db', function() {
         defaultPath: '/collection'
       },
       UserCollection: {
-        label: 'User Collection',
+        label: 'Users',
         defaultPath: '/users'
       }
     });
   });
 
   app.get('/resources', function(req, res) {
-    res.send(JSON.stringify([
-      {
-        _id: 0,
-        path: '/todos',
-        typeId: 'Collection',
-        typeName: 'Collection',
-        order: 1
-      }, {
-        _id: 1,
-        path: '/users',
-        typeId: 'UserCollection',
-        typeName: 'User Collection',
-        order: 2
-      }
-    ]));
+    // res.send([
+    //   {
+    //     _id: 0,
+    //     path: '/todos',
+    //     typeId: 'Collection',
+    //     typeName: 'Collection',
+    //     order: 1
+    //   }, {
+    //     _id: 1,
+    //     path: '/users',
+    //     typeId: 'UserCollection',
+    //     typeName: 'User Collection',
+    //     order: 2
+    //   }
+    // ]);
+    res.send([]);
   });
 
   app.del('/resources/*', function(req, res) {

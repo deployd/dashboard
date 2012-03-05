@@ -1,10 +1,9 @@
 var Resource = require('../model/resource');
 var ResourceView = require('./resource-view');
 
-// var template = _.template($('#resource-list-template').html());
-
 var ResourceListView = module.exports = Backbone.View.extend({
   el: '#resource-list',
+  emptyEl: '#resource-list-empty',
 
   subViews: [],
 
@@ -22,11 +21,24 @@ var ResourceListView = module.exports = Backbone.View.extend({
     $(this.el).sortable({
       revert: false,
       placeholder: 'placeholder',
-      cancel: '.placeholder',
+      cancel: '.placeholder, .well',
       distance: 10,
 
-      receive: _.bind(this.onReceiveComponent, this),
+      receive: _.bind(function() {
+        var $newItem = $($(this.el).data().sortable.currentItem);
+        var index = $(this.el).children(':not(.placeholder)').index($newItem);
+        this.onReceiveComponent($newItem, index);
+      }, this),
       update: _.bind(this.onReorder, this)
+    });
+
+    $('.placeholder', this.emptyEl).droppable({
+      hoverClass: 'highlight',
+
+      drop: _.bind(function(event, ui) {
+        var $newItem = $(ui.helper);
+        this.onReceiveComponent($newItem);
+      }, this)
     });
   },
 
@@ -73,11 +85,9 @@ var ResourceListView = module.exports = Backbone.View.extend({
     });
   },
 
-  onReceiveComponent: function() {
-    var $newItem = $($(this.el).data().sortable.currentItem);
+  onReceiveComponent: function($newItem, index) {
     var typeCid = $newItem.attr('data-cid');
     var type = this.parentView.resourceTypes.getByCid(typeCid);
-    var index = $(this.el).children(':not(.placeholder)').index($newItem);
 
     $newItem.remove();
 
@@ -94,11 +104,18 @@ var ResourceListView = module.exports = Backbone.View.extend({
       subView.destroy();
     });
     $(self.el).empty();
-    self.subViews = self.collection.map(function(resource) {
-      var view = new ResourceView({model: resource, parentView: self});
-      $(self.el).append(view.el);
-      view.render();
-      return view;
-    });
+    if (self.collection.length) {
+      $(self.el).show();
+      $(self.emptyEl).hide();
+      self.subViews = self.collection.map(function(resource) {
+        var view = new ResourceView({model: resource, parentView: self});
+        $(self.el).append(view.el);
+        view.render();
+        return view;
+      });
+    } else {
+      $(self.el).hide();
+      $(self.emptyEl).show();
+    }
   }
 });

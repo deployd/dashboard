@@ -1,14 +1,19 @@
-<div class="subnav subnav-fixed">
-  <a href="#" class="btn"><i class="icon-cog icon-white"></i></a>
-  <div class="pull-right">
-    <button id="undo-btn" class="btn btn-warning">Undo&nbsp;<strong class="action-label"></strong></button>
-  </div>
-</div>
 <div class="ide-container">
-    <div id="resource-sidebar" class="component-type-sidebar">
+    <div id="resource-sidebar" class="component-type-sidebar sidebar">
     </div>
-    <div class="main-area">
+    <div class="main-area mid">
       <ul id="resource-list" class="component-list">
       </ul>
+      <div id="resource-list-empty" class="well">
+        <h2>Welcome to your Deployd app</h2>
+        <p>
+          <i class="icon-white icon-arrow-left"></i>&nbsp;
+          These are the resources you can use to build your app.<br />
+          <div class="placeholder">Drag one here to get started!</div>
+        </p>  
+      </div>
+    </div>
+    <div class="right-sidebar">
+      <%- partial('partials/index-sidebar') %>
     </div>
 </div>

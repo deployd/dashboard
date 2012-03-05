@@ -1,40 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= title %></title>
+		<title><%= appName %> - Dashboard</title>
 		<!-- <link href="/bootstrap/css/bootstrap.css" rel="stylesheet"> -->
 		<link rel='stylesheet/less' type="text/css" href='/stylesheets/style.less' />
 		<script type="text/javascript" src="/js/lib/less.js"></script>
 	</head>
 	<body>
 
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a class="brand" href="#">
-						<%= appName %> Dashboard
-					</a>
-					<!-- <ul class="nav">
-						<li class="active">
-							<a href="#"><span class="label">Data Model</span><span class="code">/todos</span></a>
-						</li>
-					</ul>
-					<ul class="nav nav-pills">
-						<li class="active">
-							<a href="#property-editor" data-toggle="pill">Properties</a>
-						</li>
-						<li>
-							<a href="#event-editor" data-toggle="pill">Events</a>
-						</li>
-					</ul>
-					<div class="pull-right">
-						<button id="undo-btn" class="btn btn-warning">Undo&nbsp;<strong class="action-label"></strong></button>
-						<button class="btn">Save</button>
-					</div>
-					 -->
-				</div>
-			</div>
-		</div>
+		<h1><%= appName %> - Dashboard</h1>
 		<%- body %>
 
 		<%- template('resource-sidebar') %>

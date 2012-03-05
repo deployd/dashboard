@@ -1,7 +1,7 @@
 @import "../../bootstrap/less/bootstrap.less";
 
-body {
-  padding-top: 80px;
+h1 {
+  padding: 10px;
 }
 
 .code {
@@ -14,7 +14,7 @@ input, textarea {
 
 .ide-container {
   position: absolute;
-  top: 80px;
+  top: 60px;
   left: 10px;
   right: 10px;
   bottom: 10px;
@@ -22,15 +22,25 @@ input, textarea {
   overflow: auto;
 }
 
-.ide-container .component-type-sidebar {
+.ide-container .sidebar {
   position: absolute;
-  top: 0px;
+  top: 0;
   bottom: 0;
   width: 250px;
   overflow-y: auto;
   border: 1px solid #DDD;
-  border-radius: 3px;   
+  border-radius: 3px;     
+}
 
+.ide-container .right-sidebar {
+  .ide-container .sidebar;
+  width: 250px;
+  right: 0;
+
+  border: none;
+}
+
+.ide-container .component-type-sidebar {
   .component-type-header {
     border-bottom: 1px solid #DDD;
     text-align: center;
@@ -73,6 +83,10 @@ li.component-type-item {
   top: 0;
   left: 260px;
   bottom: 0;
+
+  &.mid {
+    right: 260px;
+  }
 }
 
 .component-list {
@@ -80,23 +94,29 @@ li.component-type-item {
   height: 100%;
   margin: 0;
 
-  .placeholder {
-    padding: 10px;
-    border: 1px dashed #DDD;
-    margin-bottom: 4px;
-    min-height: 1em;
-  }
+}
+
+.placeholder {
+  padding: 10px;
+  border: 1px dashed #DDD;
+  margin-bottom: 4px;
+  min-height: 1em;
+
+  &.highlight {
+    border-color: #ffff00;
+    color: #ffff00;
+  }  
 }
 
 li.component-item {
   list-style: none;
   margin-bottom: 4px;
   background: @wellBackground;
-  border: 1px #ddd solid;
+  // border: 1px #ddd solid;
   border-radius: 3px;
 
   &.unsaved {
-    border-style: dashed;
+    border: 1px #ddd dashed;
   }
 
   .header {

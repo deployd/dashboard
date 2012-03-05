@@ -54,7 +54,8 @@ app.get('/', function(req, res) {
 app.get('/dashboard', function(req, res){
   res.render('index', {
     title: 'My App Dashboard',
-    appName: 'My App'
+    appName: 'My App',
+    appUrl: 'https://myapp.deploydapp.com'
   });
 });
 
