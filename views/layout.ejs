@@ -8,11 +8,19 @@
 	</head>
 	<body>
 
-		<h1><%= appName %> - Dashboard</h1>
+		<div id="header" class="clearfix">
+			<h1><a href="/dashboard"><%= appName %> - Dashboard</a></h1>
+			<% if (locals.resourceName) { %>
+				<h2><a href="/dashboard<%= resourceName %>"><%= resourceName %> <span class="type">(<%= resourceType %>)</span></a></h2>
+			<% } %>
+		</div>
 		<%- body %>
 
 		<%- template('resource-sidebar') %>
 		<%- template('resource') %>
+
+		<%- template('property-sidebar') %>
+		<%- template('property') %>
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/lib/jquery-ui.min.js"></script>

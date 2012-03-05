@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var MIN_AREA = 50;
 
 	var $area = $('.main-area');
-	var $top = $('.panel.top', $area);
-	var $bottom = $('.panel.bottom', $area);
+	var $top = $('.top-panel', $area);
+	var $bottom = $('.bottom-panel', $area);
 	var $divider = $('.divider', $area);
 
 	var dividerHeight = $divider.outerHeight();

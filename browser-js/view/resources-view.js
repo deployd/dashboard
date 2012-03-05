@@ -1,4 +1,4 @@
-var ResourceSidebarView = require('./resource-sidebar-view');
+var ComponentTypeSidebarView = require('./component-type-sidebar-view');
 var ResourceListView = require('./resource-list-view');
 
 var ResourceCollection = require('../model/resource-collection');
@@ -15,10 +15,12 @@ var ResourcesView = module.exports = Backbone.Model.extend({
       collection: this.resources,
       parentView: this
     });
-    this.resourceSidebarView = new ResourceSidebarView({
+    this.resourceSidebarView = new ComponentTypeSidebarView({
       collection: this.resourceTypes, 
       listView: this.resourceListView, 
-      parentView: this
+      parentView: this,
+      template: _.template($('#resource-sidebar-template').html()),
+      el: '#resource-sidebar'
     });
 
     this.resourceTypes.fetch();

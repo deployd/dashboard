@@ -1,0 +1,20 @@
+
+  <div class="property">
+    <div class="header">
+      
+      <input class="code" name="name" type="text" value="{{name}}" />
+      <span class="code name">{{name}}</span>
+      <a href="#" class="delete-btn pull-right">delete</a>
+      <div class="tags pull-right">
+        {{#if type}}
+        <span class="label type label-info">{{type}}</span>
+        {{else}}
+        <span class="label type label-important">No type</span>
+        {{/if}}
+        <span class="label required">Required</span>
+      </div>
+    </div>
+    <div class="detail">
+      <label class="checkbox"><input type="checkbox" name="required" checked="checked" />Required </label>
+    </div>
+  </div>

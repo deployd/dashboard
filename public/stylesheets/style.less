@@ -12,6 +12,22 @@ input, textarea {
   color: #333333;
 }
 
+#header {
+  h1, h2 {
+    display: inline-block;
+    margin-right: 20px;
+
+    .type {
+      font-style: italic;
+    }
+  }
+}
+
+.full-width-container {
+  .container;
+  width: auto;
+}
+
 .ide-container {
   position: absolute;
   top: 60px;
@@ -20,6 +36,10 @@ input, textarea {
   bottom: 10px;
   min-width: 600px;
   overflow: auto;
+
+  &.has-nav {
+    top: 110px;
+  }
 }
 
 .ide-container .sidebar {

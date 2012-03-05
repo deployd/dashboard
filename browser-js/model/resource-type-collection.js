@@ -5,17 +5,5 @@ var ResourceTypeCollection = module.exports = Backbone.Collection.extend({
     return model.get('label');
   },
 
-  parse: function(resp) {
-    var keys = Object.keys(resp);
-    var result = [];
-
-    _.each(keys, function(key) {
-      var model = resp[key];
-      model._id = key;
-      model.label = model.label || key;
-      result.push(model);
-    });
-
-    return result;
-  }
+  parse: Backbone.Utils.parseDictionary
 });

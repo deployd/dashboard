@@ -43,7 +43,9 @@ var ResourceView = module.exports = Backbone.View.extend({
   },
 
   gotoDetail: function() {
-    location.href = 'http://www.google.com/?q=' + this.model.get('path');
+    if (!this.model.isNew()) {
+      location.href = 'dashboard' + this.model.get('path');
+    }
 
     return false;
   },

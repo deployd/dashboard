@@ -59,6 +59,16 @@ app.get('/dashboard', function(req, res){
   });
 });
 
+app.get('/dashboard/*', function(req, res) {
+  var resource = '/' + req.params[0];
+  res.render('model-editor', {
+    title: resource + ' - My App Dashboard',
+    appName: 'My App',
+    resourceName: resource,
+    resourceType: 'Collection'
+  });
+});
+
 
 
 app.listen(process.env.PORT || 3000);

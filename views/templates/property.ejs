@@ -1,21 +1,14 @@
-<script type="text/x-handlebars-template" id="property-template" >
-	<div class="property">
-		<div class="header">
-			
-			<input class="code" name="name" type="text" value="{{name}}" />
-			<span class="code name">{{name}}</span>
-			<a href="#" class="delete-btn pull-right">delete</a>
-			<div class="tags pull-right">
-				{{#if type}}
-				<span class="label type label-info">{{type}}</span>
-				{{else}}
-				<span class="label type label-important">No type</span>
-				{{/if}}
-        <span class="label required">Required</span>
-      </div>
-		</div>
-		<div class="detail">
-			<label class="checkbox"><input type="checkbox" name="required" checked="checked" />Required </label>
-		</div>
-	</div>
-</script>
+<div class="header">
+  <% if (property.c_active) { %>
+    <input type="text" class="code" name="name" value="<%- property.name %>" />
+  <% } else { %>
+    <span class="code name"><%- property.name %></span>
+  <% } %>
+ 	<a href="#" class="pull-right delete-btn">delete</a>
+  <div class="tags pull-right">
+  	<% if (property.required) { %>
+  		<span class="label required">Required</span>
+  	<% } %>
+    <span class="label label-info type"><%- property.type %></span>
+  </div>
+</div>

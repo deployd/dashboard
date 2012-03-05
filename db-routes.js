@@ -42,8 +42,8 @@ app.namespace('/db', function() {
     res.send([]);
   });
 
-  app.del('/resources/*', function(req, res) {
-    console.log("Deleting " + req.params[0]);
+  app.del('/resources/:id', function(req, res) {
+    console.log("Deleting ", req.url);
     res.end();
   });
 
@@ -57,5 +57,39 @@ app.namespace('/db', function() {
     content._id = Math.round(Math.random() * 100);
     console.log("Creating resource", content);
     res.send(content);
+  });
+
+
+  app.get('/plugins/collection/types', function(req, res) {
+    res.send({
+      String: {
+        defaultName: 'string'
+      },
+      Number: {
+        defaultName: 'number'
+      },
+      Boolean: {
+        deaultName: 'boolean'
+      },
+      Date: {
+        defaultName: 'date'
+      }
+    });
+  });
+
+  app.get('/resources/:id/settings', function(req, res){
+    res.send({
+      properties: {
+        title: {
+          type: 'string',
+          required: true,
+          order: 1
+        },
+        completed: {
+          type: 'boolean',
+          order: 2
+        }
+      }
+    });
   });
 });
