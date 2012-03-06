@@ -9,6 +9,13 @@
   	<% if (property.required) { %>
   		<span class="label required">Required</span>
   	<% } %>
-    <span class="label label-info type"><%- property.type %></span>
+    <span class="label label-info type"><%- property.typeLabel %></span>
   </div>
 </div>
+<% if (property.c_active) { %>
+  <div class="detail form-inline">
+    <% if (property.type !== 'boolean') { %>
+    <label>Required <input type="checkbox" name='required' <%= property.required ? 'checked="checked"' : '' %> /></label>
+    <% } %>
+  </div>
+<% } %>

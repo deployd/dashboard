@@ -69,7 +69,7 @@ app.namespace('/db', function() {
         defaultName: 'number'
       },
       Boolean: {
-        deaultName: 'boolean'
+        defaultName: 'boolean'
       },
       Date: {
         defaultName: 'date'
@@ -79,17 +79,24 @@ app.namespace('/db', function() {
 
   app.get('/resources/:id/settings', function(req, res){
     res.send({
+      _id: req.param('id'),
       properties: {
         title: {
           type: 'string',
+          typeLabel: 'String',
           required: true,
           order: 1
         },
         completed: {
           type: 'boolean',
+          typeLabel: 'Boolean',
           order: 2
         }
       }
     });
+  });
+
+  app.post('/resources/:id/settings', function(req, res) {
+    res.send(req.body);
   });
 });

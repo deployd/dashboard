@@ -1,4 +1,7 @@
+var Property = require('../model/property');
+
 var PropertyView = require('./property-view');
+
 
 var PropertyListView = module.exports = Backbone.View.extend({
   el: '#property-list',
@@ -14,7 +17,36 @@ var PropertyListView = module.exports = Backbone.View.extend({
   },
 
   initializeDom: function() {
+    $(this.el).sortable({
+      revert: false,
+      placeholder: 'placeholder',
+      cancel: '.placeholder, .locked',
+      items: '> li:not(.locked)',
+      distance: 10,
+
+      receive: _.bind(this.onReceiveItem, this),
+      update: _.bind(this.updateOrder, this)
+    });
+  },
+
+  addItem: function(type, index) {
+    if (isNaN(index)) {
+      index = this.collection.length;
+    }
     
+    var resource = new Property({
+      name: type.get('defaultName'),
+      typeId: type.id,
+      typeLabel: type.get('label'),
+      order: index + 1,
+
+      c_active: true
+    });
+    this.collection.add(resource, {at: index});
+
+    process.nextTick(function() {
+      this.$('#' + resource.cid).find('input[name="name"]').focus();
+    });
   },
 
   render: function() {
@@ -28,6 +60,36 @@ var PropertyListView = module.exports = Backbone.View.extend({
       $(self.el).append(view.el);
       view.render();
       return view;
+    });
+  },
+
+  onReceiveItem: function() {
+    var $newItem = $($(this.el).data().sortable.currentItem);
+    var index = $(this.el).children(':not(.placeholder)').index($newItem);  
+    var typeCid = $newItem.attr('data-cid');
+    var type = this.parentView.propertyTypes.getByCid(typeCid);
+
+    $newItem.remove();
+
+    this.addItem(type, index);
+  },
+
+  updateOrder: function() {
+    var self = this;
+    var items = [];
+    
+    $(this.el).children().each(function() {
+      var item = self.collection.getByCid($(this).attr('id'));
+      if (item) {
+        items.push(item);  
+      }
+    });
+
+    var order = 0;
+    
+    _.each(items, function(item) {
+      order += 1;
+      item.set({order: order});
     });
   }
 });

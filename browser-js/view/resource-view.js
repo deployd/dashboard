@@ -106,11 +106,11 @@ var ResourceView = module.exports = Backbone.View.extend({
   },
 
   onKeyup: function(e) {
-    if (e.keyCode == 13) {
+    if (e.which == 13) {
       this.save();
     }
 
-    if (e.keyCode == 27) {
+    if (e.which == 27) {
       this.deactivate();
     }
   },
