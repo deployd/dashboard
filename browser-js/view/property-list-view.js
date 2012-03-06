@@ -65,7 +65,7 @@ var PropertyListView = module.exports = Backbone.View.extend({
 
   onReceiveItem: function() {
     var $newItem = $($(this.el).data().sortable.currentItem);
-    var index = $(this.el).children(':not(.placeholder)').index($newItem);  
+    var index = $(this.el).children(':not(.placeholder, .locked)').index($newItem);  
     var typeCid = $newItem.attr('data-cid');
     var type = this.parentView.propertyTypes.getByCid(typeCid);
 
@@ -91,5 +91,7 @@ var PropertyListView = module.exports = Backbone.View.extend({
       order += 1;
       item.set({order: order});
     });
+
+    self.collection.sort();
   }
 });

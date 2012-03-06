@@ -1,0 +1,21 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="code">_id</th>
+      <% console.log(properties); %>
+      <% _.each(properties, function(property) { %>
+        <th class="code"><%- property.name %></th>
+      <% }); %>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i = 0; i < 3; i++) { %>
+      <tr>
+        <td>...</td>
+        <% _.each(properties, function(property) { %>
+          <td>...</td>
+        <% }); %>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

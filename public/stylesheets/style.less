@@ -107,6 +107,43 @@ li.component-type-item {
   &.mid {
     right: 260px;
   }
+
+  &.vertical-split {
+    .top-panel, .bottom-panel {
+      position: absolute;
+      overflow-y: auto;
+      left: 0;
+      right: 0;
+    }
+
+    .top-panel {
+      top: 0;
+    }
+
+    .bottom-panel {
+      bottom: 0;
+    }
+
+    .divider {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      //border-top: #ddd 2px dotted; 
+      height: 20px;
+      // background-color: #eee;
+      cursor: ns-resize;
+
+      &:after {
+        content: '';
+        display: block;
+        margin-top: 9px;
+        border-top: #ddd 2px dotted; 
+      }
+    }
+  }
+
+  
 }
 
 .component-list {

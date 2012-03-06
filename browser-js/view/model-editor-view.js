@@ -2,7 +2,8 @@ var PropertyTypeCollection = require('../model/property-type-collection');
 var CollectionSettings = require('../model/collection-settings');
 
 var ComponentTypeSidebarView = require('./component-type-sidebar-view');
-var PropertyListView = require ('./property-list-view');
+var PropertyListView = require('./property-list-view');
+var SampleDataView = require('./sample-data-view');
 
 var ModelEditorView = module.exports = Backbone.View.extend({
   el: 'body',
@@ -27,6 +28,10 @@ var ModelEditorView = module.exports = Backbone.View.extend({
       parentView: this,
       template: _.template($('#property-sidebar-template').html()),
       el: '#property-sidebar'
+    });
+
+    this.sampleDataView = new SampleDataView({
+      properties: this.settings.get('properties')
     });
 
     this.settings.on('change', this.enableSave, this);
