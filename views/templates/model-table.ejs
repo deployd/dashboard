@@ -2,20 +2,47 @@
   <thead>
     <tr>
       <th class="code">_id</th>
-      <% console.log(properties); %>
       <% _.each(properties, function(property) { %>
         <th class="code"><%- property.name %></th>
       <% }); %>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <% for (var i = 0; i < 3; i++) { %>
-      <tr>
-        <td>...</td>
+    <% collectionModel.each(function(rowModel) { if (!rowModel.get('c_delete')) { %>
+      <% var row = rowModel.toJSON(); %>
+      <tr data-cid="<%= rowModel.cid %>">
+        <td>
+          <%= row.c_save ? '<i class="icon-upload icon-white"></i>&nbsp;' : '' %>
+          <%- row._id || '...' %>
+        </td>
         <% _.each(properties, function(property) { %>
-          <td>...</td>
+          <% var val = row[property.name]; %>
+          <% if (typeof val === 'undefined') { val = row[property.$renameFrom]; } %>
+          <td>
+            <% if (row.c_active) { %>
+              <% if (typeof val === 'undefined') { val = '' } %>
+              <input type="text" name="<%- property.name %>" value="<%- val %>" />
+            <% } else { %>
+              <% if (typeof val === 'undefined') { val = '...' } %>
+              <%- val %>
+            <% } %>
+          </td>
         <% }); %>
+        <td>
+          <% if (row.c_active) { %>
+            <a href="#" class="done-btn">done</a>
+          <% } else { %>
+            <a href="#" class="edit-btn">edit</a>
+          <% } %>
+          <a href="#" class="delete-btn">delete</a>
+        </td>
       </tr>
-    <% } %>
+    <% }}); %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="<%= properties.length + 2 %>"><button class="btn add-btn pull-right">Add</a></td>
+    </tr>
+  </tfoot>
 </table>

@@ -51,9 +51,27 @@ Backbone.Utils.parseDictionary = function(resp, options) {
 
   _.each(keys, function(key) {
     var model = resp[key];
-    model._id = key;
+    // model._id = key;
     model[options.keyProperty] = model[options.keyProperty] || key;
     result.push(model);
+  });
+
+  return result;
+};
+
+Backbone.Utils.toJSONDictionary = function(json, options) {
+ var defaults = {
+    keyProperty: 'label'
+  }
+  _.defaults(options, defaults);
+
+  var result = {};
+
+  _.each(json, function(model) {
+    var key = model[options.keyProperty];
+    delete model[options.keyProperty];
+
+    result[key] = model;
   });
 
   return result;

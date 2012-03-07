@@ -77,7 +77,7 @@ app.namespace('/db', function() {
     });
   });
 
-  app.get('/resources/:id/settings', function(req, res){
+  app.get('/resources/:id', function(req, res){
     res.send({
       _id: req.param('id'),
       properties: {
@@ -96,7 +96,35 @@ app.namespace('/db', function() {
     });
   });
 
-  app.post('/resources/:id/settings', function(req, res) {
+  app.put('/resources/:id', function(req, res) {
     res.send(req.body);
+  });
+
+  app.get('/todos', function(req, res) {
+    res.send([{
+      _id: '6c84fb90-12c4-11e1-840d-7b25c5ee775a',
+      title: 'Feed the dog',
+      completed: true
+    }, {
+      _id: '110ec58a-a0f2-4ac4-8393-c866d813b8d1',
+      title: 'Water the tree',
+      completed: false
+    }, {
+      _id: '9f9039jg-39vj-29ck-saj3-9v09ds098vh3',
+      title: 'Send email',
+      completed: false
+    }]);
+  });
+
+  app.post('/todos', function(req, res) {
+    res.send(req.body);
+  });
+
+  app.put('/todos/:id', function(req, res) {
+    res.send(req.body);
+  });
+
+  app.del('/todos/:id', function(req, res) {
+    res.end();
   });
 });

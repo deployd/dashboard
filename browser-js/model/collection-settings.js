@@ -2,7 +2,7 @@ var PropertyCollection = require('./property-collection');
 
 var CollectionSettings = module.exports = Backbone.Model.extend({
   url: function() {
-    return '/resources' + this.resourcePath + '/settings';
+    return '/resources' + this.resourcePath;
   },
 
   defaults: {
@@ -22,8 +22,10 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
     delete json.properties;
 
     if (properties) {
-      this.get('properties').reset(Backbone.Utils.parseDictionary(properties, {keyProperty: 'name'}));
+      this.get('properties').reset(Backbone.Utils.parseDictionary(properties, {keyProperty: 'name'}), {parse: true});;
     }
+
+    return json;
   },
 
   triggerChanged: function() {
@@ -32,7 +34,8 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
 
   toJSON: function() {
     var json = Backbone.Model.prototype.toJSON.call(this);
-    json.properties = json.properties.toJSON();
+    json.properties = Backbone.Utils.toJSONDictionary(json.properties.toJSON(), {keyProperty: 'name'});
+
 
     return json;
   }

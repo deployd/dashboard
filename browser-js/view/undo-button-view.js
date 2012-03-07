@@ -10,11 +10,18 @@ function show(label, reverse) {
 	reverseFunc = reverse;		
 }
 
+function hide() {
+  $button.hide();
+  reverseFunc = null;
+  $actionLabel.text('');
+}
+
 $button.click(function() {
 	reverseFunc();
 	$button.hide();
 });
 
 module.exports = {
-	show: show
+	show: show,
+  hide: hide
 }
