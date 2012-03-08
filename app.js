@@ -23,6 +23,8 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 
+  app.set('view options', { layout: false });
+
   require('./db-routes');
   app.use(app.router);
 
@@ -48,26 +50,27 @@ app.helpers({
 // Routes
 
 app.get('/', function(req, res) {
-  res.redirect('/dashboard');
+  // res.redirect('/dashboard');
+  res.render('index');
 });
 
-app.get('/dashboard', function(req, res){
+app.get('/dashboard*', function(req, res){
   res.render('index', {
-    title: 'My App Dashboard',
-    appName: 'My App',
-    appUrl: 'https://myapp.deploydapp.com'
+    // title: 'My App Dashboard',
+    // appName: 'My App',
+    // appUrl: 'https://myapp.deploydapp.com'
   });
 });
 
-app.get('/dashboard/*', function(req, res) {
-  var resource = '/' + req.params[0];
-  res.render('model-editor', {
-    title: resource + ' - My App Dashboard',
-    appName: 'My App',
-    resourceName: resource,
-    resourceType: 'Collection'
-  });
-});
+// app.get('/dashboard/*', function(req, res) {
+//   var resource = '/' + req.params[0];
+//   res.render('model-editor', {
+//     title: resource + ' - My App Dashboard',
+//     appName: 'My App',
+//     resourceName: resource,
+//     resourceType: 'Collection'
+//   });
+// });
 
 
 

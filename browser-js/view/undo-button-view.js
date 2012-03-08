@@ -1,8 +1,16 @@
-var $button = $('#undo-btn');
-var $actionLabel = $('.action-label', $button);
+var $button, $actionLabel, reverseFunc;
 
-var reverseFunc = null;
-$button.hide();
+function init() {
+  $button = $('#undo-btn');
+  $actionLabel = $('.action-label', $button);
+
+  hide();
+
+  $button.click(function() {
+    reverseFunc();
+    $button.hide();
+  });
+}
 
 function show(label, reverse) {
 	$button.show();
@@ -16,12 +24,11 @@ function hide() {
   $actionLabel.text('');
 }
 
-$button.click(function() {
-	reverseFunc();
-	$button.hide();
-});
 
 module.exports = {
+  init: init,
 	show: show,
   hide: hide
-}
+};
+
+init();

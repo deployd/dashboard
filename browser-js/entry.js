@@ -9,11 +9,9 @@ require('./backbone-utils.js');
 require('./view/undo-button-view');
 require('./view/divider-drag');
 
-var ResourcesView = require('./view/resources-view');
-var ModelEditorView = require('./view/model-editor-view');
+var AppView = require('./view/app-view');
+var router = require('./router');
 
-if ($('#resource-editor').length) {
-  new ResourcesView();  
-} else if ($('#model-editor').length) {
-  new ModelEditorView();
-}
+var appView = new AppView();
+
+Backbone.history.start({pushState: true});

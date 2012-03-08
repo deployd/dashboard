@@ -1,21 +1,36 @@
-<div id="resource-editor">
-  <div class="ide-container">
-      <div id="resource-sidebar" class="component-type-sidebar sidebar">
-      </div>
-      <div class="main-area mid">
-        <ul id="resource-list" class="component-list">
-        </ul>
-        <div id="resource-list-empty" class="well">
-          <h2>Welcome to your Deployd app</h2>
-          <p>
-            <i class="icon-white icon-arrow-left"></i>&nbsp;
-            These are the resources you can use to build your app.<br />
-            <div class="placeholder">Drag one here to get started!</div>
-          </p>  
-        </div>
-      </div>
-      <div class="right-sidebar">
-        <%- partial('partials/index-sidebar') %>
-      </div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deployd Dashboard</title>
+    <!-- <link href="/bootstrap/css/bootstrap.css" rel="stylesheet"> -->
+    <link rel='stylesheet/less' type="text/css" href='/stylesheets/style.less' />
+    <script type="text/javascript" src="/js/lib/less.js"></script>
+  </head>
+  <body>
+
+    <div id="header" class="clearfix"></div>
+
+    <div id="body"></div>
+
+    <%- template('header') %>
+
+    <%- template('resources') %>
+    <%- template('collection') %>
+    
+    <%- template('resource-sidebar') %>
+    <%- template('resource') %>
+
+    <%- template('property-sidebar') %>
+    <%- template('property') %>
+
+    <%- template('model-table') %>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/lib/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/lib/underscore.js"></script>
+    <script type="text/javascript" src="/js/lib/underscore.string.min.js"></script>
+    <script type="text/javascript" src="/js/lib/backbone.js"></script>
+    <script src="/browserify.js"></script>
+  </body>
+</html>

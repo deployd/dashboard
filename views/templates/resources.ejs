@@ -1,0 +1,42 @@
+<div id="resource-editor">
+  <div class="ide-container">
+      <div id="resource-sidebar" class="component-type-sidebar sidebar">
+      </div>
+      <div class="main-area mid">
+        <ul id="resource-list" class="component-list">
+        </ul>
+        <div id="resource-list-empty" class="well">
+          <h2>Welcome to your Deployd app</h2>
+          <p>
+            <i class="icon-white icon-arrow-left"></i>&nbsp;
+            These are the resources you can use to build your app.<br />
+            <div class="placeholder">Drag one here to get started!</div>
+          </p>  
+        </div>
+      </div>
+      <div class="right-sidebar">
+        <div class="well">
+          <h2>App Settings</h2>
+          <form>
+              <label>App name</label>
+              <input type="text" readonly="readonly" value="<%- appName %>" />
+              <label>App URL</label>
+              <input type="text" readonly="readonly" value="<%- appUrl %>" />
+          </form>
+        </div>
+
+        <div class="well">
+          <h2>What's next?</h2>
+          <p>Deployd is in early alpha. More features are planned for upcoming releases, such as:</p>
+          <ul>
+            <li>Data relationships</li>
+            <li>Custom plugin support</li>
+            <li>Advanced querying</li>
+            <li>Automatic properties</li>   
+            <li>Hosting static content</li>
+            <li>Rendering HTML</li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</div>

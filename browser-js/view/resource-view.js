@@ -1,4 +1,5 @@
 var undo = require('./undo-button-view');
+var router = require('../router');
 
 var template = _.template($('#resource-template').html());
 
@@ -44,7 +45,7 @@ var ResourceView = module.exports = Backbone.View.extend({
 
   gotoDetail: function() {
     if (!this.model.isNew()) {
-      location.href = 'dashboard' + this.model.get('path');
+      router.navigate('dashboard' + this.model.get('path'), {trigger: true});
     }
 
     return false;
