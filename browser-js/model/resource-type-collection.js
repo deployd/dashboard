@@ -1,5 +1,5 @@
 var ResourceTypeCollection = module.exports = Backbone.Collection.extend({
-  url: '/resourcetypes',
+  url: '/types',
 
   sort: function(model) {
     return model.get('label');

@@ -17,6 +17,12 @@ var app = module.exports = express.createServer();
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  // app.use(function(req,res,next) {
+  //   res.header('Access-Control-Allow-Origin', '"*"');
+  //   res.header('Access-Control-Allow-Headers', 'Content-Type');
+  //   res.header('Access-Control-Allow-Credentials', 'true');
+  //   next();
+  // })
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(browserify({entry: path.resolve('./browser-js/entry.js'), debug: true, watch: true}));
@@ -24,6 +30,7 @@ app.configure(function(){
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 
   app.set('view options', { layout: false });
+
 
   require('./db-routes');
   app.use(app.router);

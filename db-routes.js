@@ -2,11 +2,11 @@ var app = require('./app');
 require('express-namespace');
 
 app.use('/db', function(req, res, next) {
-  if (req.method == "GET") {
-    next();
-  } else {
+  // if (req.method == "GET") {
+    // next();
+  // } else {
     setTimeout(next, 500);  
-  }
+  // }
 });
 
 app.namespace('/db', function() {
