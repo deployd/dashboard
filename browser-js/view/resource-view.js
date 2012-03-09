@@ -45,7 +45,7 @@ var ResourceView = module.exports = Backbone.View.extend({
 
   gotoDetail: function() {
     if (!this.model.isNew()) {
-      router.navigate('dashboard' + this.model.get('path'), {trigger: true});
+      router.navigate(this.model.get('_id'), {trigger: true});
     }
 
     return false;

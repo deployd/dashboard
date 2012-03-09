@@ -2,7 +2,7 @@ var PropertyCollection = require('./property-collection');
 
 var CollectionSettings = module.exports = Backbone.Model.extend({
   url: function() {
-    return '/resources' + this.resourcePath;
+    return '/resources/' + this.id
   },
 
   defaults: {

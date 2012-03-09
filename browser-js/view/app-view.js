@@ -1,5 +1,6 @@
 var ResourcesView = require('./resources-view');
 var ModelEditorView = require('./model-editor-view');
+var HeaderView = require('./header-view');
 
 var undoBtn = require('./undo-button-view');
 
@@ -13,39 +14,55 @@ var AppView = module.exports = Backbone.View.extend({
   resourcesTemplate: _.template($('#resources-template').html()),
   collectionTemplate: _.template($('#collection-template').html()),
 
+  events: {
+    'click #authModal .save': 'authenticate'
+  },
+
   initialize: function() {
     this.model = this.model || app;
-    this.model.on('change:resourceName', this.render, this);
+    this.model.on('change:resourceId', this.render, this);
 
-    // Use delegation to avoid initial DOM selection and allow all matching elements to bubble
-    $(document).on('click', 'a', function(evt) {
-      // Get the anchor href and protcol
-      var href = $(this).attr("href");
-      var protocol = this.protocol + "//";
+    this.headerView = new HeaderView({model: app});
 
-      // Ensure the protocol is not part of URL, meaning its relative.
-      // Stop the event bubbling to ensure the link will not cause a page refresh.
-      if (href.slice(protocol.length) !== protocol) {
-        evt.preventDefault();
+    this.$modal = $('#authModal').modal();
 
-        // Note by using Backbone.history.navigate, router events will not be
-        // triggered.  If this is a problem, change this to navigate on your
-        // router.
-        router.navigate(href, {trigger: true});
-      }
+    app.set({
+      appUrl: $.cookie('DPDAppUrl'),
+      authKey: $.cookie('DPDAuthKey')
+    })
+
+    if (app.get('appUrl') && app.get('authKey')) {
+      this.$modal.modal('hide');
+    } else {
+      this.$modal.on('click', '.save', _.bind(this.authenticate, this));
+    }
+
+    
+
+  },
+
+  authenticate: function() {
+    app.set({
+      appUrl: this.$modal.find('[name=appUrl]').val(),
+      authKey: this.$modal.find('[name=key]').val()
     });
+
+    this.$modal.modal('hide');
+    this.render();
+
+    return false;
   },
 
   render: function() {
     var model = this.model.toJSON();
     var template, bodyViewClass;
 
-    $('#header').html(this.headerTemplate(model));
-
-    if (this.model.get('resourceType')) {
+    if (this.model.get('resourceId')) {
       template = this.collectionTemplate;
       bodyViewClass = ModelEditorView;
     } else {
+      app.set({resourceType: ''});
+      app.set({resourceName: ''});
       template = this.resourcesTemplate;
       bodyViewClass = ResourcesView;
     }

@@ -5,6 +5,7 @@ var ComponentTypeSidebarView = require('./component-type-sidebar-view');
 var PropertyListView = require('./property-list-view');
 var CollectionDataView = require('./collection-data-view');
 
+var app = require('../app');
 var undoBtn = require ('./undo-button-view');
 
 var ModelEditorView = module.exports = Backbone.View.extend({
@@ -16,7 +17,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
   initialize: function() {
     this.propertyTypes = new PropertyTypeCollection();
-    this.settings = new CollectionSettings();
+    this.settings = new CollectionSettings({_id: app.get('resourceId')});
     this.settings.resourcePath = '/todos';
 
     this.dataCollection = new Backbone.Collection([]);
@@ -39,6 +40,13 @@ var ModelEditorView = module.exports = Backbone.View.extend({
       properties: this.settings.get('properties'),
       collection: this.dataCollection
     });
+
+    this.settings.on('change', function() {
+      app.set({
+        resourceName: this.settings.get('path'),
+        resourceType: this.settings.get('typeLabel')
+      });
+    }, this);
 
     this.settings.on('change', this.enableSave, this);
     this.dataCollection.on('change:c_save', this.enableSave, this);
