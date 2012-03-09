@@ -14,4 +14,4 @@ var router = require('./router');
 
 var appView = new AppView();
 
-Backbone.history.start({pushState: true});
+Backbone.history.start();

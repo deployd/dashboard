@@ -2,7 +2,7 @@ Backbone.Model.prototype.idAttribute = "_id";
 var oldSync = Backbone.sync;
 Backbone.sync = function(method, model, options) {
   var url = _.isFunction(model['url']) ? model['url']() : model['url'];
-  url = 'http://localhost:2304' + url
+  url = 'http://localhost:2403' + url
 
   if (method === 'create' || method === 'update') {
     var data = options.data || model.toJSON();
@@ -14,7 +14,7 @@ Backbone.sync = function(method, model, options) {
   }
 
   options.headers = {
-    'x-dssh-key': 'foo'
+    'x-dssh-key': JSON.stringify({user: 'foo', must: 'have', multiple: 'keys'})
   };
 
   options.url = options.url || url;

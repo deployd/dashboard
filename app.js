@@ -25,7 +25,7 @@ app.configure(function(){
   // })
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(browserify({entry: path.resolve('./browser-js/entry.js'), debug: true, watch: true}));
+  app.use(browserify({entry: path.resolve('./browser-js/entry.js'), mount: '/js/app.js', debug: true, watch: true}));
   app.use(express.static(__dirname + '/public'));
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 
@@ -46,27 +46,18 @@ app.configure('production', function(){
 });
 
 app.helpers({
-  template: function(name) {
-    tag = '<script type="x-ejs-template" id="' + name + '-template" >\n';
-    tag += fs.readFileSync(path.resolve('./views/templates', name + '.ejs'));
-    tag += '\n</script>';
-    return tag;
-  }
+  template: require('./util/template-html')
 });
 
 // Routes
 
 app.get('/', function(req, res) {
-  // res.redirect('/dashboard');
-  res.render('index');
+  res.redirect('/index.html');
 });
 
-app.get('/dashboard*', function(req, res){
-  res.render('index', {
-    // title: 'My App Dashboard',
-    // appName: 'My App',
-    // appUrl: 'https://myapp.deploydapp.com'
-  });
+app.get('/index.html', function(req, res) {
+  // res.redirect('/dashboard');
+  res.render('index');
 });
 
 // app.get('/dashboard/*', function(req, res) {

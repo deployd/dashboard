@@ -2,8 +2,8 @@ var app = require('./app');
 
 var Router = Backbone.Router.extend({
   routes: {
-    'dashboard': 'home',
-    'dashboard/*resource': 'resource'
+    '': 'home',
+    '*resource': 'resource'
   },
 
   home: function() {
@@ -15,7 +15,7 @@ var Router = Backbone.Router.extend({
 
   resource: function(resource) {
     app.set({
-      resourceName: '/' + resource,
+      resourceName: resource,
       resourceType: 'Collection'
     });
   }
