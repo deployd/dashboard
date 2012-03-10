@@ -18,10 +18,9 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   initialize: function() {
     this.propertyTypes = new PropertyTypeCollection();
     this.settings = new CollectionSettings({_id: app.get('resourceId')});
-    this.settings.resourcePath = '/todos';
+    // this.settings.resourcePath = '/todos';
 
     this.dataCollection = new Backbone.Collection([]);
-    this.dataCollection.url = '/todos';
 
     this.propertyListView = new PropertyListView({
       collection: this.settings.get('properties'),
@@ -46,6 +45,10 @@ var ModelEditorView = module.exports = Backbone.View.extend({
         resourceName: this.settings.get('path'),
         resourceType: this.settings.get('typeLabel')
       });
+      
+      this.dataCollection.url = this.settings.get('path');
+      console.log(this.dataCollection.url);
+      this.dataCollection.fetch();
     }, this);
 
     this.settings.on('change', this.enableSave, this);
@@ -56,7 +59,6 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
     this.propertyTypes.fetch();
     this.settings.fetch();
-    this.dataCollection.fetch();
 
     this.initializeDom();
   },

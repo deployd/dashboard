@@ -38,6 +38,7 @@ var PropertyListView = module.exports = Backbone.View.extend({
       name: type.get('defaultName'),
       typeId: type.id,
       typeLabel: type.get('label'),
+      type: type.get('label'),
       order: index + 1,
 
       c_active: true

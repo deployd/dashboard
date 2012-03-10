@@ -49,12 +49,12 @@ var ResourceListView = module.exports = Backbone.View.extend({
     
     var resource = new Resource({
       path: type.get('defaultPath'),
-      typeId: type.id,
       typeLabel: type.get('label'),
+      type: type.get('label'),
       order: index + 1,
-
       c_active: true
     });
+    
     this.collection.add(resource, {at: index});
     this.updateOrder();
 
