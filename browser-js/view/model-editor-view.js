@@ -9,7 +9,6 @@ var app = require('../app');
 var undoBtn = require ('./undo-button-view');
 
 var ModelEditorView = module.exports = Backbone.View.extend({
-  el: 'body',
 
   events: {
     'click #save-btn': 'save'
@@ -53,7 +52,8 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   },
 
   initializeDom: function() {
-    $(window).keydown(_.bind(this.onKeypress, this));
+    this._keyevent = _.bind(this.onKeypress, this);
+    $(window).keydown(this._keyevent);
 
     this.$('#save-btn').button();
     this.disableSave();
@@ -99,8 +99,12 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
   render: function() {
     this.propertyListView.render();
-    this.propertyListView.render();
     return this;
+  },
+
+  close: function() {
+    $(window).off('keydown', this._keyevent);
+    Backbone.View.prototype.close.call(this);
   }
 
 

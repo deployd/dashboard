@@ -78,6 +78,8 @@ var AppView = module.exports = Backbone.View.extend({
     var model = this.model.toJSON();
     var template, bodyViewClass;
 
+    
+
     if (this.model.get('resourceId')) {
       template = this.collectionTemplate;
       bodyViewClass = ModelEditorView;
@@ -88,7 +90,13 @@ var AppView = module.exports = Backbone.View.extend({
       bodyViewClass = ResourcesView;
     }
 
-    var body = $('#body').html(template(model));
+    var body = $('<div id="body">').html(template(model));
+    $('#body').replaceWith(body);
+
+    if (this.bodyView) {
+      this.bodyView.close();
+    }
+
     this.bodyView = new bodyViewClass({el: body, model: this.model.get('resource')});  
     this.bodyView.render();
 

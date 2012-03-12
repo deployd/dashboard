@@ -1,6 +1,11 @@
 var app = require('./app');
 
 Backbone.Model.prototype.idAttribute = "_id";
+Backbone.View.prototype.close = function () {
+  this.remove();
+  this.unbind();
+};
+
 var oldSync = Backbone.sync;
 Backbone.sync = function(method, model, options) {
   var url = _.isFunction(model['url']) ? model['url']() : model['url'];
