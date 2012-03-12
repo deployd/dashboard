@@ -6,7 +6,11 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
   },
 
   defaults: {
-    properties: new PropertyCollection()
+    properties: new PropertyCollection(),
+    onGet: '',
+    onPost: '',
+    onPut: '',
+    onDelete: ''
   },
 
   initialize: function() {

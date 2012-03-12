@@ -3,8 +3,8 @@
     <div class="navbar-inner">
       <div class="full-width-container">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#">Properties</a></li>
-          <li><a href="#">Events</a></li>
+          <li class="active"><a href="#property-panel" data-toggle='tab'>Properties</a></li>
+          <li><a class='event-tab' href="#events-panel" data-toggle='tab'>Events</a></li>
         </ul>
         <div class="pull-right">
           <button id="undo-btn" class="btn btn-warning">Undo <span class="action-label"></span></button>
@@ -13,37 +13,41 @@
       </div>
     </div>
   </div>
-  <div class="ide-container has-nav">
-    <div id="property-sidebar" class="component-type-sidebar sidebar">
-    </div>
-    <div class="main-area vertical-split">
-      <ul id="property-list" class="component-list top-panel">
-        <li class="component-item locked">
-          <div class="header">
-              <span class="label label-info">_id</span>
+  <div class="ide-container has-nav tab-content">
+    <div class="tab-pane active" id="property-panel">
+      <div id="property-sidebar" class="component-type-sidebar sidebar">
+      </div>
+      <div class="main-area vertical-split">
+        <ul id="property-list" class="component-list top-panel">
+          <li class="component-item locked">
+            <div class="header">
+                <span class="label label-info">_id</span>
+            </div>
+          </li>
+          <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
+            <li class="component-item locked">
+              <div class="header">
+                  <span class="label label-info">email</span>
+              </div>
+            </li>
+            <li class="component-item locked">
+              <div class="header">
+                  <span class="label label-info">password</span>
+              </div>
+            </li>
+          <%} %>
+        </ul>
+        <div class="divider"></div>
+        <div class="bottom-panel">
+          <div id="current-data">
+            <table class="table table-bordered table-striped">
+            </table>
           </div>
-        </li>
-        <% typeof resourceTypeId !== 'undefined' && console.log(resourceTypeId) %>
-        <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-          <li class="component-item locked">
-            <div class="header">
-                <span class="label label-info">email</span>
-            </div>
-          </li>
-          <li class="component-item locked">
-            <div class="header">
-                <span class="label label-info">password</span>
-            </div>
-          </li>
-        <%} %>
-      </ul>
-      <div class="divider"></div>
-      <div class="bottom-panel">
-        <div id="current-data">
-          <table class="table table-bordered table-striped">
-          </table>
         </div>
       </div>
+    </div>    
+    <div class="tab-pane" id="events-panel">
+      
     </div>
   </div>
 </div>

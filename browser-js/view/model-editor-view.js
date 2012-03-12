@@ -4,6 +4,7 @@ var CollectionSettings = require('../model/collection-settings');
 var ComponentTypeSidebarView = require('./component-type-sidebar-view');
 var PropertyListView = require('./property-list-view');
 var CollectionDataView = require('./collection-data-view');
+var CollectionEventView = require('./collection-event-view');
 
 var app = require('../app');
 var undoBtn = require ('./undo-button-view');
@@ -39,6 +40,11 @@ var ModelEditorView = module.exports = Backbone.View.extend({
       properties: this.model.get('properties'),
       collection: this.dataCollection
     });
+
+    this.eventsView = new CollectionEventView({
+      el: this.$('#events-panel'),
+      model: this.model
+    }).render();
 
     this.model.on('change', this.enableSave, this);
     this.dataCollection.on('change:c_save', this.enableSave, this);

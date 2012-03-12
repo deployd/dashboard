@@ -1,4 +1,4 @@
-$(document).ready(function() {
+module.exports = function() {
 
 	var DIVIDER_PADDING = 10;
 	var MIN_AREA = 50;
@@ -64,4 +64,4 @@ $(document).ready(function() {
 	}
 		
 
-});
+};
