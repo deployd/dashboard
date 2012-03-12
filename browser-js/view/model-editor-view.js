@@ -17,13 +17,14 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
   initialize: function() {
     this.propertyTypes = new PropertyTypeCollection();
-    this.settings = new CollectionSettings({_id: app.get('resourceId')});
-    // this.settings.resourcePath = '/todos';
+    // this.model.resourcePath = '/todos';
 
     this.dataCollection = new Backbone.Collection([]);
+    this.dataCollection.url = this.model.get('path');
+    this.dataCollection.fetch();
 
     this.propertyListView = new PropertyListView({
-      collection: this.settings.get('properties'),
+      collection: this.model.get('properties'),
       parentView: this
     });
 
@@ -36,29 +37,17 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     });
 
     this.dataView = new CollectionDataView({
-      properties: this.settings.get('properties'),
+      properties: this.model.get('properties'),
       collection: this.dataCollection
     });
 
-    this.settings.on('change', function() {
-      app.set({
-        resourceName: this.settings.get('path'),
-        resourceType: this.settings.get('typeLabel')
-      });
-      
-      this.dataCollection.url = this.settings.get('path');
-      console.log(this.dataCollection.url);
-      this.dataCollection.fetch();
-    }, this);
-
-    this.settings.on('change', this.enableSave, this);
+    this.model.on('change', this.enableSave, this);
     this.dataCollection.on('change:c_save', this.enableSave, this);
     this.dataCollection.on('change:c_delete', this.enableSave, this);
     this.dataCollection.on('add', this.enableSave, this);
     this.dataCollection.on('remove', this.enableSave, this);
 
     this.propertyTypes.fetch();
-    this.settings.fetch();
 
     this.initializeDom();
   },
@@ -67,6 +56,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     $(window).keydown(_.bind(this.onKeypress, this));
 
     this.$('#save-btn').button();
+    this.disableSave();
   },
 
   enableSave: function() {
@@ -86,7 +76,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     var $btn = this.$('#save-btn');
     if (!$btn.is('[disabled]')) {
       $btn.button('loading');
-      this.settings.save({}, {
+      this.model.save({}, {
         success: function() {
           self.dataView.save(function() {
             undoBtn.hide();
@@ -105,6 +95,12 @@ var ModelEditorView = module.exports = Backbone.View.extend({
       e.preventDefault();
       return false;
     }   
+  },
+
+  render: function() {
+    this.propertyListView.render();
+    this.propertyListView.render();
+    return this;
   }
 
 

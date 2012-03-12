@@ -4,7 +4,7 @@ var ResourceListView = require('./resource-list-view');
 var ResourceCollection = require('../model/resource-collection');
 var ResourceTypeCollection = require('../model/resource-type-collection');
 
-var ResourcesView = module.exports = Backbone.Model.extend({
+var ResourcesView = module.exports = Backbone.View.extend({
   el: 'body',
 
   initialize: function() {

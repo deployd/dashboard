@@ -16,8 +16,7 @@ var Router = Backbone.Router.extend({
 
   resource: function(id) {
     app.set({
-      resourceId: id,
-      resourceType: 'Collection'
+      resourceId: id
     });
   }
 });

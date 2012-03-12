@@ -50,7 +50,7 @@ var ResourceListView = module.exports = Backbone.View.extend({
     var resource = new Resource({
       path: type.get('defaultPath'),
       typeLabel: type.get('label'),
-      type: type.get('label'),
+      type: type.get('_id'),
       order: index + 1,
       c_active: true
     });

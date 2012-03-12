@@ -1,3 +1,5 @@
+var CollectionSettings = require('../model/collection-settings');
+
 var ResourcesView = require('./resources-view');
 var ModelEditorView = require('./model-editor-view');
 var HeaderView = require('./header-view');
@@ -20,7 +22,8 @@ var AppView = module.exports = Backbone.View.extend({
 
   initialize: function() {
     this.model = this.model || app;
-    this.model.on('change:resourceId', this.render, this);
+    this.model.on('change:resourceId', this.loadResource, this);
+    this.model.on('change:resource', this.render, this);
 
     this.headerView = new HeaderView({model: app});
 
@@ -37,8 +40,6 @@ var AppView = module.exports = Backbone.View.extend({
       this.$modal.on('click', '.save', _.bind(this.authenticate, this));
     }
 
-    
-
   },
 
   authenticate: function() {
@@ -51,6 +52,26 @@ var AppView = module.exports = Backbone.View.extend({
     this.render();
 
     return false;
+  },
+
+  loadResource: function() {
+    var self = this;
+    if (this.model.get('resourceId')) {
+      var resource = new Backbone.Model({_id: self.model.get('resourceId')});
+      resource.url = '/resources/' + resource.id;
+      resource.fetch({success: function() {
+        var newResource = new CollectionSettings();
+        app.set({
+          resourceName: resource.get('path'),
+          resourceType: resource.get('typeLabel'),
+          resourceTypeId: resource.get('type')
+        })
+        newResource.set(newResource.parse(resource.attributes));
+        self.model.set({resource: newResource});
+      }});
+    } else {
+      self.model.set({resource: null});
+    }
   },
 
   render: function() {
@@ -68,7 +89,8 @@ var AppView = module.exports = Backbone.View.extend({
     }
 
     var body = $('#body').html(template(model));
-    this.bodyView = new bodyViewClass({el: body});  
+    this.bodyView = new bodyViewClass({el: body, model: this.model.get('resource')});  
+    this.bodyView.render();
 
     undoBtn.init();
   },

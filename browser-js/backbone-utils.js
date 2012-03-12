@@ -55,7 +55,7 @@ Backbone.Utils.parseDictionary = function(resp, options) {
 
   _.each(keys, function(key) {
     var model = resp[key];
-    // model._id = key;
+    model._id = key;
     model[options.keyProperty] = model[options.keyProperty] || key;
     result.push(model);
   });
