@@ -18,27 +18,34 @@
       <div id="property-sidebar" class="component-type-sidebar sidebar">
       </div>
       <div class="main-area vertical-split">
-        <ul id="property-list" class="component-list top-panel">
-          <li class="component-item locked">
-            <div class="header">
-                <span class="label label-info">_id</span>
-            </div>
-          </li>
-          <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
+
+        <div class="top-panel">
+          <h2>Properties</h2>
+          <ul id="property-list" class="component-list">  
             <li class="component-item locked">
               <div class="header">
-                  <span class="label label-info">email</span>
+                  <span class="label label-info">_id</span>
               </div>
             </li>
-            <li class="component-item locked">
-              <div class="header">
-                  <span class="label label-info">password</span>
-              </div>
-            </li>
-          <%} %>
-        </ul>
+            <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
+              <li class="component-item locked">
+                <div class="header">
+                    <span class="label label-info">email</span>
+                </div>
+              </li>
+              <li class="component-item locked">
+                <div class="header">
+                    <span class="label label-info">password</span>
+                </div>
+              </li>
+            <%} %>
+          </ul>
+        </div>
+        
+        
         <div class="divider"></div>
         <div class="bottom-panel">
+          <h2>Data</h2>
           <div id="current-data">
             <table class="table table-bordered table-striped">
             </table>

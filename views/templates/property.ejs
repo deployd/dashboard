@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header <%= property.c_active ? 'active' : '' %>">
   <% if (property.c_active) { %>
     <input type="text" class="code" name="name" value="<%- property.name %>" />
   <% } else { %>
@@ -6,8 +6,8 @@
   <% } %>
  	<a href="#" class="pull-right delete-btn">delete</a>
   <div class="tags pull-right">
-  	<% if (property.required) { %>
-  		<span class="label required">Required</span>
+  	<% if (property.optional) { %>
+  		<span class="label optional">Optional</span>
   	<% } %>
     <span class="label label-info type"><%- property.typeLabel %></span>
   </div>
@@ -15,7 +15,7 @@
 <% if (property.c_active) { %>
   <div class="detail form-inline">
     <% if (property.type !== 'boolean') { %>
-    <label>Required <input type="checkbox" name='required' <%= property.required ? 'checked="checked"' : '' %> /></label>
+    <label>Optional <input type="checkbox" name='optional' <%= property.optional ? 'checked="checked"' : '' %> /></label>
     <% } %>
   </div>
 <% } %>

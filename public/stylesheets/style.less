@@ -52,7 +52,6 @@ input, textarea {
   bottom: 0;
   width: 250px;
   overflow-y: auto;
-  border: 1px solid #DDD;
   border-radius: 3px;     
 }
 
@@ -66,10 +65,9 @@ input, textarea {
 
 .ide-container .component-type-sidebar {
   .component-type-header {
-    border-bottom: 1px solid #DDD;
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
+    
+    // padding: 10px;
+    // cursor: pointer;
 
     &:hover {
       background-image: none;
@@ -82,8 +80,12 @@ input, textarea {
     
     li.component-type-item {
       width: auto;
-      border: none;
-      border-bottom: 1px solid #DDD;
+
+      background: @transparentBackground;
+
+      &:hover {
+        background: @wellBackground;
+      }
     }
   }
 }
@@ -91,14 +93,20 @@ input, textarea {
 li.component-type-item {
   list-style: none;
   padding: 10px;
-  text-align: center;
-  border: 1px solid #DDD;
-  width: 250px;
 
+  height: 19px;
+  width: 230px;
+
+  background: @wellBackground;
+  margin-bottom: 4px;
+  border-radius: 3px;
   cursor: move;
 
-  &:hover {
-  }
+  
+}
+
+.header-offset {
+  padding-bottom: 38px;
 }
 
 .ide-container .main-area {
@@ -142,7 +150,7 @@ li.component-type-item {
         content: '';
         display: block;
         margin-top: 9px;
-        border-top: #ddd 2px dotted; 
+        border-top: #000 2px dotted; 
       }
     }
   }
@@ -151,17 +159,16 @@ li.component-type-item {
 }
 
 .component-list {
-  overflow-y: auto;
   height: 100%;
   margin: 0;
-
+  list-style: none;
 }
 
 .placeholder {
   padding: 10px;
-  border: 1px dashed #DDD;
+  border: 1px dashed #000000;
   margin-bottom: 4px;
-  min-height: 1em;
+  height: 19px;
 
   &.highlight {
     border-color: #ffff00;
@@ -172,17 +179,33 @@ li.component-type-item {
 li.component-item {
   list-style: none;
   margin-bottom: 4px;
-  background: @wellBackground;
+  background: @transparentBackground;
   // border: 1px #ddd solid;
   border-radius: 3px;
+  
 
   &.unsaved {
-    border: 1px #ddd dashed;
+    border: 1px #000000 dashed;
   }
+
+  &.active {
+    .header {
+      background: @wellBackground;
+      .border-radius(3px 3px 0px 0px);
+    }
+  }
+
+  
 
   .header {
     border-radius: inherit; 
     padding: 10px; 
+    min-height: 19px;
+    cursor: move;
+
+    &:hover {
+      background: @wellBackground;
+    }
 
     input {
       margin-bottom: 0;
@@ -194,13 +217,15 @@ li.component-item {
   }
 
   .detail {
+    .border-radius(0px 0px 3px 3px);
     padding: 10px;
+    border: 1px solid @wellBackground;
   }
 }
 
 .editor-container {
   position: relative;
-  height: 200px;
+  height: 100px;
   width: 100%;
   background: #ffffff;
 

@@ -6,13 +6,12 @@
   <% } else { %>
     <span class="code path"><%- resource.path %></span>
   <% } %>
-  <div class="btn-group pull-right">
-    <a class="btn btn-primary edit-btn" href="#">Edit</a>
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-    <ul class="dropdown-menu">
-      <a href="#" class="rename-btn">Rename</a>
-      <a href="#" class="delete-btn">Delete</a>
-    </ul>
+  <div class="pull-right">
+    <a class="edit-btn" href="#">edit</a>
+    &nbsp;
+    <a href="#" class="rename-btn">rename</a>
+    &nbsp;
+    <a href="#" class="delete-btn">delete</a>
   </div>
   <div class="tags pull-right">
     <span class="label label-info type"><%- resource.typeLabel %></span>

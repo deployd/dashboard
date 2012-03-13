@@ -7,6 +7,7 @@ var CollectionDataView = require('./collection-data-view');
 var CollectionEventView = require('./collection-event-view');
 
 var app = require('../app');
+var router = require('../router');
 var undoBtn = require ('./undo-button-view');
 
 var ModelEditorView = module.exports = Backbone.View.extend({
@@ -54,12 +55,16 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
     this.propertyTypes.fetch();
 
+    Backbone.history.on('load', this.onNavigate, this);
+
     this.initializeDom();
   },
 
   initializeDom: function() {
-    this._keyevent = _.bind(this.onKeypress, this);
-    $(window).keydown(this._keyevent);
+    this.onKeypress = _.bind(this.onKeypress, this);
+    this.onPageNavigate = _.bind(this.onPageNavigate, this);
+    $(window).keydown(this.onKeypress);
+    $(window).on('beforeunload', this.onPageNavigate);
 
     this.$('#save-btn').button();
     this.disableSave();
@@ -103,13 +108,30 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     }   
   },
 
+  onNavigate: function(e) {
+
+    if (!(this.$('#save-btn').is('[disabled]') || confirm('You have unsaved changes, are you sure you wish to navigate away from this page?'))) {      
+      e.cancel = true;
+      return false;
+    }
+    
+  },
+
+  onPageNavigate: function(e) {
+    if (!this.$('#save-btn').is('[disabled]')) {
+      return 'You have unsaved changes.';  
+    }
+  },
+
   render: function() {
     this.propertyListView.render();
     return this;
   },
 
   close: function() {
-    $(window).off('keydown', this._keyevent);
+    $(window).off('keydown', this.onKeypress);
+    $(window).off('unload', this.onNavigate);
+    Backbone.history.off('load', this.onNavigate);
     Backbone.View.prototype.close.call(this);
   }
 

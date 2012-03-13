@@ -28,6 +28,46 @@ Backbone.sync = function(method, model, options) {
   return oldSync(method, model, options);
 };
 
+var oldCheckUrl = Backbone.History.prototype.checkUrl;
+Backbone.History.prototype.checkUrl = function(e) {
+  this._lastFragment = this.fragment;
+  console.log('lastFragment', this._lastFragment);
+
+  if (this.getFragment() !== this.fragment) {
+    var loadEvent = {cancel: false};
+    this.trigger('load', loadEvent);
+    if (loadEvent.cancel) {
+      console.log('Going to', this.fragment);
+      this.navigate(this.fragment, {trigger: true, replace: true});
+      e.preventDefault();
+      window.location.hash = this.fragment;
+      return false;
+    }
+  }
+  
+
+  oldCheckUrl.apply(this, arguments);  
+}
+
+// var oldLoadUrl = Backbone.History.prototype.loadUrl;
+// Backbone.History.prototype.loadUrl = function(fragmentOverride) {
+//   var fragment = this.getFragment(fragmentOverride);
+  
+//   if (this.fragment !== this._lastFragment) {
+//     var e = {cancel: false};
+//     this.trigger('load', e);
+//     if (e.cancel) {
+//       console.log('Going to', this._lastFragment);
+//       this.navigate(this._lastFragment, {trigger: true, replace: true});
+//       return;
+//     }  
+
+//     oldLoadUrl.apply(this, arguments);  
+//   }
+  
+  
+// };
+
 
 
 Backbone.Utils = Backbone.Utils || {};

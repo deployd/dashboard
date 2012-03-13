@@ -12,7 +12,7 @@ var PropertyView = module.exports = Backbone.View.extend({
     'click .delete-btn': 'delete',
     'change input[name="name"]': 'updateName',
     'keydown input[name="name"]': 'onNameKeydown',
-    'change input[name="required"]': 'updateRequired'
+    'change input[name="optional"]': 'updateOptional'
   },
 
   initialize: function() {
@@ -27,9 +27,15 @@ var PropertyView = module.exports = Backbone.View.extend({
       property: this.model.toJSON()
     })).attr('id', this.model.cid);
 
-    if (this.model.hasChanged('c_active') && this.model.get('c_active')) {
-      this.focusInput();
+    if (this.model.get('c_active')) {
+      $(this.el).addClass('active');
+      if (this.model.hasChanged('c_active')) {
+        this.focusInput();
+      }
+    } else {
+      $(this.el).removeClass('active');
     }
+
   },
 
   focusInput: function() {
@@ -48,8 +54,8 @@ var PropertyView = module.exports = Backbone.View.extend({
     this.model.set({name: this.$('input[name="name"]').val()});
   },
 
-  updateRequired: function() {
-    this.model.set({required: this.$('input[name="required"]').is(':checked')});
+  updateOptional: function() {
+    this.model.set({optional: this.$('input[name="optional"]').is(':checked')});
   },
 
   delete: function() {
