@@ -1,0 +1,11 @@
+<tr class="component-item">
+  <td>
+    <a href="<%= url %>"><%= filename %></a>
+  </td>
+  <td>
+    <% if(isEditable) { %> 
+      <a class="edit" href="#" filename="<%= filename %>">edit</a>
+    <% } %>
+    <a class="delete" href="#" filename="<%= filename %>">delete</a>
+  </td>
+</tr>

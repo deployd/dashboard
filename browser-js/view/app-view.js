@@ -2,6 +2,7 @@ var CollectionSettings = require('../model/collection-settings');
 
 var ResourcesView = require('./resources-view');
 var ModelEditorView = require('./model-editor-view');
+var StaticView = require('./static-view');
 var HeaderView = require('./header-view');
 
 var undoBtn = require('./undo-button-view');
@@ -15,6 +16,7 @@ var AppView = module.exports = Backbone.View.extend({
 
   resourcesTemplate: _.template($('#resources-template').html()),
   collectionTemplate: _.template($('#collection-template').html()),
+  staticTemplate: _.template($('#static-template').html()),
 
   events: {
     'click #authModal .save': 'authenticate'
@@ -77,12 +79,15 @@ var AppView = module.exports = Backbone.View.extend({
   render: function() {
     var model = this.model.toJSON();
     var template, bodyViewClass;
+    var resourceId = this.model && this.model.get('resourceId');
+    var type = this.model && resourceId && this.model.get('resourceTypeId');
 
-    
-
-    if (this.model.get('resourceId')) {
+    if (type === 'Collection') {
       template = this.collectionTemplate;
       bodyViewClass = ModelEditorView;
+    } else if(type === 'Static') {
+      template = this.staticTemplate;
+      bodyViewClass = StaticView;
     } else {
       app.set({resourceType: ''});
       app.set({resourceName: ''});

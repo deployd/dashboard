@@ -9,15 +9,15 @@ Backbone.View.prototype.close = function () {
 var oldSync = Backbone.sync;
 Backbone.sync = function(method, model, options) {
   var url = _.isFunction(model['url']) ? model['url']() : model['url'];
-  url = app.get('appUrl') + url
+  url = app.get('appUrl') + url;
 
   if (method === 'create' || method === 'update') {
     var data = options.data || model.toJSON();
-
-    Backbone.Utils.removeClientValues(data);  
-    
-    options.contentType = 'application/json';
-    options.data = JSON.stringify(data);
+    if(typeof data != 'string') {
+      Backbone.Utils.removeClientValues(data);
+      options.contentType = 'application/json';
+      options.data = JSON.stringify(data);
+    }
   }
 
   options.headers = {

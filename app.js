@@ -11,6 +11,26 @@ var fs = require('fs');
 
 
 var app = module.exports = express.createServer();
+var cp = require('child_process');
+var exec = cp.exec;
+var spawn = cp.spawn;
+var key;
+
+// Generate auth key
+
+exec('dpd key --json', function (err, data) {
+  if(err) return console.log(err);
+  
+  key = data;
+})
+
+// Start testing server
+
+var server = spawn('/Users/skawful/node_modules/deployd/bin/dpd', ['listen', '-p', '2403']);
+
+server.stdout.on('data', function (data) {
+  console.log(data.toString());
+})
 
 // Configuration
 
@@ -20,7 +40,7 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(function(req,res,next) {
     res.cookie('DPDAppUrl', 'http://localhost:2403');
-    res.cookie('DPDAuthKey', JSON.stringify({"47613836894743145":"79064582381397497800856279209256712610443122685","09435803513042629":"23629709403030574265170442173257475894545724149793","19085933081805706":"856632615905255133492863224819391770188533701","_id":"4f5e55b381ac723a1a000001"}));
+    res.cookie('DPDAuthKey', key);
     next();
   })
   app.use(express.bodyParser());
@@ -73,5 +93,5 @@ app.get('/index.html', function(req, res) {
 
 
 app.listen(process.env.PORT || 3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+console.log("Testing dpd dashboard server listening on port %d in %s mode", app.address().port, app.settings.env);
 
