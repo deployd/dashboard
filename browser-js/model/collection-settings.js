@@ -6,7 +6,7 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
   },
 
   defaults: {
-    properties: new PropertyCollection(),
+    properties: null,
     onGet: '',
     onPost: '',
     onPut: '',
@@ -14,6 +14,8 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
   },
 
   initialize: function() {
+    this.set({properties: new PropertyCollection()});
+
     this.get('properties').on('add', this.triggerChanged, this);
     this.get('properties').on('remove', this.triggerChanged, this);
     this.get('properties').on('change:name', this.triggerChanged, this);

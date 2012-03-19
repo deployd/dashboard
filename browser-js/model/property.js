@@ -1,5 +1,15 @@
 var Property = module.exports = Backbone.Model.extend({
 
+  defaults: {
+    required: true
+  },
+
+  initialize: function() {
+    this.on('change:optional', function() {
+      this.set({required: !this.get('optional')})
+    }, this);
+  },
+
   parse: function(json) {
     json.$renameFrom = json.name;
 
