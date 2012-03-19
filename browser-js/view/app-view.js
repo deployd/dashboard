@@ -82,7 +82,7 @@ var AppView = module.exports = Backbone.View.extend({
     var resourceId = this.model && this.model.get('resourceId');
     var type = this.model && resourceId && this.model.get('resourceTypeId');
 
-    if (type === 'Collection') {
+    if (type === 'Collection' || type === 'UserCollection') {
       template = this.collectionTemplate;
       bodyViewClass = ModelEditorView;
     } else if(type === 'Static') {
