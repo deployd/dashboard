@@ -27,6 +27,18 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
     var properties = json.properties;
     delete json.properties;
 
+    //Copy over c_ values
+    this.get('properties').each(function(prop) {
+      var newProp = properties[prop.get('name')];
+      if (newProp) {
+        _.each(prop.attributes, function(value, key) {
+          if (_.str.startsWith(key, 'c_')) {
+            newProp[key] = value;
+          }
+        });
+      } 
+    });
+
     if (properties) {
       this.get('properties').reset(Backbone.Utils.parseDictionary(properties, {keyProperty: 'name'}), {parse: true});;
     }

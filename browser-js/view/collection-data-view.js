@@ -11,13 +11,15 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     'dblclick tr': 'editRow',
     'click .done-btn': 'commitRow',
     'change input': 'updateField',
-    'keypress input': 'onFieldKeypress'
+    'keyup input': 'onFieldKeypress',
+    'dblclick input': 'cancelEvent',
   },
 
   initialize: function() {
     this.properties = this.options.properties;
     this.collection = this.options.collection;
 
+    
     this.properties.on('reset', this.render, this);
     this.properties.on('add', this.render, this);
     this.properties.on('remove', this.render, this);
@@ -26,10 +28,9 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     this.collection.on('reset', this.render, this);
     this.collection.on('add', this.render, this);
     this.collection.on('remove', this.render, this);
-    this.collection.on('change', this.render, this);
+    this.collection.on('change:c_active', this.render, this);
 
     this.collection.on('change', function(model) {
-      console.log(model);
       if (!model.get('c_save')) {
         var notClientChange = _.any(_.keys(model._changed), function(prop) {
           return !_.str.startsWith(prop, 'c_');
@@ -40,10 +41,17 @@ var CollectionDataView = module.exports = Backbone.View.extend({
         }
       }
     }, this);
+    this.properties.on('reset', function() {
+      this.collection.fetch();
+    }, this);
+
+    $(this.el).on('focus', 'input', _.bind(function(e) {
+      console.log('focus', e.currentTarget);
+      this._lastFocusedInput = e.currentTarget;
+    }, this));
   },
 
   save: function(callback) {
-    var deferreds = [];
 
     this.collection.each(function(model) {
       var dfd = new jQuery.Deferred();
@@ -99,7 +107,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
       changes[$(this).attr('name')] = $(this).val();
     });
 
-    row.set(changes);
+    row.save(changes);
 
     return false;
   },
@@ -115,17 +123,23 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     return false;
   },
 
+  cancelEvent: function() {
+    return false;
+  },
+
   onFieldKeypress: function(e) {
-    if (e.which == '13') {
+    if (e.which == '13' || e.which == '27') { //enter or esc
       this.commitRow(e);
     }
   },
 
   render: function() {
+
     $(this.el).html(this.template({
       properties: this.properties.toJSON(),
       collectionModel: this.collection
     }));
+
   },
 
   _getRow: function(e) {

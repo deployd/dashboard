@@ -31,13 +31,11 @@ Backbone.sync = function(method, model, options) {
 var oldCheckUrl = Backbone.History.prototype.checkUrl;
 Backbone.History.prototype.checkUrl = function(e) {
   this._lastFragment = this.fragment;
-  console.log('lastFragment', this._lastFragment);
-
+  
   if (this.getFragment() !== this.fragment) {
     var loadEvent = {cancel: false};
     this.trigger('load', loadEvent);
     if (loadEvent.cancel) {
-      console.log('Going to', this.fragment);
       this.navigate(this.fragment, {trigger: true, replace: true});
       e.preventDefault();
       window.location.hash = this.fragment;

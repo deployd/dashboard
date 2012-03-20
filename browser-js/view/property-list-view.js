@@ -52,16 +52,26 @@ var PropertyListView = module.exports = Backbone.View.extend({
 
   render: function() {
     var self = this;
+
+    var $focus = $(self.el).find('input[name="name"]:focus');
+    if ($focus) {
+      var focusName = $focus.val();
+    }
+
     _.each(self.subViews, function(subView) {
       subView.destroy();
     });
     $(self.el).children(':not(.locked)').remove();
-      self.subViews = self.collection.map(function(property) {
+    self.subViews = self.collection.map(function(property) {
       var view = new PropertyView({model: property, parentView: self});
       $(self.el).append(view.el);
       view.render();
       return view;
-    });
+    });    
+
+    if ($focus) {
+      self.$('input[name="name"][value="' + focusName + '"]').focus();
+    }
   },
 
   onReceiveItem: function() {

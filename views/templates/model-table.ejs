@@ -13,7 +13,6 @@
       <% var row = rowModel.toJSON(); %>
       <tr data-cid="<%= rowModel.cid %>">
         <td>
-          <%= row.c_save ? '<i class="icon-upload icon-white"></i>&nbsp;' : '' %>
           <%- row._id || '...' %>
         </td>
         <% _.each(properties, function(property) { %>
