@@ -1,36 +1,56 @@
+var CodeEditorView = require('./code-editor-view.js');
+
 var CollectionEventView = module.exports = Backbone.View.extend({
 
   template: _.template($('#events-template').html()),
 
   initialize: function() {
-    
+    this._editors = {
+      onGet: null,
+      onPost: null,
+      onPut: null,
+      onDelete: null
+    };
   },
 
   update: function(e) {
-    this.model.set({
-      onGet: this.onGetEditor.getSession().getValue(),
-      onPost: this.onPostEditor.getSession().getValue(),
-      onPut: this.onPutEditor.getSession().getValue(),
-      onDelete: this.onDeleteEditor.getSession().getValue(),
+    var values = {};
+
+    _.each(this._editors, function(editor, name) {
+      if (editor) {
+        values[name] = editor.getText();
+      }
     });
+
+    console.log("Updating");
+
+    this.model.set(values);
   },
 
   render: function() {
-    $(this.el).html(this.template(this.model.toJSON()));
-
-    var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
-    var update = _.bind(this.update, this);
-
     var self = this;
 
-    _.each(['onGet', 'onPost', 'onPut', 'onDelete'], function(eventName) {
-      var editor = ace.edit(eventName);
-      editor.getSession().setMode(new JavaScriptMode());
-      editor.getSession().on('change', update);
-      self[eventName + 'Editor'] = editor;
+    $(this.el).html(this.template(this.model.toJSON()));
+
+    _.each(this._editors, function(editor, name) {
+      if (editor) {
+        editor.off();  
+      }
+
+      editor = new CodeEditorView({ el: self.$('#' + name) }).render();
+      editor.on('change', self.update, self);
+      self._editors[name] = editor;
     });
 
     return this;
+  },
+
+  close: function() {
+    _.each(this._editors, function(editor, name) {
+      if (editor) {
+        editor.off();  
+      }    
+    });
   }
 
 });
