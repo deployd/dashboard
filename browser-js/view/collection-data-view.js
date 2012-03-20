@@ -1,3 +1,7 @@
+var undoBtn = require('./undo-button-view');
+
+var app = require('../app');
+
 var CollectionDataView = module.exports = Backbone.View.extend({
 
   el: '#current-data',
@@ -10,7 +14,6 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     'click .edit-btn': 'editRow',
     'dblclick tr': 'editRow',
     'click .done-btn': 'commitRow',
-    'change input': 'updateField',
     'keyup input': 'onFieldKeypress',
     'dblclick input': 'cancelEvent',
   },
@@ -28,25 +31,13 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     this.collection.on('reset', this.render, this);
     this.collection.on('add', this.render, this);
     this.collection.on('remove', this.render, this);
-    this.collection.on('change:c_active', this.render, this);
+    this.collection.on('change', this.render, this);
 
-    this.collection.on('change', function(model) {
-      if (!model.get('c_save')) {
-        var notClientChange = _.any(_.keys(model._changed), function(prop) {
-          return !_.str.startsWith(prop, 'c_');
-        });
-
-        if (notClientChange) {
-          model.set({'c_save': true});  
-        }
-      }
-    }, this);
     this.properties.on('reset', function() {
       this.collection.fetch();
     }, this);
 
     $(this.el).on('focus', 'input', _.bind(function(e) {
-      console.log('focus', e.currentTarget);
       this._lastFocusedInput = e.currentTarget;
     }, this));
   },
@@ -76,11 +67,12 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
   deleteRow: function(e) {
     var row = this._getRow(e);
-    if (row.isNew()) {
-      this.collection.remove(row);
-    } else {
-      row.set({c_delete: true});
-    }
+    var index = this.collection.indexOf(row);
+    row.destroy();
+
+    undoBtn.show('Delete row', _.bind(function() {
+      this.collection.create(row.toJSON());
+    }, this));
 
     return false;
   },
@@ -137,7 +129,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
     $(this.el).html(this.template({
       properties: this.properties.toJSON(),
-      collectionModel: this.collection
+      collectionModel: this.collection,
+      resourceType: app.get('resourceTypeId')
     }));
 
   },

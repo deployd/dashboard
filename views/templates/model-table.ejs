@@ -2,6 +2,10 @@
   <thead>
     <tr>
       <th class="code">_id</th>
+      <% if (resourceType == "UserCollection") { %>
+        <th class="code">email</th>
+        <th class="code">password</th>
+      <% } %>
       <% _.each(properties, function(property) { %>
         <th class="code"><%- property.name %></th>
       <% }); %>
@@ -15,6 +19,22 @@
         <td>
           <%- row._id || '...' %>
         </td>
+        <% if (resourceType == "UserCollection") { %>
+          <td>
+            <% if (row.c_active) { %>
+              <input type="text" name="email" value="<%- row.email || '' %>" />
+            <% } else { %>
+              <%- row.email || '...' %></td>
+            <% } %>
+          </td>
+          <td>
+            <% if (row.c_active) { %>
+              <input type="password" name="password" placeholder="password" />
+            <% } else { %>
+              ...
+            <% } %>
+          </td>
+        <% } %>
         <% _.each(properties, function(property) { %>
           <% var val = row[property.name]; %>
           <% if (typeof val === 'undefined') { val = row[property.$renameFrom]; } %>
@@ -41,7 +61,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="<%= properties.length + 2 %>"><button class="btn add-btn pull-right">Add</a></td>
+      <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>"><button class="btn add-btn pull-right">Add</a></td>
     </tr>
   </tfoot>
 </table>

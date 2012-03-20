@@ -20,6 +20,10 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     this.dataCollection.url = this.model.get('path');
     this.dataCollection.fetch();
 
+    this.model.on('change:path', function() {
+      this.dataCollection.url = this.model.get('path');
+    }, this);
+
     this.propertyListView = new PropertyListView({
       collection: this.model.get('properties'),
       parentView: this
