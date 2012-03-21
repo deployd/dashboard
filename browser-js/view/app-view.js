@@ -6,6 +6,7 @@ var StaticView = require('./static-view');
 var HeaderView = require('./header-view');
 
 var undoBtn = require('./undo-button-view');
+var saveStatus = require('./save-status-view');
 
 var app = require('../app');
 var router = require('../router');
@@ -107,6 +108,7 @@ var AppView = module.exports = Backbone.View.extend({
     this.bodyView.render();
 
     undoBtn.init();
+    saveStatus.init();
   },
 
 });

@@ -1,4 +1,5 @@
 var undo = require('./undo-button-view');
+
 var router = require('../router');
 
 var template = _.template($('#resource-template').html());

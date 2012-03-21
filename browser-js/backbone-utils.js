@@ -1,4 +1,5 @@
 var app = require('./app');
+var saveStatus = require('./view/save-status-view');
 
 Backbone.Model.prototype.idAttribute = "_id";
 Backbone.View.prototype.close = function () {
@@ -10,6 +11,18 @@ var oldSync = Backbone.sync;
 Backbone.sync = function(method, model, options) {
   var url = _.isFunction(model['url']) ? model['url']() : model['url'];
   url = app.get('appUrl') + url;
+
+  if (method === 'create' || method === 'update' || method === 'delete') {
+    saveStatus.saving();
+    var lastSuccess = options.success;
+    var success = function() {
+      saveStatus.saved();
+      if (lastSuccess) {
+        lastSuccess.apply(this, arguments);
+      }
+    }
+    options.success = success;
+  }
 
   if (method === 'create' || method === 'update') {
     var data = options.data || model.toJSON();

@@ -12,7 +12,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     'click .add-btn': 'addRow',
     'click .delete-btn': 'deleteRow',
     'click .edit-btn': 'editRow',
-    'dblclick tr': 'editRow',
+    'dblclick td': 'editRow',
     'click .done-btn': 'commitRow',
     'keyup input': 'onFieldKeypress',
     'dblclick input': 'cancelEvent',
@@ -81,9 +81,18 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     var row = this._getRow(e);
     row.set({c_active: true});
 
-    setTimeout(function() {
-      this.$('tr[data-cid="' + row.cid + '"] input').first().focus();
-    }, 0);
+    if ($(e.currentTarget).is('td')) {
+      var prop = $(e.currentTarget).attr('data-prop');
+      setTimeout(function() {
+        this.$('tr[data-cid="' + row.cid + '"] td[data-prop="' + prop + '"] input').first().focus();
+      }, 0);
+    } else {
+      setTimeout(function() {
+        this.$('tr[data-cid="' + row.cid + '"] input').first().focus();
+      }, 0);
+    }
+
+    
 
     return false;
   },
@@ -95,8 +104,30 @@ var CollectionDataView = module.exports = Backbone.View.extend({
       c_active: false
     };
 
-    $(e.currentTarget).parents('tr').find('input').each(function() {
-      changes[$(this).attr('name')] = $(this).val();
+    if (app.get('resourceTypeId') === 'UserCollection') {
+      changes.email = $(e.currentTarget).parents('tr').find('input[name="email"]').val();
+      var newPass = $(e.currentTarget).parents('tr').find('input[name="password"]').val();
+      if (newPass) {
+        changes.password = newPass;
+      }
+    }
+
+    this.properties.each(function(prop) {
+      var propName = prop.get('name');
+      var type = prop.get('type');
+      var $input = $(e.currentTarget).parents('tr').find('input[name="' + propName + '"]');
+      var val = $input.val();
+
+      if (type === 'number') {
+        val = parseInt(val);
+      } else if ( type === 'boolean' ) {
+        val = $input.is(':checked');
+      } else if (type === 'date') {
+        val = new Date(val);
+      }
+
+      changes[propName] = val;
+
     });
 
     row.save(changes);
