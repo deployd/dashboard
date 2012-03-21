@@ -4,6 +4,24 @@ h1 {
   padding: 10px;
 }
 
+::-webkit-scrollbar {
+  // background: @transparentBackground;
+  width: 8px;
+  height: 8px;
+  margin: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: @wellBackground;
+  .border-radius(5px);
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+
 .code {
   font-family: 'Courier New', monospace;
 }

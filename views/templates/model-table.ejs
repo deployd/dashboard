@@ -13,6 +13,11 @@
     </tr>
   </thead>
   <tbody>
+    <% if (!collectionModel.length) { %> 
+      <tr>
+        <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>">This collection is empty</td>
+      </tr>
+    <% } %>
     <% collectionModel.each(function(rowModel) { if (!rowModel.get('c_delete')) { %>
       <% var row = rowModel.toJSON(); %>
       <tr data-cid="<%= rowModel.cid %>">
