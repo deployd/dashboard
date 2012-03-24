@@ -18,7 +18,7 @@ var key;
 
 // Generate auth key
 
-exec('/Users/skawful/node_modules/deployd/bin/dpd key --json', function (err, data) {
+exec('dpd key --json', function (err, data) {
   if(err) return console.log(err);
   
   key = data;
@@ -26,7 +26,7 @@ exec('/Users/skawful/node_modules/deployd/bin/dpd key --json', function (err, da
 
 // Start testing server
 
-var server = spawn('/Users/skawful/node_modules/deployd/bin/dpd', ['listen', '-p', '2403']);
+var server = spawn('dpd', ['listen', '-p', '2403']);
 
 server.stdout.on('data', function (data) {
   console.log(data.toString());
