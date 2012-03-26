@@ -53,12 +53,12 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     
     _.each(files, function (file) {
       var f = new File({info: file, path: path});
-
-      f.save(null, {
-        complete: function () {
-          self.files.fetch();
-        }
+      
+      f.on('sync', function () {
+        self.files.fetch();
       });
+      
+      f.save();
     });
   },
   

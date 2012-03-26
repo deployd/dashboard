@@ -18,7 +18,7 @@ var key;
 
 // Generate auth key
 
-exec('/home/dallonf/devroot/deployd/bin/dpd key --json', function (err, data) {
+exec('dpd key --json', function (err, data) {
   if(err) return console.log(err);
   
   key = data;
@@ -26,7 +26,7 @@ exec('/home/dallonf/devroot/deployd/bin/dpd key --json', function (err, data) {
 
 // Start testing server
 
-var server = spawn('/home/dallonf/devroot/deployd/bin/dpd', ['listen', '-p', '2403']);
+var server = spawn('dpd', ['listen', '-p', '2403']);
 
 server.stdout.on('data', function (data) {
   console.log(data.toString());

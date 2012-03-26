@@ -1,3 +1,4 @@
+var app = require('../app');
 var File = module.exports = Backbone.Model.extend({ 
   
   url: function () {
@@ -18,22 +19,38 @@ var File = module.exports = Backbone.Model.extend({
     ;
       
     function next() {
-      Backbone.sync.apply(model, args);
     }
     
     var info = model.get('info');
     
     if(method === 'create' && info) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        var data = e.target.result;
-        options.data = data.split(',')[1];
-        next();
-      };
+      var form = new FormData();
+      form.append('data', info);
       
-      reader.readAsDataURL(info);
+      // use custom sync
+      var url = _.isFunction(model['url']) ? model['url']() : model['url'];
+      url = app.get('appUrl') + url;
+      
+      // manually build req
+      var xhr = new XMLHttpRequest();
+      
+      // post
+      xhr.open('POST', url);
+      
+      // add key
+      xhr.setRequestHeader('x-dssh-key', app.get('authKey'));
+      
+      // send the multipart form
+      xhr.send(form);
+      
+      // sync
+      xhr.addEventListener('readystatechange', function () {
+        self.trigger('sync');
+      });
+      
     } else {
-      next();
+      // use original sync
+      Backbone.sync.apply(model, args);
     }
   }
   
