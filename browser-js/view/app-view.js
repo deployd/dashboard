@@ -32,8 +32,13 @@ var AppView = module.exports = Backbone.View.extend({
 
     this.$modal = $('#authModal').modal();
 
+    var appUrl = $.cookie('DPDAppUrl');
+    if (appUrl && appUrl.lastIndexOf('/') === appUrl.length - 1) {
+      appUrl = appUrl.slice(0,-1);
+    }
+
     app.set({
-      appUrl: $.cookie('DPDAppUrl'),
+      appUrl: appUrl,
       authKey: $.cookie('DPDAuthKey')
     })
 
@@ -47,7 +52,6 @@ var AppView = module.exports = Backbone.View.extend({
 
   authenticate: function() {
     app.set({
-      appUrl: this.$modal.find('[name=appUrl]').val(),
       authKey: this.$modal.find('[name=key]').val()
     });
 

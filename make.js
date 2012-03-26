@@ -32,7 +32,7 @@ target.build = function() {
   mkdir('js');
 
   //Lib
-  mkdir('js/lib', '-r');
+  mkdir('js/lib');
   var lib = '../public/js/lib/';
   for (file in ls(lib)) {
     exec('uglifyjs ' + lib + file, {silent: true}).output.to('js/lib/' + file);
