@@ -9,7 +9,6 @@ h1 {
   width: 8px;
   height: 8px;
   margin: 10px;
-
 }
 
 ::-webkit-scrollbar-thumb {
@@ -39,10 +38,6 @@ h1 {
 
 #save-status {
   margin: 18px;
-}
-
-.navbar .nav > li > a {
-  line-height: inherit;
 }
 
 .full-width-container {
@@ -263,4 +258,22 @@ table input {
   &[type=number] {
     width: 75px;
   }
+}
+
+#file-upload {
+  text-align: center;
+}
+
+#file-upload input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  border: solid transparent;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
+  cursor: pointer;
+  border-width: 0 0 100px 200px;
 }
