@@ -4,6 +4,11 @@ var Resource = module.exports = Backbone.Model.extend({
     order: 0
   },
 
+  parse: function(json) {
+    json.$renameFrom = json.path;
+    return json;
+  },
+
   initialize: function() {
   	this.on('change:path', this.sanitizePath, this);
   },

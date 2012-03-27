@@ -20,7 +20,7 @@ var HeaderView = module.exports = Backbone.View.extend({
     var newName = prompt('Enter a new name for this ' + resource.get('type'), resource.get('path'));
     if (newName) {
       newName = Resource.sanitizePath(newName);
-      resource.save({path: newName});
+      resource.save({path: newName, $renameFrom: resource.get('path')});
       this.model.set('resourceName', newName);
     }
     return false;
