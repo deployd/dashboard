@@ -10,6 +10,20 @@ var fs = require('fs');
 var httpProxy = require('http-proxy');
 // var bootware = require('bootware');
 
+// proxy server
+httpProxy.createServer(function (req, res, proxy) {
+  var _port = 3004;
+
+  if(req.method === 'POST' || req.method === 'PUT') {
+    _port = 2403;
+  }
+  
+  proxy.proxyRequest(req, res, {
+    host: 'localhost',
+    port: _port
+  })
+})
+.listen(3000);
 
 var app = module.exports = express.createServer();
 var cp = require('child_process');
@@ -36,6 +50,7 @@ server.stdout.on('data', function (data) {
 // Configuration
 
 app.configure(function(){
+  
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.cookieParser());
@@ -110,6 +125,6 @@ app.get('/__dashboard/', function(req, res) {
 
 
 
-app.listen(process.env.PORT || 3000);
+app.listen(3004);
 console.log("Testing dpd dashboard server listening on port %d in %s mode", app.address().port, app.settings.env);
 
