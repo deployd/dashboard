@@ -1,12 +1,12 @@
 var $span;
-var currentText = "Up to date";
+var currentText = "";
 
 function init(preventReset) {
   $span = $('#save-status');
   if (preventReset) {
     $span.text(currentText);
   } else {
-    set("Up to date");
+    set("");
   }
 }
 

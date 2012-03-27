@@ -7,6 +7,7 @@ var express = require('express');
 var browserify = require('browserify');
 var path = require('path');
 var fs = require('fs');
+var httpProxy = require('http-proxy');
 // var bootware = require('bootware');
 
 
@@ -45,15 +46,22 @@ app.configure(function(){
   })
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(browserify({entry: path.resolve('./browser-js/entry.js'), mount: '/js/app.js', debug: true, watch: true}));
-  app.use(express.static(__dirname + '/public'));
+  app.use(browserify({entry: path.resolve('./browser-js/entry.js'), mount: '/__dashboard/js/app.js', debug: true, watch: true}));
+  app.use('/__dashboard', express.static(__dirname + '/public'));
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 
   app.set('view options', { layout: false });
 
-
   require('./db-routes');
   app.use(app.router);
+
+  var proxy = new httpProxy.RoutingProxy();
+  app.use(function(req, res, next) {
+    proxy.proxyRequest(req, res, {
+      host: 'localhost',
+      port: 2403
+    })
+  });
 
 });
 
@@ -72,10 +80,10 @@ app.helpers({
 // Routes
 
 app.get('/', function(req, res) {
-  res.redirect('/index.html');
+  res.redirect('/__dashboard/');
 });
 
-app.get('/index.html', function(req, res) {
+app.get('/__dashboard/', function(req, res) {
   // res.redirect('/dashboard');
   res.render('index');
 });

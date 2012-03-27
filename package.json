@@ -8,6 +8,7 @@
     , "less": ">= 0.0.1"
     , "ejs": ">= 0.0.1"
     , "browserify": ">= 1.9.4"
+    , "http-proxy": "0.8.x"
   }
   , "devDependencies": {
       "shelljs": "*"

@@ -32,10 +32,7 @@ var AppView = module.exports = Backbone.View.extend({
 
     this.$modal = $('#authModal').modal();
 
-    var appUrl = $.cookie('DPDAppUrl');
-    if (appUrl && appUrl.lastIndexOf('/') === appUrl.length - 1) {
-      appUrl = appUrl.slice(0,-1);
-    }
+    var appUrl = location.protocol + '//' + location.host;
 
     app.set({
       appUrl: appUrl,
