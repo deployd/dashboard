@@ -14,7 +14,6 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
   initialize: function() {
     this.propertyTypes = new PropertyTypeCollection();
-    // this.model.resourcePath = '/todos';
 
     this.dataCollection = new Backbone.Collection([]);
     this.dataCollection.url = this.model.get('path');

@@ -4,6 +4,25 @@ h1 {
   padding: 10px;
 }
 
+.well {margin-bottom: 0;}
+
+.right-sidebar .well {
+  position: absolute;
+  top: 0;
+  width: 195px;
+}
+
+.right-sidebar .well input {
+  width: 185px;
+}
+
+.right-sidebar .well + .well {
+  margin-top: 10px;
+  top: 224px;
+  bottom: 0;
+  min-height: 100px;
+}
+
 ::-webkit-scrollbar {
   // background: @transparentBackground;
   width: 8px;
@@ -19,7 +38,6 @@ h1 {
 ::-webkit-scrollbar-corner {
   display: none;
 }
-
 
 .code {
   font-family: 'Courier New', monospace;
@@ -71,7 +89,10 @@ h1 {
   .ide-container .sidebar;
   width: 250px;
   right: 0;
-
+  
+  overflow-y: hidden;
+  overflow-x: hidden;
+  
   border: none;
 }
 

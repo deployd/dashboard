@@ -102,6 +102,8 @@ var AppView = module.exports = Backbone.View.extend({
     var body = $('<div id="body">').html(template(model));
     $('#body').replaceWith(body);
     require('./divider-drag')();
+    
+    $(window).resize();
 
     if (this.bodyView) {
       this.bodyView.close();
