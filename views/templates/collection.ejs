@@ -1,9 +1,10 @@
 <div id="model-editor">
   <div class="subnav subnav-fixed">
     <div class="full-width-container">
-      <ul class="nav nav-pills">
+      <ul class="nav nav-pills pull-left">
         <li class="active"><a href="#property-panel" data-toggle='tab'>Properties</a></li>
         <li><a class='event-tab' href="#events-panel" data-toggle='tab'>Events</a></li>
+        
       </ul>
       <div class="pull-right">
         <button id="undo-btn" class="btn btn-warning">Undo <span class="action-label"></span></button>
@@ -12,10 +13,9 @@
   </div>
   <div class="ide-container has-nav tab-content">
     <div class="tab-pane active" id="property-panel">
-      <div id="property-sidebar" class="component-type-sidebar sidebar">
+      <div id="property-sidebar" class="component-type-sidebar sidebar well">
       </div>
       <div class="main-area vertical-split">
-
         <div class="top-panel well">
           <h2>Properties</h2>
           <ul id="property-list" class="component-list">  
