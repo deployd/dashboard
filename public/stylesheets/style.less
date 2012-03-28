@@ -78,10 +78,6 @@ h1 {
 
 .ide-container .component-type-sidebar {
   .component-type-header {
-    
-    // padding: 10px;
-    // cursor: pointer;
-
     &:hover {
       background-image: none;
     }
@@ -94,10 +90,10 @@ h1 {
     li.component-type-item {
       width: auto;
 
-      background: @transparentBackground;
+      background: @background;
 
       &:hover {
-        background: @wellBackground;
+        background: lighten(@background, 5%);
       }
     }
   }
