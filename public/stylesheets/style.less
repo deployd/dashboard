@@ -122,6 +122,10 @@ li.component-type-item {
   padding-bottom: 38px;
 }
 
+#resource-list-empty {
+  margin: 60px;
+}
+
 .ide-container .main-area {
   position: absolute;
   right: 0;
@@ -180,31 +184,30 @@ li.component-type-item {
 
 .placeholder {
   padding: 10px;
-  border: 1px dashed #000000;
+  border: 1px dashed darken(@background, 15%);
   margin-bottom: 4px;
   height: 19px;
 
   &.highlight {
-    border-color: #ffff00;
-    color: #ffff00;
+    border-color: #fff;
+    color: #fff;
   }  
 }
 
 li.component-item {
   list-style: none;
   margin-bottom: 4px;
-  background: @transparentBackground;
-  // border: 1px #ddd solid;
+  background: @background;
   border-radius: 3px;
   
 
   &.unsaved {
-    border: 1px #000000 dashed;
+    border: 1px lighten(@background, 10%) dashed;
   }
 
   &.active {
     .header {
-      background: @wellBackground;
+      background: darken(@background, 5%);
       .border-radius(3px 3px 0px 0px);
     }
   }
@@ -218,7 +221,7 @@ li.component-item {
     cursor: move;
 
     &:hover {
-      background: @wellBackground;
+      background: lighten(@background, 5%);
     }
 
     input {
@@ -233,7 +236,7 @@ li.component-item {
   .detail {
     .border-radius(0px 0px 3px 3px);
     padding: 10px;
-    border: 1px solid @wellBackground;
+    border: 1px solid @background;
   }
 }
 
