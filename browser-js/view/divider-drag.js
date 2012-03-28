@@ -58,8 +58,8 @@ module.exports = function() {
 				y = MIN_AREA;
 			}
 			dividerPoint = y;
-			$top.height(y - dividerHeight/2);
-			$bottom.height(totalHeight - y - dividerHeight);
+			$top.outerHeight(y - dividerHeight/2);
+			$bottom.outerHeight(totalHeight - y - dividerHeight);
 			$divider.css('top', y);
 	}
 		

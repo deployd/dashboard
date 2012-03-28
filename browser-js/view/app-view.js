@@ -52,6 +52,8 @@ var AppView = module.exports = Backbone.View.extend({
       authKey: this.$modal.find('[name=key]').val()
     });
 
+    $.cookie('DPDAuthKey', app.get('authKey'), {expires: 7});
+
     this.$modal.modal('hide');
     this.render();
 

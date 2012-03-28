@@ -71,7 +71,7 @@ app.configure(function(){
   app.use(app.router);
 
   var proxy = new httpProxy.RoutingProxy();
-  app.use(function(req, res, next) {
+  app.use(function(req, res, next) {    
     proxy.proxyRequest(req, res, {
       host: 'localhost',
       port: 2403
