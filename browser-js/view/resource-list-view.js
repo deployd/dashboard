@@ -21,23 +21,29 @@ var ResourceListView = module.exports = Backbone.View.extend({
     $(this.el).sortable({
       revert: false,
       placeholder: 'placeholder',
-      cancel: '.placeholder, #resource-list-empty',
+      cancel: '.placeholder',
       distance: 10,
 
       receive: _.bind(function() {
-        var $newItem = $($(this.el).data().sortable.currentItem);
-        var index = $(this.el).children(':not(.placeholder)').index($newItem);
-        this.onReceiveComponent($newItem, index);
+        if ($(this.el).is(':visible')) {
+          console.log('receive');
+          var $newItem = $($(this.el).data().sortable.currentItem);
+          var index = $(this.el).children(':not(.placeholder)').index($newItem);
+          this.onReceiveComponent($newItem, index);
+        }
       }, this),
       update: _.bind(this.onReorder, this)
     });
 
+    console.log('binding');
     $('.placeholder', this.emptyEl).droppable({
       hoverClass: 'highlight',
 
       drop: _.bind(function(event, ui) {
-        var $newItem = $(ui.helper);
-        this.onReceiveComponent($newItem);
+        if (this.collection.length === 0) {
+          var $newItem = $(ui.helper);
+          this.onReceiveComponent($newItem);    
+        }
       }, this)
     });
   },
