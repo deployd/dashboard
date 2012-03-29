@@ -1,44 +1,47 @@
 <div id="model-editor">
-  <div class="subnav subnav-fixed">
-    <div class="full-width-container">
-      <ul class="nav nav-pills pull-left">
-        <li class="active"><a href="#property-panel" data-toggle='tab'>Properties</a></li>
-        <li><a class='event-tab' href="#events-panel" data-toggle='tab'>Events</a></li>
-        
-      </ul>
-      <div class="pull-right">
-        <button id="undo-btn" class="btn btn-warning">Undo <span class="action-label"></span></button>
-      </div>
-    </div>
-  </div>
-  <div class="ide-container has-nav tab-content">
-    <div class="tab-pane active" id="property-panel">
+  <div class="ide-container has-nav">
+    <div id="property-panel">
       <div id="property-sidebar" class="component-type-sidebar sidebar well">
       </div>
       <div class="main-area vertical-split">
-        <div class="top-panel well">
-          <h3>Properties</h3>
-          <ul id="property-list" class="component-list">  
-            <li class="component-item locked">
-              <div class="header">
-                  <span class="label label-info">_id</span>
-              </div>
-            </li>
-            <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-              <li class="component-item locked">
-                <div class="header">
-                    <span class="label label-info">email</span>
+        <div class="top-panel">
+          <div class="split-panel">
+            <div id="property-list-cont" class="well">
+              <h3>
+                <div class="pull-right">
+                  <a id="undo-btn" class="btn btn-warning"><i class="icon-exclamation-sign icon-white"></i> Undo <span class="action-label"></span></a>
                 </div>
-              </li>
-              <li class="component-item locked">
-                <div class="header">
-                    <span class="label label-info">password</span>
+                <div>
+                  Properties
                 </div>
-              </li>
-            <%} %>
-          </ul>
+              </h3>
+              <ul id="property-list" class="component-list">  
+                <li class="component-item locked">
+                  <div class="header">
+                      <span class="label label-info">_id</span>
+                  </div>
+                </li>
+                <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
+                  <li class="component-item locked">
+                    <div class="header">
+                        <span class="label label-info">email</span>
+                    </div>
+                  </li>
+                  <li class="component-item locked">
+                    <div class="header">
+                        <span class="label label-info">password</span>
+                    </div>
+                  </li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+          <div class="split-panel">
+            <div id="events-panel" class="well">
+
+            </div>
+          </div>
         </div>
-        
         
         <div class="divider"></div>
         <div class="bottom-panel">
@@ -49,8 +52,5 @@
         </div>
       </div>
     </div>    
-    <div class="tab-pane" id="events-panel">
-      
-    </div>
   </div>
 </div>

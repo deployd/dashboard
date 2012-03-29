@@ -40,9 +40,18 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     $(this.el).on('focus', 'input', _.bind(function(e) {
       this._lastFocusedInput = e.currentTarget;
     }, this));
+    
+    var collection = this.collection
+      , self = this;
+    
+    // poll
+    setInterval(function () {      
+      collection && !self.editing && collection.fetch();
+    }, 1000);
   },
 
   save: function(callback) {
+    this.editing = false;
 
     this.collection.each(function(model) {
       var dfd = new jQuery.Deferred();
@@ -57,6 +66,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
   },
 
   addRow: function() {
+    this.editing = true;
     var row = new Backbone.Model({c_active: true, c_save: true});
     this.collection.add(row);
     setTimeout(function() {
@@ -66,6 +76,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
   },
 
   deleteRow: function(e) {
+    this.editing = false;
     var row = this._getRow(e);
     var index = this.collection.indexOf(row);
     row.destroy();
@@ -80,6 +91,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
   editRow: function(e) {
     var row = this._getRow(e);
     row.set({c_active: true});
+
+    this.editing = true;
 
     if ($(e.currentTarget).is('td')) {
       var prop = $(e.currentTarget).attr('data-prop');
@@ -103,6 +116,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     var changes = {
       c_active: false
     };
+    
+    this.editing = false;
 
     if (app.get('resourceTypeId') === 'UserCollection') {
       changes.email = $(e.currentTarget).parents('tr').find('input[name="email"]').val();

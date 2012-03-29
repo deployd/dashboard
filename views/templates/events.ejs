@@ -1,24 +1,29 @@
-<div class="container">
-  <div class="well">
-    <h3>On Get</h3>
+<h3>
+  Events
+</h3>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#get-panel" data-toggle='tab'>GET</a></li>
+  <li><a href="#post-panel" data-toggle='tab'>POST</a></li>
+  <li><a href="#put-panel" data-toggle='tab'>PUT</a></li>
+  <li><a href="#delete-panel" data-toggle='tab'>DELETE</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="get-panel">
     <div class="editor-container">
       <div id="onGet"><%= onGet %></div>
     </div>
   </div>
-  <div class="well" >
-    <h3>On Post</h3>
+  <div class="tab-pane" id="post-panel">
     <div class="editor-container">
       <div id="onPost"><%= onPost %></div>
     </div>
   </div>
-  <div class="well">
-    <h3>On Put</h3>
+  <div class="tab-pane" id="put-panel">
     <div class="editor-container">
       <div id="onPut"><%= onPut %></div>
     </div>
   </div>
-  <div class="well">
-    <h3>On Delete</h3>
+  <div class="tab-pane" id="delete-panel">
     <div class="editor-container">
       <div id="onDelete"><%= onDelete %></div>
     </div>

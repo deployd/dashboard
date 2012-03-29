@@ -30,7 +30,7 @@ module.exports = function() {
 			
 
 			setDividerPoint(y);
-
+  		
 			return false;
 		}
 
@@ -49,6 +49,7 @@ module.exports = function() {
 		var percent = dividerPoint / totalHeight;
 		totalHeight = $area.innerHeight();
 		setDividerPoint(totalHeight*percent);
+		
 	});
 
 	function setDividerPoint(y) {
@@ -61,6 +62,10 @@ module.exports = function() {
 			$top.outerHeight(y - dividerHeight/2);
 			$bottom.outerHeight(totalHeight - y - dividerHeight);
 			$divider.css('top', y);
+			
+			
+  		// fill panels
+  		$('.main-area .well').height($top.innerHeight() - 44);
 	}
 		
 

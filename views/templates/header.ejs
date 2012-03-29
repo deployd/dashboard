@@ -1,5 +1,12 @@
-<h1><a href="#"><%= appName %> - Dashboard</a></h1>
-<% if (typeof resourceName !== 'undefined' && resourceName) { %>
-  <h2><a href="#<%= resourceId %>" class="resourceName"><%= resourceName %>&nbsp;&nbsp;<span class="type">(<%= resourceType %>)</span></a></h2>
-<% } %>
+<div>
+  <ul class="nav nav-pills">
+    <li><a href="#">Resources</a></li>
+    <% if (typeof resourceName !== 'undefined' && resourceName) { %>
+      <li class="active">
+        <a href="#<%= resourceId %>" class="resourceName"><%= resourceName %></a>
+      </li>
+    <% } %>
+  </ul>
 <span class="pull-right" id="save-status">Loading...</span>
+
+</div>

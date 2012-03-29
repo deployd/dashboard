@@ -65,16 +65,12 @@ h1 {
 
 .ide-container {
   position: absolute;
-  top: 60px;
+  top: 40px;
   left: 10px;
   right: 10px;
   bottom: 10px;
   min-width: 600px;
   overflow: auto;
-
-  &.has-nav {
-    top: 110px;
-  }
 }
 
 .ide-container .sidebar {
@@ -130,8 +126,6 @@ li.component-type-item {
   margin-bottom: 4px;
   border-radius: 3px;
   cursor: move;
-
-  
 }
 
 .header-offset {
@@ -163,6 +157,11 @@ li.component-type-item {
 
     .top-panel {
       top: 0;
+      overflow-y: hidden;
+    }
+    
+    .well {
+      overflow-y: auto;
     }
 
     .bottom-panel {
@@ -187,8 +186,15 @@ li.component-type-item {
       }
     }
   }
+}
 
-  
+.split-panel {
+  width: 50%;
+  float: left;
+}
+
+#events-panel {
+  margin-left: 10px;
 }
 
 .component-list {
