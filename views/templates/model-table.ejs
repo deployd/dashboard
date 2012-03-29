@@ -26,6 +26,11 @@
         </td>
         <% if (resourceType == "UserCollection") { %>
           <td data-prop="email">
+            <% if (row.c_errors && row.c_errors.email) { %>
+              <a class="error-tooltip" rel="tooltip" title="<%- row.c_errors.email %>">
+                <i class="icon-warning-sign icon-white"></i>
+              </a>
+            <% } %>
             <% if (row.c_active) { %>
               <input type="text" name="email" value="<%- row.email || '' %>" />
             <% } else { %>
@@ -33,6 +38,11 @@
             <% } %>
           </td>
           <td data-prop="password">
+            <% if (row.c_errors && row.c_errors.password) { %>
+              <a class="error-tooltip" rel="tooltip" title="<%- row.c_errors.password %>">
+                <i class="icon-warning-sign icon-white"></i>
+              </a>
+            <% } %>
             <% if (row.c_active) { %>
               <input type="password" name="password" placeholder="*******" />
             <% } else { %>
@@ -44,8 +54,12 @@
           <% var val = row[property.name]; %>
           <% if (typeof val === 'undefined') { val = row[property.$renameFrom]; } %>
           <td data-prop="<%- property.name %>">
-            <% if (row.c_active) { %>
-
+            <% if (row.c_errors && row.c_errors[property.name]) { %>
+              <a class="error-tooltip" rel="tooltip" title="<%- row.c_errors[property.name] %>">
+                <i class="icon-warning-sign icon-white"></i>
+              </a>
+            <% }
+              if (row.c_active) { %>
               <% if (typeof val === 'undefined') { val = '' } %>
               <% if (property.type == 'number') { %>
                 <input type="number" name="<%- property.name %>" value="<%- val %>" />
@@ -56,10 +70,6 @@
               <% } else { %>
                 <input type="text" name="<%- property.name %>" value="<%- val %>" />
               <% } %>
-
-              
-
-              
             <% } else { %>
               <% if (typeof val === 'undefined') { val = '...' } %>
               <%- val %>

@@ -7,7 +7,6 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   },
 
   noteUpdate: function() {
-    console.log("Change event");
     if (this._timeout) {
       clearTimeout(this._timeout);
     }
@@ -15,7 +14,6 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   },
 
   update: function() {
-    console.log("Triggering change");
     this.trigger('change');
   },
 
@@ -23,13 +21,20 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     return this.editor.getSession().getValue()
   },
 
+  resize: function() {
+    this.editor.resize();
+  },
+
   render: function() {
+    
     var editor = ace.edit(this.el);
     editor.getSession().setMode(new JavaScriptMode());
+    editor.setTheme("ace/theme/vibrant_ink");
     editor.getSession().on('change', this.noteUpdate);
 
     this.editor = editor;
 
     return this;
   }
+
 });

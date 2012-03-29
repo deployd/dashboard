@@ -1,5 +1,7 @@
 @import "../../bootstrap/less/bootstrap.less";
 
+@propBackground: #200200;
+
 h1 {
   padding: 10px;
 }
@@ -31,7 +33,7 @@ h1 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: @wellBackground;
+  background: darken(@wellBackground, 10%);
   .border-radius(5px);
 }
 
@@ -54,8 +56,17 @@ h1 {
   }
 }
 
+#undo-btn {
+  margin: 4px;
+}
+
 #save-status {
-  margin: 18px;
+  margin: 8px;
+  display: inline-block;
+
+  &.inactive {
+    opacity: 0.5;
+  }
 }
 
 .full-width-container {
@@ -106,10 +117,10 @@ h1 {
     li.component-type-item {
       width: auto;
 
-      background: @background;
+      background: @propBackground;
 
       &:hover {
-        background: lighten(@background, 5%);
+        background: darken(@propBackground, 5%);
       }
     }
   }
@@ -120,9 +131,9 @@ li.component-type-item {
   padding: 10px;
 
   height: 19px;
-  width: 230px;
+  width: 180px;
 
-  background: @wellBackground;
+  background: darken(@propBackground, 5%);
   margin-bottom: 4px;
   border-radius: 3px;
   cursor: move;
@@ -189,6 +200,7 @@ li.component-type-item {
 }
 
 .split-panel {
+  position: relative;
   width: 50%;
   float: left;
 }
@@ -198,15 +210,21 @@ li.component-type-item {
 }
 
 .component-list {
-  min-height: 100%;
+  position: absolute;
+  top: 27px + 9 + 19;
+  bottom: 21px;
+  left: 21px;
+  right: 21px;
   margin: 0;
   list-style: none;
-  padding-bottom: 20px;
+  overflow-y: auto;
+  padding-bottom: 40px;
+
 }
 
 .placeholder {
   padding: 10px;
-  border: 1px dashed darken(@background, 15%);
+  border: 1px dashed lighten(@propBackground, 30%);
   margin-bottom: 4px;
   height: 19px;
 
@@ -217,19 +235,20 @@ li.component-type-item {
 }
 
 li.component-item {
+
   list-style: none;
   margin-bottom: 4px;
-  background: @background;
+  background: @propBackground;
   border-radius: 3px;
   
 
   &.unsaved {
-    border: 1px lighten(@background, 10%) dashed;
+    border: 1px lighten(@propBackground, 10%) dashed;
   }
 
   &.active {
     .header {
-      background: darken(@background, 5%);
+      background: darken(@propBackground, 5%);
       .border-radius(3px 3px 0px 0px);
     }
   }
@@ -243,7 +262,7 @@ li.component-item {
     cursor: move;
 
     &:hover {
-      background: lighten(@background, 5%);
+      background: darken(@propBackground, 5%);
     }
 
     input {
@@ -258,7 +277,7 @@ li.component-item {
   .detail {
     .border-radius(0px 0px 3px 3px);
     padding: 10px;
-    border: 1px solid @background;
+    border: 1px solid @propBackground;
   }
 }
 
@@ -276,6 +295,13 @@ li.component-item {
   }
 }
 
+table {
+  .error-tooltip:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
 table input {
   margin: 0;
   width: 150px;
@@ -283,6 +309,8 @@ table input {
   &[type=number] {
     width: 75px;
   }
+
+  
 }
 
 #file-upload {

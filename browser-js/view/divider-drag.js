@@ -20,7 +20,7 @@ module.exports = function() {
 	// 	setDividerPoint(perc * totalHeight);
 	// }, 100);
 
-	setDividerPoint(totalHeight / 2);
+	setDividerPoint(totalHeight - totalHeight/3);
 
 	$divider.mousedown(function() {
 

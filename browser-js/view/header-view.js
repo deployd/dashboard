@@ -1,6 +1,7 @@
 var Resource = require('../model/resource');
 
 var saveStatus = require('./save-status-view');
+var undoBtn = require('./undo-button-view');
 
 var HeaderView = module.exports = Backbone.View.extend({
   el: '#header',
@@ -29,6 +30,7 @@ var HeaderView = module.exports = Backbone.View.extend({
   render: function() {
     $(this.el).html(this.template(this.model.toJSON()));
     saveStatus.init(true);
+    undoBtn.init();
 
     return this;
   }

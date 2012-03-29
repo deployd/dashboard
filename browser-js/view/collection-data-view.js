@@ -45,7 +45,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
       , self = this;
     
     // poll
-    setInterval(function () {      
+    this._interval = setInterval(function () {      
       collection && !self.editing && collection.fetch();
     }, 1000);
   },
@@ -80,6 +80,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     var row = this._getRow(e);
     var index = this.collection.indexOf(row);
     row.destroy();
+    row.unset('_id');
 
     undoBtn.show('Delete row', _.bind(function() {
       this.collection.create(row.toJSON());
@@ -113,11 +114,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
   commitRow: function(e) {
     var row = this._getRow(e);
 
-    var changes = {
-      c_active: false
-    };
+    var changes = {};
     
-    this.editing = false;
 
     if (app.get('resourceTypeId') === 'UserCollection') {
       changes.email = $(e.currentTarget).parents('tr').find('input[name="email"]').val();
@@ -145,9 +143,30 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
     });
 
-    row.save(changes);
+    this.saveRow(row, changes);
 
     return false;
+  },
+
+  saveRow: function(row, changes) {
+    var self = this;
+
+    row.save(changes, {success: function() {
+      self.editing = false;
+      row.set({c_active: false});
+    }, error: function(model, res, req) {
+      var resJson;
+      try {
+        resJson = JSON.parse(res.responseText);
+      } catch(err) {
+        resJson = {};
+      }
+      if (resJson.errors) {
+        row.set({c_errors: resJson.errors});
+      } else {
+        alert("An error occured while saving: " + res.responseText);
+      }
+    }});
   },
 
   updateField: function(e) {
@@ -179,6 +198,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
       resourceType: app.get('resourceTypeId')
     }));
 
+    this.$('.error-tooltip').tooltip();      
+
   },
 
   _getRow: function(e) {
@@ -188,6 +209,11 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     }
 
     return this.collection.getByCid($target.attr('data-cid'));
+  },
+
+  close: function() {
+    Backbone.View.prototype.close.call(this);
+    clearInterval(this._interval);
   }
 
 });

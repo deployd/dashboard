@@ -21,7 +21,7 @@ var ResourceListView = module.exports = Backbone.View.extend({
     $(this.el).sortable({
       revert: false,
       placeholder: 'placeholder',
-      cancel: '.placeholder, .well',
+      cancel: '.placeholder, #resource-list-empty',
       distance: 10,
 
       receive: _.bind(function() {

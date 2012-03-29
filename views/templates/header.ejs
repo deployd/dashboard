@@ -1,5 +1,5 @@
-<div>
-  <ul class="nav nav-pills">
+<div class="full-width-container">
+  <ul class="nav nav-pills pull-left">
     <li><a href="#">Resources</a></li>
     <% if (typeof resourceName !== 'undefined' && resourceName) { %>
       <li class="active">
@@ -7,6 +7,8 @@
       </li>
     <% } %>
   </ul>
-<span class="pull-right" id="save-status">Loading...</span>
-
+  <div class="pull-right">
+    <button id="undo-btn" class="btn btn-warning"><i class="icon-exclamation-sign icon-white"></i> Undo <span class="action-label"></span></button>
+    <span id="save-status"></span>
+  </div>
 </div>
