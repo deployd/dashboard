@@ -35,7 +35,6 @@ var ResourceListView = module.exports = Backbone.View.extend({
       update: _.bind(this.onReorder, this)
     });
 
-    console.log('binding');
     $('.placeholder', this.emptyEl).droppable({
       hoverClass: 'highlight',
 

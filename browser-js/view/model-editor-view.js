@@ -1,5 +1,6 @@
 var PropertyTypeCollection = require('../model/property-type-collection');
 var CollectionSettings = require('../model/collection-settings');
+var DataCollection = require('../model/data-collection');
 
 var ComponentTypeSidebarView = require('./component-type-sidebar-view');
 var PropertyListView = require('./property-list-view');
@@ -15,12 +16,12 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   initialize: function() {
     this.propertyTypes = new PropertyTypeCollection();
 
-    this.dataCollection = new Backbone.Collection([]);
-    this.dataCollection.url = this.model.get('path');
+    this.dataCollection = new DataCollection([]);
+    this.dataCollection.path = this.model.get('path');
     this.dataCollection.fetch();
 
     this.model.on('change:path', function() {
-      this.dataCollection.url = this.model.get('path');
+      this.dataCollection.path = this.model.get('path');
     }, this);
 
     this.propertyListView = new PropertyListView({

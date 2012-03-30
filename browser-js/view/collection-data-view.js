@@ -16,6 +16,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     'click .done-btn': 'commitRow',
     'keyup input': 'onFieldKeypress',
     'dblclick input': 'cancelEvent',
+    'keyup #current-data-querystring': 'changeQuerystring'
   },
 
   initialize: function() {
@@ -40,6 +41,22 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     $(this.el).on('focus', 'input', _.bind(function(e) {
       this._lastFocusedInput = e.currentTarget;
     }, this));
+
+    this.$('#current-data-querystring').tooltip({animation: false, placement: 'left', trigger: 'focus'});
+
+    this.collection.on('error', function(model, res, req) {
+      var error = "Error!";
+      try {
+        error = JSON.parse(res.responseText).message;
+      } catch (err) { }
+      this.$('#current-data-querystring').attr('data-original-title', error).tooltip('fixTitle')
+          .tooltip('show');
+    }, this);
+
+    this.collection.on('reset', function() {
+      this.$('#current-data-querystring').attr('data-original-title', '').tooltip('fixTitle')
+          .tooltip('hide');
+    }, this);
     
     var collection = this.collection
       , self = this;
@@ -184,6 +201,12 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     return false;
   },
 
+  changeQuerystring: function() {
+    this.collection.querystring = this.$('#current-data-querystring').val();
+    
+  },
+
+
   onFieldKeypress: function(e) {
     if (e.which == '13' || e.which == '27') { //enter or esc
       this.commitRow(e);
@@ -192,7 +215,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
   render: function() {
 
-    $(this.el).html(this.template({
+    this.$('table').html(this.template({
       properties: this.properties.toJSON(),
       collectionModel: this.collection,
       resourceType: app.get('resourceTypeId')
