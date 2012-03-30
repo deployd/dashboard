@@ -152,8 +152,6 @@ var CollectionDataView = module.exports = Backbone.View.extend({
         val = parseInt(val);
       } else if ( type === 'boolean' ) {
         val = $input.is(':checked');
-      } else if (type === 'date') {
-        val = new Date(val);
       }
 
       changes[propName] = val;
