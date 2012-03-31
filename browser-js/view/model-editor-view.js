@@ -124,6 +124,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     // Backbone.history.off('load', this.onNavigate);
     Backbone.View.prototype.close.call(this);
     this.dataView.close();
+    this.eventsView.close();
   }
 
 
