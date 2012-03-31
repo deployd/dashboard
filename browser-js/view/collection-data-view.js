@@ -13,6 +13,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     'click .add-btn': 'addRow',
     'click .delete-btn': 'deleteRow',
     'click .edit-btn': 'editRow',
+    'click .cancel-btn': 'cancelEditingRow',
     'dblclick td:not(.id)': 'editRow',
     'dblclick .id': 'copyId',
     'click .done-btn': 'commitRow',
@@ -170,6 +171,17 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     return false;
   },
 
+  cancelEditingRow: function(e) {
+    var row = this._getRow(e);
+
+    row.fetch({success: function() {
+      row.set({c_active: false});
+      self.editing = false;
+    }});
+
+    return false;
+  },
+
   saveRow: function(row, changes) {
     var self = this;
 
@@ -208,13 +220,15 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
   changeQuerystring: function() {
     this.collection.querystring = this.$('#current-data-querystring').val();
-    
   },
 
 
   onFieldKeypress: function(e) {
-    if (e.which == '13' || e.which == '27') { //enter or esc
+    console.log(e.which);
+    if (e.which === 13) { //enter
       this.commitRow(e);
+    } else if ( e.which === 27) { //esc
+      this.cancelEditingRow(e);
     }
   },
 
