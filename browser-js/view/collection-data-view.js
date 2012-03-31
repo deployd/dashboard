@@ -1,4 +1,5 @@
 var undoBtn = require('./undo-button-view');
+var statusTooltip = require('./status-tooltip');
 
 var app = require('../app');
 
@@ -12,7 +13,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     'click .add-btn': 'addRow',
     'click .delete-btn': 'deleteRow',
     'click .edit-btn': 'editRow',
-    'dblclick td': 'editRow',
+    'dblclick td:not(.id)': 'editRow',
+    'dblclick .id': 'copyId',
     'click .done-btn': 'commitRow',
     'keyup input': 'onFieldKeypress',
     'dblclick input': 'cancelEvent',
@@ -98,6 +100,15 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     undoBtn.show('Delete row', _.bind(function() {
       this.collection.create(row.toJSON());
     }, this));
+
+    return false;
+  },
+
+  copyId: function(e) {
+    var row = this._getRow(e);
+    console.log(row.id);
+
+    prompt('Copy the id to your clipboard:', row.id);
 
     return false;
   },

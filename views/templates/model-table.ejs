@@ -20,7 +20,7 @@
   <% collectionModel.each(function(rowModel) { if (!rowModel.get('c_delete')) { %>
     <% var row = rowModel.toJSON(); %>
     <tr data-cid="<%= rowModel.cid %>">
-      <td>
+      <td class='id'>
         <%- row._id || '...' %>
       </td>
       <% if (resourceType == "UserCollection") { %>
