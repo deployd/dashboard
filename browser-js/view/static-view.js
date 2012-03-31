@@ -53,12 +53,19 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     
     _.each(files, function (file) {
       var f = new File({info: file, path: path});
-      
+
+      var $status = $('<div>').text('Uploading ' + file.fileName + '...')
+        .appendTo(self.$('#currentUploads'));
+
       f.on('sync', function () {
         self.files.fetch();
+        $status.fadeOut(500, function() {
+          $status.remove();
+        })
       });
-      
+
       f.save();
+    
     });
   },
   
