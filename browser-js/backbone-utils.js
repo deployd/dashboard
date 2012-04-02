@@ -137,6 +137,10 @@ Backbone.Utils.toJSONDictionary = function(json, options) {
   return result;
 };
 
+Backbone.Utils.cancelEvent = function(e) {
+  return false;
+};
+
 function isArray(o) {
   return Object.prototype.toString.call(o) === '[object Array]';
 }

@@ -10,13 +10,11 @@ var ResourceView = module.exports = Backbone.View.extend({
   
   events: {
     'click .delete-btn': 'delete',
-    'click .edit-btn': 'gotoDetail',
-    'dblclick .header': 'gotoDetail',
-    'dblclick .path': 'activate',
+    'click .header': 'onClickHeader',
+    'click .path': 'activate',
     'click .rename-btn': 'activate',
     'click .cancel-btn': 'deactivate',
     'click .save-btn': 'save',
-    'click input[name="path"]': 'onFocus',
     'keypress input[name="path"]': 'onKeypress',
     'keyup input[name="path"]': 'onKeyup'
   },
@@ -93,8 +91,22 @@ var ResourceView = module.exports = Backbone.View.extend({
     return false;
   },
 
+  onClickHeader: function(e) {
+    console.log($(e.target));
+    if ($(e.target).hasClass('header')) {
+      if (this.model.get('c_active')) {
+        this.deactivate();
+      } else {
+        this.gotoDetail();
+      }
+      return false;
+    } else {
+      this.onFocus(e);
+    }
+  },
+
   onFocus: function(e) {
-    $(e.currentTarget).focus();
+    $(e.target).focus();
   },
 
   onKeypress: function(e) {
