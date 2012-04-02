@@ -63,9 +63,8 @@ module.exports = function() {
 			$bottom.outerHeight(totalHeight - y - dividerHeight);
 			$divider.css('top', y);
 			
-			
   		// fill panels
-  		$('.main-area .well').height($top.innerHeight() - 44);
+  		$('.main-area .panel').height($top.innerHeight() - 44);
 	}
 		
 

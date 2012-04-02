@@ -26,7 +26,6 @@ var ResourceListView = module.exports = Backbone.View.extend({
 
       receive: _.bind(function() {
         if ($(this.el).is(':visible')) {
-          console.log('receive');
           var $newItem = $($(this.el).data().sortable.currentItem);
           var index = $(this.el).children(':not(.placeholder)').index($newItem);
           this.onReceiveComponent($newItem, index);
