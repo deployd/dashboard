@@ -107,7 +107,6 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
   copyId: function(e) {
     var row = this._getRow(e);
-    console.log(row.id);
 
     prompt('Copy the id to your clipboard:', row.id);
 
@@ -174,10 +173,14 @@ var CollectionDataView = module.exports = Backbone.View.extend({
   cancelEditingRow: function(e) {
     var row = this._getRow(e);
 
-    row.fetch({success: function() {
-      row.set({c_active: false});
-      self.editing = false;
-    }});
+    if (row.isNew()) {
+      row.destroy();
+    } else {
+      row.fetch({success: function() {
+        row.set({c_active: false});
+        self.editing = false;
+      }});  
+    }    
 
     return false;
   },
@@ -224,7 +227,6 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
 
   onFieldKeypress: function(e) {
-    console.log(e.which);
     if (e.which === 13) { //enter
       this.commitRow(e);
     } else if ( e.which === 27) { //esc

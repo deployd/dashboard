@@ -12,7 +12,6 @@ var App = Backbone.Model.extend({
   setDocLink: function() {
     var type = this.get('resourceTypeId');
     var url = 'http://deployd.github.com/deployd/';
-    console.log(type);
     if (type === 'Static') {
       url += 'files.html'
     } else if (type === 'Collection') {
