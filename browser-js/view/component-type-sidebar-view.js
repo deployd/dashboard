@@ -1,7 +1,7 @@
 var ComponentTypeSidebarView = module.exports = Backbone.View.extend({
 
   events: {
-    'dblclick li': 'onAddItem'
+    'click li': 'onAddItem'
   },
 
   initialize: function() {
