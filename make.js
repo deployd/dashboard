@@ -1,6 +1,6 @@
 require('shelljs/make');
 
-var browserify = require('browserify');
+var requirejs = require('requirejs');
 var ejs = require('ejs');
 
 var templateHelper = require('./util/template-html');
@@ -38,8 +38,13 @@ target.build = function() {
     exec('uglifyjs ' + lib + file, {silent: true}).output.to('js/lib/' + file);
   }
 
-  //Browserify
-  browserify.bundle('../browser-js/entry.js').to('js/app.js');
+  //require.js
+  var config = {
+    baseUrl: '../public/js/app',
+    name: 'entry',
+    out: '../build/js/app/entry.js'
+  };
+  requirejs.optimize(config);
 
   //HTML
   ejs.render(cat('../views/index.ejs'), {template: templateHelper, compile: true}).to('index.html');

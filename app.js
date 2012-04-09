@@ -94,9 +94,9 @@ app.helpers({
 
 // Routes
 
-app.get('/', function(req, res) {
-  res.redirect('/__dashboard/');
-});
+// app.get('/', function(req, res) {
+//   res.redirect('/__dashboard/');
+// });
 
 app.get('/__dashboard/', function(req, res) {
   // res.redirect('/dashboard');
