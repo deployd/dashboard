@@ -4,7 +4,6 @@
  */
 
 var express = require('express');
-var browserify = require('browserify');
 var path = require('path');
 var fs = require('fs');
 var httpProxy = require('http-proxy');
@@ -61,7 +60,6 @@ app.configure(function(){
   })
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(browserify({entry: path.resolve('./browser-js/entry.js'), mount: '/__dashboard/js/app.js', debug: true, watch: true}));
   app.use('/__dashboard', express.static(__dirname + '/public'));
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 

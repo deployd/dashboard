@@ -1,7 +1,5 @@
 @import "../../bootstrap/less/bootstrap.less";
 
-@propBackground: #200200;
-
 h1 {
   padding: 10px;
 }
@@ -37,7 +35,7 @@ p a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: darken(@wellBackground, 10%);
+  background: darken(@bodyBackground, 10%);
   .border-radius(5px);
 }
 
@@ -92,7 +90,7 @@ p a {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 250px - @wellPadding*2 - 10;
+  width: 210px; // - @wellPadding*2 - 10;
   overflow-y: auto;
 }
 
@@ -120,11 +118,14 @@ p a {
     
     li.component-type-item {
       width: auto;
+      background: darken(@bodyBackground, 1%);
+			border: solid 1px desaturate(darken(@bodyBackground, 10%), 50%);
 
-      background: @propBackground;
+      background: @bodyBackground;
 
       &:hover {
-        background: darken(@propBackground, 5%);
+        background: darken(@bodyBackground, 1%);
+			  border: solid 1px desaturate(darken(@bodyBackground, 10%), 50%);
       }
     }
   }
@@ -137,7 +138,7 @@ li.component-type-item {
   height: 19px;
   width: 180px;
 
-  background: darken(@propBackground, 5%);
+  background: darken(@bodyBackground, 5%);
   margin-bottom: 4px;
   border-radius: 3px;
   cursor: move;
@@ -220,7 +221,7 @@ li.component-type-item {
     left: 0;
     right: 0;
     width: auto;
-    background: darken(@background, 20%);
+    // background: darken(@background, 20%);
   }
 }
 
@@ -236,7 +237,7 @@ li.component-type-item {
 
 .component-list {
   position: absolute;
-  top: 27px + 9 + 19;
+  top: 66px;
   bottom: 21px;
   left: 21px;
   right: 21px;
@@ -249,7 +250,7 @@ li.component-type-item {
 
 .placeholder {
   padding: 10px;
-  border: 1px dashed lighten(@propBackground, 30%);
+  border: 1px dashed darken(@bodyBackground, 30%);
   margin-bottom: 4px;
   height: 19px;
 
@@ -263,17 +264,18 @@ li.component-item {
 
   list-style: none;
   margin-bottom: 4px;
-  background: @propBackground;
+  background: darken(@bodyBackground, 1%);
   border-radius: 3px;
+  border: solid 1px desaturate(darken(@bodyBackground, 10%), 50%);
   
 
   &.unsaved {
-    border: 1px lighten(@propBackground, 10%) dashed;
+    border: 1px  desaturate(darken(@bodyBackground, 30%), 50%) dashed;
   }
 
   &.active {
     .header {
-      background: darken(@propBackground, 5%);
+      background: desaturate(darken(@bodyBackground, 10%), 50%);
       .border-radius(3px 3px 0px 0px);
     }
   }
@@ -287,7 +289,7 @@ li.component-item {
     cursor: move;
 
     &:hover {
-      background: darken(@propBackground, 5%);
+      background: desaturate(darken(@bodyBackground, 5%), 50%);
     }
 
     input {
@@ -302,7 +304,7 @@ li.component-item {
   .detail {
     .border-radius(0px 0px 3px 3px);
     padding: 10px;
-    border: 1px solid @propBackground;
+    border: 1px solid @bodyBackground;
   }
 }
 
