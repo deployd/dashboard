@@ -10,7 +10,7 @@ var HeaderView = module.exports = Backbone.View.extend({
   template: _.template($('#header-template').html()),
 
   events: {
-    'dblclick .resourceName': 'rename'
+    'click .resourceName': 'rename'
   },
 
   initialize: function() {

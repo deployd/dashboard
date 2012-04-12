@@ -9,6 +9,17 @@ var ResourceTypeCollection = module.exports = Backbone.Collection.extend({
     return model.get('label');
   },
 
-  parse: Backbone.Utils.parseDictionary
+  parse: function(json) {
+    Object.keys(json).forEach(function(key) {
+      if (key === "Collection") {
+        json[key].tooltip = "Provides a simple API to store and edit JSON documents";
+      } else if (key ===  "UserCollection") {
+        json[key].tooltip = "Extends the Collection API to include email/password log in.";
+      } else if (key === "Static") {
+        json[key].tooltip = "Serves static files such as HTML, CSS, JavaScript, and images."
+      }
+    });
+    return Backbone.Utils.parseDictionary(json);
+  } 
 });
 });

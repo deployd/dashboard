@@ -8,6 +8,19 @@ var PropertyTypeCollection = module.exports = Backbone.Collection.extend({
     return model.get('label');
   },
 
-  parse: Backbone.Utils.parseDictionary
+  parse: function(json) {
+    Object.keys(json).forEach(function(key) {
+      if (key === "string") {
+        json[key].tooltip = "Arbitrary text";
+      } else if (key ===  "number") {
+        json[key].tooltip = "Numeric value, supports floating points";
+      } else if (key === "boolean") {
+        json[key].tooltip = "True or false";
+      } else if (key === "date") {
+        json[key].tooltip = "A specific point in time";
+      }
+    });
+    return Backbone.Utils.parseDictionary(json);
+  } 
 });
 });

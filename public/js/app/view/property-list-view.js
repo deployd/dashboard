@@ -64,9 +64,9 @@ var PropertyListView = module.exports = Backbone.View.extend({
     });
     this.collection.add(resource, {at: index});
 
-    process.nextTick(function() {
+    setTimeout(function() {
       this.$('#' + resource.cid).find('input[name="name"]').focus();
-    });
+    }, 0);
   },
 
   render: function() {

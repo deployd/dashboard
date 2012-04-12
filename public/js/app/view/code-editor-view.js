@@ -30,7 +30,7 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     
     var editor = ace.edit(this.el);
     editor.getSession().setMode(new JavaScriptMode());
-    editor.setTheme("ace/theme/vibrant_ink");
+    // editor.setTheme("ace/theme/vibrant_ink");
     editor.getSession().on('change', this.noteUpdate);
 
     this.editor = editor;

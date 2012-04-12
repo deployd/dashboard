@@ -2,7 +2,8 @@ define(["require", "exports", "module"], function(require, exports, module) {
 var App = Backbone.Model.extend({
   defaults: {
     appName: 'My App',
-    appUrl: ''
+    appUrl: '',
+    resourceType: ''
   },
 
   initialize: function() {
@@ -14,11 +15,11 @@ var App = Backbone.Model.extend({
     var type = this.get('resourceTypeId');
     var url = 'http://deployd.github.com/deployd/';
     if (type === 'Static') {
-      url += 'files.html'
+      url += '#Files-Resource'
     } else if (type === 'Collection') {
-      url += 'collection.html'
+      url += '#Collection-Resource'
     } else if (type === 'UserCollection') {
-      url += 'usercollection.html'
+      url += '#User-Collection-Resource'
     }
 
     this.set('documentation', url);

@@ -27,7 +27,9 @@ var ComponentTypeSidebarView = module.exports = Backbone.View.extend({
         revertDuration: 100,
         appendTo: 'body'
       });
-    })
+    }).tooltip({
+      placement: 'right'
+    });
   },
 
   onAddItem: function(e) {

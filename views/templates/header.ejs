@@ -6,7 +6,14 @@
         <a href="#<%= resourceId %>" class="resourceName"><%= resourceName %></a>
       </li>
     <% } %>
-    <li><a href="<%= documentation %>" target="_blank">Documentation</a></li>
+    <li><a href="<%= documentation %>" target="_blank">
+      <% if (resourceType) { %>
+        <%= resourceType %> Resource
+      <% } else { %>
+        Documentation
+      <% } %>
+      
+    </a></li>
   </ul>
   <div class="pull-right">
     <button id="undo-btn" class="btn btn-warning"><i class="icon-exclamation-sign icon-white"></i> Undo <span class="action-label"></span></button>

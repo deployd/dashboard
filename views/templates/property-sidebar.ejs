@@ -1,6 +1,6 @@
 <h3 class="component-type-header">Types</h3>
 <ul class="component-type-list">
 <% types.each(function(typeModel) { var type = typeModel.toJSON() %>
-   <li class="component-type-item" data-cid="<%- typeModel.cid %>"><%- type.label %></li>
+   <li class="component-type-item" data-cid="<%- typeModel.cid %>" title="<%= type.tooltip %>"><%- type.label %></li>
 <% }); %>
 </ul>
