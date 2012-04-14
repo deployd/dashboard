@@ -1,6 +1,10 @@
 <h3 class="component-type-header">Resource Types</h3>
 <ul class="component-type-list">
 <% types.each(function(typeModel) { var type = typeModel.toJSON() %>
-   <li class="component-type-item" data-cid="<%- typeModel.cid %>" title="<%= type.tooltip %>"><%- type.label %></li>
+   <li class="component-type-item" data-cid="<%- typeModel.cid %>" rel="popover" data-content="<%= type.tooltip %>" data-original-title="<%- type.tooltipTitle %>">
+    <i class="<%= type.label.toLowerCase().replace(' ', '-') %> icon-white"></i>
+    <h6><%- type.label.toLowerCase() %></h6>
+    <i class="icon-white icon-plus pull-right"></i>
+   </li>
 <% }); %>
 </ul>

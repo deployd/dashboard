@@ -1,7 +1,14 @@
 @import "../../bootstrap/less/bootstrap.less";
 
+.label {vertical-align: inherit !important;} // fixes bootstrap
+
 h1 {
   padding: 10px;
+}
+
+h6 {
+  color: @bodyBackground;
+  display: inline-block;
 }
 
 p a {
@@ -35,7 +42,8 @@ p a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: darken(@bodyBackground, 10%);
+  background: @black;
+  border: solid 2px @bodyBackground;
   .border-radius(5px);
 }
 
@@ -115,15 +123,46 @@ p a {
   .component-type-list {
     margin: 0;
     list-style: none;
-    
     li.component-type-item {
       width: auto;
-			border: solid 1px @textColor;
+      background: @black;
+      color: @bodyBackground;
+      i {
+        margin-right: 3px;
+        cursor: pointer;
+      }
+      
+      .boolean {
+        .icon-ok-sign;
+      }
 
-      background: @bodyBackground;
+      .string {
+        .icon-font;
+      }
+
+      .number {
+        .icon-plus-sign;
+      }
+
+      .date {
+        .icon-time;
+      }
+      
+      .files {
+        .icon-file;
+      }
+      
+      .collection {
+        .icon-th-list;
+      }
+
+      .users-collection {
+        .icon-user;
+      }
 
       &:hover {
-        background: desaturate(darken(@bodyBackground, 10%), 50%);
+        background: @blue;
+        color: @bodyBackground;
       }
     }
   }
@@ -135,11 +174,11 @@ li.component-type-item {
 
   height: 19px;
   width: 180px;
-
-  background: darken(@bodyBackground, 5%);
+  color: @bodyBackground;
+  background: @black;
   margin-bottom: 4px;
   border-radius: 3px;
-  cursor: move;
+  cursor: pointer;
 }
 
 .header-offset {
@@ -147,7 +186,7 @@ li.component-type-item {
 }
 
 .component-list-empty {
-  margin: 60px;
+  //  margin: 60px;
 }
 
 .ide-container .main-area {
@@ -262,43 +301,101 @@ li.component-item {
 
   list-style: none;
   margin-bottom: 4px;
-  background: darken(@bodyBackground, 1%);
+  background: @black;
+  color: @bodyBackground;
   border-radius: 3px;
-  border: solid 1px @textColor;
+  // border: solid 1px @textColor;
 
   &.active {
     .header {
-      background: desaturate(darken(@bodyBackground, 10%), 50%);
       .border-radius(3px 3px 0px 0px);
     }
   }
-
   
-
+  &.unsaved {
+    border: dashed 1px @bodyBackground;
+  }
+  
+  .name, .path {
+    cursor: text;
+    margin-left: 6px;
+  }
+  
+  &:hover .name, &:hover .path {
+    border: dashed 1px @black;
+    background: @bodyBackground;
+    color: @black;
+    margin-left: 0;
+    padding: 5px;
+  }
+  
+  &.locked:hover .name {
+    border: none;
+    margin-left: 0;
+    padding: 5px;
+  }
+  
   .header {
     border-radius: inherit; 
     padding: 10px; 
     min-height: 19px;
-    cursor: move;
+    cursor: pointer;
 
     &:hover {
-      background: desaturate(darken(@bodyBackground, 5%), 50%);
+      background: @blue;
     }
 
     input {
       margin-bottom: 0;
+      margin-right: 10px;
     }
 
     .tags {
       margin-right: 10px;
-    } 
+    }
+    
+    .files {
+      .icon-file;
+    }
+    
+    .collection {
+      .icon-th-list;
+    }
+
+    .users {
+      .icon-user;
+    }
+    
+    .delete-btn {
+      cursor: pointer;
+    }
   }
 
   .detail {
     .border-radius(0px 0px 3px 3px);
     padding: 10px;
-    border: 1px solid @bodyBackground;
+    color: @bodyBackground;
   }
+  .detail label {
+    color: @bodyBackground;
+  }
+  
+  .boolean {
+    .icon-ok-sign;
+  }
+  
+  .string {
+    .icon-font;
+  }
+  
+  .number {
+    .icon-plus-sign;
+  }
+  
+  .date {
+    .icon-time;
+  }
+  
 }
 
 .editor-container {
@@ -331,6 +428,10 @@ table input {
   }
 
   
+}
+
+#files {
+  width: 300px;
 }
 
 #file-upload {

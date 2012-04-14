@@ -71,7 +71,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   },
   
   delete: function (e) {
-    var filename = $(e.target).attr('filename')
+    var filename = $(e.currentTarget).attr('filename')
       , file = new File({path: this.model.get('path'), info: {fileName: filename}, _id: filename});
     
     var files = this.files;

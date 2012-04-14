@@ -1,3 +1,4 @@
+<% if(properties.length) { %>
 <thead>
   <tr>
     <th class="code">_id</th>
@@ -14,7 +15,11 @@
 <tbody>
   <% if (!collectionModel.length) { %> 
     <tr>
-      <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>">This collection is empty</td>
+      <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>">
+        <h4 style="margin-bottom:10px"><i class="icon-exclamation-sign" style="position: relative; top: 3px;"></i> This collection is empty</h4>
+        <p>Once your collection has some data you can edit and delete objects.</p>
+        <button class="btn btn-primary add-btn"><i class="icon-white icon-plus"></i> add an object</a>
+      </td>
     </tr>
   <% } %>
   <% collectionModel.each(function(rowModel) { if (!rowModel.get('c_delete')) { %>
@@ -77,11 +82,11 @@
       <% }); %>
       <td>
         <% if (row.c_active) { %>
-          <a href="#" class="done-btn">done</a>
-          <a href="#" class="cancel-btn">cancel</a>
+          <a href="#" class="done-btn btn btn-primary"><i class="icon-ok-sign icon-white"></i> save</a>
+          <a href="#" class="cancel-btn btn">cancel</a>
         <% } else { %>
-          <a href="#" class="edit-btn">edit</a>
-          <a href="#" class="delete-btn">delete</a>
+          <a href="#" class="edit-btn btn"><i class="icon-edit"></i> edit</a>
+          <a href="#" class="delete-btn btn"><i class="icon-remove-sign"></i> delete</a>
         <% } %>
         
       </td>
@@ -90,6 +95,7 @@
 </tbody>
 <tfoot>
   <tr>
-    <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>"><button class="btn add-btn pull-right">Add</a></td>
+    <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>"><button class="btn btn-primary add-btn pull-right"><i class="icon-white icon-plus"></i> add</a></td>
   </tr>
 </tfoot>
+<% } %>

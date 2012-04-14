@@ -20,14 +20,14 @@ var ComponentTypeSidebarView = module.exports = Backbone.View.extend({
     }));
 
     self.$('li').each(function() {
-      $(this).draggable({
-        connectToSortable: $(self.listView.el),
-        helper: 'clone',
-        revert: 'invalid',
-        revertDuration: 100,
-        appendTo: 'body'
-      });
-    }).tooltip({
+      // $(this).draggable({
+      //   connectToSortable: $(self.listView.el),
+      //   helper: 'clone',
+      //   revert: 'invalid',
+      //   revertDuration: 100,
+      //   appendTo: 'body'
+      // });
+    }).popover({
       placement: 'right'
     });
   },

@@ -1,17 +1,16 @@
 <div class="header">
+  <i class="icon-white <%= resource.typeLabel.toLowerCase() %>"></i>
   <% if (resource.c_active) { %>
     <input type="text" class="code" name="path" value="<%- resource.path %>" />
-    <a href="#" class="save-btn">save</a>
-    <a href="#" class="cancel-btn">cancel</a>
+    <a href="#" class="btn btn-primary save-btn">save</a>
+    <a href="#" class="btn cancel-btn">cancel</a>
   <% } else { %>
     <span class="code path"><%- resource.path %></span>
   <% } %>
   <div class="pull-right">
-    <a href="#" class="rename-btn">rename</a>
-    &nbsp;
-    <a href="#" class="delete-btn">delete</a>
+    <i class="icon-white icon-remove delete-btn"></i>
   </div>
   <div class="tags pull-right">
-    <span class="label label-info type"><%- resource.typeLabel %></span>
+    <!-- <span class="label label-info type"><%- resource.typeLabel %></span> -->
   </div>
 </div>

@@ -26,7 +26,6 @@ var ResourceView = module.exports = Backbone.View.extend({
     this.model.on('change:c_active', this.render, this);
     this.model.on('change:_id', this.render, this);
     this.model.on('change:path', this.render, this);
-
   },
   
   render: function(){

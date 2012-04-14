@@ -70,6 +70,8 @@ var ModelEditorView = module.exports = Backbone.View.extend({
 
     // this.$('#save-btn').button();
     // this.disableSave();
+    
+    $('.icon-info-sign').popover();
   },
 
   // enableSave: function() {

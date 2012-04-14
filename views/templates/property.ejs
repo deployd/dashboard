@@ -1,15 +1,15 @@
 <div class="header <%= property.c_active ? 'active' : '' %>">
+  <i class="<%- property.typeLabel %> icon-white"></i>
   <% if (property.c_active) { %>
     <input type="text" class="code" name="name" value="<%- property.name %>" />
   <% } else { %>
     <span class="code name"><%- property.name %></span>
   <% } %>
- 	<a href="#" class="pull-right delete-btn">delete</a>
+ 	<a href="#" class="pull-right delete-btn"><i class="icon-remove icon-white"></i></a>
   <div class="tags pull-right">
   	<% if (property.optional) { %>
   		<span class="label optional">Optional</span>
   	<% } %>
-    <span class="label label-info type"><%- property.typeLabel %></span>
   </div>
 </div>
 <% if (property.c_active) { %>
