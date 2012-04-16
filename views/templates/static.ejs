@@ -1,25 +1,30 @@
 <div id="resource-editor">
-  <div class="ide-container">
-      <div id="resource-sidebar" class="component-type-sidebar sidebar">
-        <div class="well">
-          <div id="file-upload">
+  <div class="container">
+      <div class="header-offset well">
+        <div class="clearfix">
+          <h3 class="pull-left">Files</h3>
+          <div id="file-upload" class="pull-right">
             <span class="btn btn-success fileinput-button">
                 <i class="icon-plus icon-white"></i>
                 <span>Add files</span>
                 <input type="file" multiple="multiple" />
             </span>
-            <div id="currentUploads">
-            </div>
+            
           </div>
         </div>
-      </div>
-      <div class="main-area mid header-offset">
+        <div id="files-empty" class="well">
+          <p>
+            You have not uploaded any files to this resource
+          </p>
+        </div>
         <table id="files" class="table table-bordered table-striped">
           <thead>
             <th>Filename</th>
           </thead>
           <tbody></tbody>
         </table>
+        <div id="currentUploads">
+        </div>
       </div>
     </div>
   </div>

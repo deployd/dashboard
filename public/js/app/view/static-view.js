@@ -40,6 +40,14 @@ var ModelEditorView = module.exports = Backbone.View.extend({
         });
       })
     }
+
+    if (this.files.get('all') && this.files.get('all').length) {
+      $('#files').show();
+      $('#files-empty').hide();
+    } else {
+      $('#files').hide();
+      $('#files-empty').show();
+    }
     
     list.html(html);
     
