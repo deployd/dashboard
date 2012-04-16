@@ -35,7 +35,7 @@ p a {
 }
 
 ::-webkit-scrollbar {
-  // background: @transparentBackground;
+  background: #ffffff;
   width: 8px;
   height: 8px;
   margin: 10px;
@@ -254,21 +254,12 @@ li.component-type-item {
 
 #current-data {
   .table-container {
-    position: absolute;
-    overflow-y: scroll;
-    top: 0;
-    bottom: 18px + 27;
-    left: 0;
-    right: 0;
+    overflow-x: scroll;
   }
 
   #current-data-querystring {
     display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: auto;
+    width: 100%;
     // background: darken(@background, 20%);
   }
 }
