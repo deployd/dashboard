@@ -8,9 +8,11 @@ var ResourceListView = module.exports = Backbone.View.extend({
 
   subViews: [],
 
+
   initialize: function() {
     this.parentView = this.options.parentView;
     this.collection = this.options.collection;
+    this.typeCollection = this.options.typeCollection;
     this.collection.on('reset', this.render, this);
     this.collection.on('add', this.render, this);
     this.collection.on('remove', this.render, this);
@@ -48,6 +50,7 @@ var ResourceListView = module.exports = Backbone.View.extend({
   },
 
   addItem: function(type, index) {
+
     if (isNaN(index)) {
       index = this.collection.length;
     }
@@ -66,6 +69,8 @@ var ResourceListView = module.exports = Backbone.View.extend({
     setTimeout(function() {
       this.$('#' + resource.cid).find('input[name="path"]').focus();
     }, 0);
+
+    return false;
   },
 
   updateOrder: function() {
@@ -123,6 +128,8 @@ var ResourceListView = module.exports = Backbone.View.extend({
       $(self.el).hide();
       $(self.emptyEl).show();
     }
-  }
+  },
+
+
 });
 });

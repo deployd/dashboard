@@ -1,41 +1,25 @@
 <div id="resource-editor">
-  <div class="ide-container">
-      <div id="resource-sidebar" class="component-type-sidebar sidebar well">
-      </div>
-      <div class="main-area mid header-offset well">
-        <h3>Resources</h3>
+  <div class="container">
+      <div class="header-offset well">
+        <div class="clearfix">
+          <h3 class="pull-left">Resources</h3>
+          <div class="btn-group pull-right">
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+              Add New Resource
+              <span class="caret"></span>
+            </a>
+            <ul id="property-types" class="dropdown-menu">
+            </ul>
+          </div>
+        </div>
         <ul id="resource-list" class="component-list" style="display: none;">
         </ul>
         <div id="resource-list-empty" class="component-list-empty well" style="display: none;">
           <h4>Welcome to your Deployd app</h4>
           <p>
-            <i class="icon-arrow-left"></i>&nbsp;
-            These are the resources you can use to build your app.<br />
-          </p>  
-        </div>
-      </div>
-      <div class="right-sidebar">
-        <div class="well">
-          <h3>App Settings</h3>
-          <form>
-              <label>App URL</label>
-              <input type="text" readonly="readonly" value="<%- appUrl %>" />
-          </form>
-        </div>
-
-        <div class="well">
-          <h3>What's next?</h3>
-          <p>Deployd is still in development. More features are planned for upcoming releases, such as:</p>
-          <ul>
-            <li>Data relationships</li>
-            <li>Custom plugin support</li>
-            <li>Automatic properties</li>
-            <li>Rendering HTML</li>
-          </ul>
-          <p>Watch for these updates on <a href="https://github.com/deployd/deployd">github</a>. Pull requests welcome!</p>
-
-          <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=deployd&repo=deployd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
-          <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=deployd&repo=deployd&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe>
+            Your app does not currently have any resources. Add one to get started!
+            <i class="icon-arrow-up"></i>&nbsp;
+          </p>
         </div>
       </div>
   </div>

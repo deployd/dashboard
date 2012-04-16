@@ -120,7 +120,13 @@ var ResourceView = module.exports = Backbone.View.extend({
 
   onKeyup: function(e) {
     if (e.which == 13) {
-      this.save();
+      if (this.model.isNew()) {
+        this.model.save({path: this.$('input[name="path"]').val()}, {success: _.bind(function() {
+          this.gotoDetail();
+        }, this)}); 
+      } else {
+        this.save();
+      }
     }
 
     if (e.which == 27) {

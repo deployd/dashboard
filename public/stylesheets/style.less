@@ -124,6 +124,7 @@ p a {
     margin: 0;
     list-style: none;
     li.component-type-item {
+      .type-icons;
       width: auto;
       background: @black;
       color: @bodyBackground;
@@ -132,33 +133,6 @@ p a {
         cursor: pointer;
       }
       
-      .boolean {
-        .icon-ok-sign;
-      }
-
-      .string {
-        .icon-font;
-      }
-
-      .number {
-        .icon-plus-sign;
-      }
-
-      .date {
-        .icon-time;
-      }
-      
-      .files {
-        .icon-file;
-      }
-      
-      .collection {
-        .icon-th-list;
-      }
-
-      .users-collection {
-        .icon-user;
-      }
 
       &:hover {
         background: @blue;
@@ -167,6 +141,43 @@ p a {
     }
   }
 }
+
+
+.type-icons {
+  i {
+  
+    &.boolean {
+      .icon-ok-sign;
+    }
+
+    &.string {
+      .icon-font;
+    }
+
+    &.number {
+      .icon-plus-sign;
+    }
+
+    &.date {
+      .icon-time;
+    }
+
+    &.files {
+      .icon-file;
+    }
+
+    &.collection {
+      .icon-th-list;
+    }
+
+    &.users-collection {
+      .icon-user;
+    }
+  }
+
+}
+
+
 
 li.component-type-item {
   list-style: none;
@@ -273,16 +284,20 @@ li.component-type-item {
 }
 
 .component-list {
+ 
+  margin: 0;
+  list-style: none;
+  overflow-y: auto;
+  
+}
+
+.ide-container .component-list {
   position: absolute;
   top: 66px;
   bottom: 21px;
   left: 21px;
   right: 21px;
-  margin: 0;
-  list-style: none;
-  overflow-y: auto;
   padding-bottom: 40px;
-
 }
 
 .placeholder {
@@ -350,21 +365,7 @@ li.component-item {
       margin-right: 10px;
     }
 
-    .tags {
-      margin-right: 10px;
-    }
-    
-    .files {
-      .icon-file;
-    }
-    
-    .collection {
-      .icon-th-list;
-    }
-
-    .users {
-      .icon-user;
-    }
+    .type-icons;
     
     .delete-btn {
       cursor: pointer;
@@ -380,21 +381,7 @@ li.component-item {
     color: @bodyBackground;
   }
   
-  .boolean {
-    .icon-ok-sign;
-  }
-  
-  .string {
-    .icon-font;
-  }
-  
-  .number {
-    .icon-plus-sign;
-  }
-  
-  .date {
-    .icon-time;
-  }
+  .type-icons;
   
 }
 

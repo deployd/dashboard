@@ -1,0 +1,8 @@
+<% types.each(function(typeModel) { var type = typeModel.toJSON() %>
+   <li class="type-icons" data-cid="<%- typeModel.cid %>" rel="popover" data-content="<%= type.tooltip %>" data-original-title="<%- type.tooltipTitle %>">
+    <a href="#">
+      <i class="<%= type.label.toLowerCase().replace(' ', '-') %> icon-hack"></i>
+      <%- type.label %>
+    </a>
+   </li>
+<% }); %>
