@@ -3,7 +3,6 @@ var PropertyTypeCollection = require('../model/property-type-collection');
 var CollectionSettings = require('../model/collection-settings');
 var DataCollection = require('../model/data-collection');
 
-var ComponentTypeSidebarView = require('./component-type-sidebar-view');
 var PropertyListView = require('./property-list-view');
 var CollectionDataView = require('./collection-data-view');
 var CollectionEventView = require('./collection-event-view');
@@ -30,26 +29,19 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
     }, this);
 
     this.propertyListView = new PropertyListView({
-      collection: this.model.get('properties'),
-      parentView: this
-    });
-
-    this.propertySidebarView = new ComponentTypeSidebarView({
-      collection: this.propertyTypes, 
-      listView: this.propertyListView, 
-      parentView: this,
-      template: _.template($('#property-sidebar-template').html()),
-      el: '#property-sidebar'
+      collection: this.model.get('properties')
+      , typeCollection: this.propertyTypes
+      , parentView: this
     });
 
     this.dataView = new CollectionDataView({
-      properties: this.model.get('properties'),
-      collection: this.dataCollection
+      properties: this.model.get('properties')
+      , collection: this.dataCollection
     });
 
     this.eventsView = new CollectionEventView({
-      el: this.$('#events-panel'),
-      model: this.model
+      el: this.$('#events-panel')
+      , model: this.model
     }).render();
 
     this.model.on('change', this.save, this);
@@ -123,6 +115,7 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
 
   , close: function() {
     Backbone.View.prototype.close.call(this);
+    this.propertyListView.close();
     this.dataView.close();
     this.eventsView.close();
     $(window).off('scroll', this.onScroll);

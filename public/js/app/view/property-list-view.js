@@ -1,135 +1,100 @@
-define(["require", "exports", "module", "../model/property","./property-view"], function(require, exports, module) {
-var Property = require('../model/property');
+define(function(require, exports, module) {
 
-var PropertyView = require('./property-view');
+var koUtil = require('../knockout-utils');
 
+var app = require('../app');
+var undoBtn = require('./undo-button-view');
 
 var PropertyListView = module.exports = Backbone.View.extend({
-  el: '#property-list',
-  emptyEl: '#property-list-empty',
+    el: '#property-list'
 
-  initialize: function() {
-    this.parentView = this.options.parentView;
-    this.collection = this.options.collection;
-    this.collection.on('reset', this.render, this);
-    this.collection.on('add', this.render, this);
-    this.collection.on('remove', this.render, this);
+  , template: _.template($('#property-list-template').html())
 
-    this.initializeDom();  
-  },
+  , mapping: {
 
-  initializeDom: function() {
-    $(this.el).sortable({
-      revert: false,
-      placeholder: 'placeholder',
-      cancel: '.placeholder, .locked',
-      items: '> li:not(.locked)',
-      distance: 10,
-
-      receive: _.bind(function() {
-        if ($(this.el).is(':visible')) {
-          var $newItem = $($(this.el).data().sortable.currentItem);
-          var index = $(this.el).children(':not(.placeholder, .locked)').index($newItem); 
-          this.onReceiveItem($newItem, index);
-        }
-      }, this),
-      update: _.bind(this.updateOrder, this)
-    });
-
-    $('.placeholder', this.emptyEl).droppable({
-      hoverClass: 'highlight',
-
-      drop: _.bind(function(event, ui) {
-        if (this.collection.length === 0) {
-          var $newItem = $(ui.helper);
-          this.onReceiveItem($newItem);
-        }
-      }, this)
-    });
-  },
-
-  addItem: function(type, index) {
-    if (isNaN(index)) {
-      index = this.collection.length;
-    }
-    
-    var resource = new Property({
-      name: type.get('defaultName'),
-      typeId: type.id,
-      typeLabel: type.get('label'),
-      type: type.get('label'),
-      order: index + 1,
-
-      c_active: true
-    });
-    this.collection.add(resource, {at: index});
-
-    setTimeout(function() {
-      this.$('#' + resource.cid).find('input[name="name"]').focus();
-    }, 0);
-  },
-
-  render: function() {
-    var self = this;
-
-    var $focus = $(self.el).find('input[name="name"]:focus');
-    if ($focus) {
-      var focusName = $focus.val();
-    }
-
-    _.each(self.subViews, function(subView) {
-      subView.destroy();
-    });
-    $(self.el).children(':not(.locked)').remove();
-
-    if (self.collection.length) {
-      $(self.el).show();
-      $(self.emptyEl).hide();
-      self.subViews = self.collection.map(function(property) {
-        var view = new PropertyView({model: property, parentView: self});
-        $(self.el).append(view.el);
-        view.render();
-        return view;
-      });    
-
-      if ($focus) {
-        self.$('input[name="name"][value="' + focusName + '"]').focus();
-      }
-    } else {
-      $(self.el).hide();
-      $(self.emptyEl).show();
-    }
-  },
-
-  onReceiveItem: function($newItem, index) {
-    index = 0 || index;
-    var typeCid = $newItem.attr('data-cid');
-    var type = this.parentView.propertyTypes.getByCid(typeCid);
-
-    $newItem.remove();
-
-    this.addItem(type, index);
-  },
-
-  updateOrder: function() {
-    var self = this;
-    var items = [];
-    
-    $(this.el).children().each(function() {
-      var item = self.collection.getByCid($(this).attr('id'));
-      if (item) {
-        items.push(item);  
-      }
-    });
-
-    var order = 0;
-    
-    _.each(items, function(item) {
-      order += 1;
-      item.set({order: order});
-    });
-
-    self.collection.sort();
   }
+
+  , initialize: function() {
+
+    this.collection = this.collection || this.options.collection;
+    this.typeCollection = this.typeCollection || this.options.typeCollection;
+
+    this.initializeViewModel();
+    
+    this.mapProperties();
+    this.collection.on('reset', this.mapProperties, this);
+    this.mapTypes();
+    this.typeCollection.on('reset', this.mapTypes, this);
+
+    this.render();
+  }
+
+  , initializeViewModel: function() {
+
+    var view = this;
+
+    var vm = this.viewModel =  {
+        properties: ko.observableArray()
+      , propertyTypes: ko.observableArray()
+
+      , newName: ko.observable()
+      , newType: ko.observable()
+    };
+
+    vm.addProperty = _.bind(function() {
+      if (this.newName() && this.newType()) {
+        this.properties.push({
+            name: ko.observable(this.newName())
+          , type: ko.observable(this.newType().type())
+          , typeLabel: ko.observable(this.newType().label())
+        });
+
+        this.newName('');
+      }
+      
+    }, vm);
+
+    vm.removeProperty = _.bind(function(prop) {
+      var self = this;
+      var index = this.properties.indexOf(prop);
+
+      undoBtn.show('Delete ' + prop.name(), function() {
+        self.properties.splice(index, 0, prop);
+      });
+
+      this.properties.remove(prop);
+    }, vm);
+   
+    return vm;
+
+  }
+
+  , mapProperties: function() {
+
+    ko.mapping.fromJS({
+      properties: this.collection.toJSON()
+    }, this.mapping, this.viewModel);
+
+  }
+
+  , mapTypes: function() {
+    ko.mapping.fromJS({
+      propertyTypes: this.typeCollection.toJSON()
+    }, this.mapping, this.viewModel);
+  }
+
+  , render: function() {
+    $(this.el).html(this.template({
+      resourceTypeId: app.get('resourceTypeId')
+    }));
+
+    ko.applyBindings(this.viewModel, this.el);
+  }
+
+  , close: function() {
+    ko.removeNode(this.el);
+  }
+  
 });
+
 });

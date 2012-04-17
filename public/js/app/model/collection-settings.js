@@ -19,6 +19,7 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
 
     this.get('properties').on('add', this.triggerChanged, this);
     this.get('properties').on('remove', this.triggerChanged, this);
+    this.get('properties').on('update', this.triggerChanged, this);
     this.get('properties').on('change:name', this.triggerChanged, this);
     this.get('properties').on('change:required', this.triggerChanged, this);
     this.get('properties').on('change:order', this.triggerChanged, this);

@@ -18,80 +18,8 @@
           <h3>
             Properties
           </h3>
-          <ul id="property-list" class="component-list">  
-            <li class="component-item locked">
-              <div class="header">
-                  <i class="icon-white string"></i>
-                  <span class="code name">_id</span>
-                  <i class="icon-white icon-lock pull-right"></i>
-              </div>
-            </li>
-            <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-              <li class="component-item locked">
-                <div class="header">
-                    <i class="icon-white string"></i>
-                    <span class="code name">email</span>
-                    <i class="icon-white icon-lock pull-right"></i>
-                </div>
-              </li>
-              <li class="component-item locked">
-                <div class="header">
-                    <i class="icon-white string"></i>
-                    <span class="code name">password</span>
-                    <i class="icon-white icon-lock pull-right"></i>
-                </div>
-              </li>
-            <% } %>
-          </ul>
-          <div id="property-list-empty" class="component-list-empty">                
-            <div style="margin-bottom: 20px;">
-              <div class="well">
-                <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-                  <h4>Managing Users</h4>
-                  <p>A <strong>user collection</strong> allows your app to create and authenticate users.</p>
-                  <p>
-                    <i class="icon-arrow-left"></i>&nbsp;
-                    Add custom properties to describe the type of user you want to store.
-                  </p>
-                <% } else { %>
-                  <h4>Storing Objects</h4>
-                  <p>A <strong>collection</strong> allows your app to securely store data as objects.</p>
-                  <p>
-                    <i class="icon-arrow-left"></i>&nbsp;
-                    Add properties to describe the object you want to store.
-                  </p>
-                <% } %>
-              </div>
-            </div>
-            <div>
-              <div class="well">
-                <h4>Custom Validation</h4>
-                <p>Use <strong>events</strong> to run JavaScript on the server. This is useful for server specific validation, simple calculations, and running arbitrary scripts when data changes.</p>
-                <p>
-                  Use the editor on the right to edit each event.&nbsp;<i class="icon-arrow-right"></i>
-                </p>
-                <p>
-                  Here is a simple example based on a popular social network.
-                  <pre class="code">
-// on post
-
-// the current object is available as 'this'
-var tweet = this;
-
-// the current user is available as 'me'
-if(!me) cancel('unauthorized!', 401);
-
-// modify the object before it is saved
-tweet.creator = me._id;
-
-// validate and call 'error()' to send error information
-if(tweet.body.length > 140) {
-error('body', 'must be under 141 characters');
-}
-                  </pre>
-                </p>
-              </div>
-            </div>
+          <div id="property-list">
+            
           </div>
         </div>
 
