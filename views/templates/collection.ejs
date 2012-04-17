@@ -1,18 +1,20 @@
 <div id="model-editor">
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span2">
-        <div class="well">
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="#property-list">Properties</a></li>
+      <div class="span2">&nbsp;</div>
+      <div class="fixed2">
+        <div class="well sidebar-nav">
+          <ul id="page-nav" class="nav nav-pills nav-stacked">
+            <li><a href="#property-list-cont">Properties</a></li>
             <li><a href="#routes">Routes</a></li>
-            <li><a href="#events">Events</a></li>
+            <li><a href="#events-panel">Events</a></li>
             <li><a href="#data">Data</a></li>
           </ul>
         </div>
       </div>
+      
       <div class="span10">
-        <div id="property-list-cont" class="panel well">
+        <div id="property-list-cont" class="panel well stacked">
           <h3>
             Properties
           </h3>
@@ -93,16 +95,16 @@ error('body', 'must be under 141 characters');
           </div>
         </div>
 
-        <div id="routes" class="well">
+        <div id="routes" class="well stacked">
           <h3>Routes</h3>
           <p>Lorem ipsum dolor</p>
         </div>
         
-        <div id="events" class="well">
-          <div id="events-panel" class="panel well">
-          </div>
+        <div id="events-panel" class="well stacked">
         </div>
-        <div id="data" class="well">
+
+        <div id="data" class="well stacked">
+          <h3>Data</h3>
           <div id="current-data">
             <div class="table-container">
               <table class="table table-bordered table-striped">

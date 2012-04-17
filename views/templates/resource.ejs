@@ -1,5 +1,5 @@
 <div class="header">
-  <i class="icon-white <%= resource.typeLabel.toLowerCase() %>"></i>
+  <i title="<%= resource.typeLabel %>" class="icon-white <%= resource.typeLabel.toLowerCase().replace(' ', '-') %>"></i>
   <% if (resource.c_active) { %>
     <input type="text" class="code" name="path" value="<%- resource.path %>" />
     <a href="#" class="btn btn-primary save-btn">save</a>
