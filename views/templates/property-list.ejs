@@ -1,69 +1,53 @@
-<table class="table table-bordered table-striped">
-  <thead>
-    <th>Name</th>
-    <th>Type</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr>
-      <td><span class="code">_id</span></td>
-      <td><span>string</span></td>
-      <td></td>
-    </tr>
-    <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-      <tr>
-        <td><span class="code">email</span></td>
-        <td><span>string</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="code">password</span></td>
-        <td><span>string</span></td>
-        <td></td>
-      </tr>
-    <% } %>
-    <tr data-bind="visible: !properties().length">
-      <td colspan="3">
-        <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-          <h4>Managing Users</h4>
-          <p>A <strong>user collection</strong> allows your app to create and authenticate users.</p>
-          <p>
-            <i class="icon-arrow-down"></i>&nbsp;
-            Add custom properties to describe the type of user you want to store.
-          </p>
-        <% } else { %>
-          <h4>Storing Objects</h4>
-          <p>A <strong>collection</strong> allows your app to securely store data as objects.</p>
-          <p>
-            <i class="icon-arrow-down"></i>&nbsp;
-            Add properties to describe the object you want to store.
-          </p>
-        <% } %>
-      </td>
-    </tr>
-    <!-- ko foreach: properties -->
-    <tr>
-      <td>
-        <span class="code" data-bind="text: name"></span>
-      </td>
-      <td>
-        <span data-bind="text: typeLabel"></span>
-      </td>
-      <td>
-        <a href="#" data-bind="click: $root.removeProperty"><i class="icon-remove"></i></a>
-      </td>
-    </tr>
-    <!-- /ko -->
-    <tr>
-      <td>
-        <input type="text" data-bind="value: newName" />
-      </td>
-      <td>
-        <select data-bind="options: propertyTypes, optionsText: 'label', value: newType"></select>
-      </td>
-      <td>
-        <button class="btn btn-success" data-bind="click: addProperty">add</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<ul class="component-list">
+  <li class="component-item locked"><div class="header">
+    <i class="icon-white string" title="string"></i>
+    <span class="code name">_id</span>
+    <div class="pull-right">
+      <i class="icon-white icon-lock" title="Locked"></i>
+    </div>
+  </div></li>
+  <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
+  <li class="component-item locked"><div class="header">
+    <i class="icon-white string" title="string"></i>
+    <span class="code name">email</span>
+    <div class="pull-right">
+      <i class="icon-white icon-lock" title="Locked"></i>
+    </div>
+  </div></li>
+  <li class="component-item"><div class="header">
+    <i class="icon-white string" title="string"></i>
+    <span class="code name">password</span>
+    <div class="pull-right">
+      <i class="icon-white icon-lock" title="Locked"></i>
+    </div>
+  </div></li>
+  <% } %>
+  <!-- ko foreach: properties -->
+    <li class="component-item" data-bind="css: {active: editing}"><div class="header clearfix" data-bind="click: onClickHeader">
+      <!-- ko if: editing -->
+      <i class="icon-white" data-bind="attr: {title: typeLabel}, cssNamed: type"></i>
+      <input type="text" data-bind="value: name, hasfocus: nameFocus" />
+      <div class="pull-right">
+        <label data-bind="if: type() !== 'boolean'" class="checkbox pull-left"><input type="checkbox" data-bind="checked: optional" />Optional</label>
+        <a href="#" data-bind="click: $root.removeProperty"><i class="icon-white icon-remove"></i></a>
+      </div>
+      <!-- /ko -->
+      <!-- ko if: !editing() -->
+      <i class="icon-white" data-bind="attr: {title: typeLabel}, cssNamed: type"></i>
+      <span class="code name" data-bind="text: name, click: onClickName"></span>
+      <div class="pull-right">
+        <span class="label" data-bind="visible: optional">Optional</span>
+        <a href="#" data-bind="click: $root.removeProperty"><i class="icon-white icon-remove"></i></a>
+      </div>
+      <!-- /ko -->
+    </div></li>
+  <!-- /ko -->
+  <div class="placeholder">
+    <select data-bind="options: propertyTypes, optionsText: 'label', value: newType"></select>
+    <input type="text" data-bind="value: newName, event: { keypress: onNewNameKeypress }" />
+    <div class="pull-right">
+      <button class="btn btn-success" data-bind="click: addProperty">add</button>
+    </div>
+  </div>
+</ul>
+

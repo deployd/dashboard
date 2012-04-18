@@ -14,7 +14,6 @@ var undoBtn = require ('./undo-button-view');
 var CollectionEditorView = module.exports = Backbone.View.extend({
 
   events: {
-    'click #page-nav a': 'navigate'
   }
 
   , initialize: function() {
@@ -61,6 +60,11 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
     this.onScroll = _.bind(this.onScroll, this);
     $(window).on('scroll', this.onScroll);
     this.onScroll();
+
+    if (this.model.get('properties').length) {
+      // TODO: Re-enable this when done testing
+      // this.$('#page-nav a[href="#data"]').click();
+    }
   }
 
 
@@ -80,22 +84,22 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
   }
 
   , onScroll: function(e) {
-    var scrollTop = $(window).scrollTop();
+    // var scrollTop = $(window).scrollTop();
 
-    $('#page-nav').find('a').each(function() {
-      var selector = $(this).attr('href');
-      var $element = $(selector);
-      var pos = $element.offset().top + $element.outerHeight();
+    // $('#page-nav').find('a').each(function() {
+    //   var selector = $(this).attr('href');
+    //   var $element = $(selector);
+    //   var pos = $element.offset().top + $element.outerHeight();
 
-      if (scrollTop < pos - 50) {
+    //   if (scrollTop < pos - 50) {
 
-        $('#page-nav').find('.active').removeClass('active').end()
-          .find('[href="' + selector + '"]').parent().addClass('active')
-        ;
+    //     $('#page-nav').find('.active').removeClass('active').end()
+    //       .find('[href="' + selector + '"]').parent().addClass('active')
+    //     ;
 
-        return false;
-      }
-    });
+    //     return false;
+    //   }
+    // });
   }
 
   , navigate: function(e) {

@@ -5,14 +5,13 @@ var koUtil = require('../knockout-utils');
 var app = require('../app');
 var undoBtn = require('./undo-button-view');
 
+var propertyListViewModel = require('../view-model/property-list-view-model');
+var propertyViewModel = require('../view-model/property-view-model');
+
 var PropertyListView = module.exports = Backbone.View.extend({
     el: '#property-list'
 
   , template: _.template($('#property-list-template').html())
-
-  , mapping: {
-
-  }
 
   , initialize: function() {
 
@@ -32,47 +31,37 @@ var PropertyListView = module.exports = Backbone.View.extend({
   , initializeViewModel: function() {
 
     var view = this;
+    this.viewModel = propertyListViewModel.create();
 
-    var vm = this.viewModel =  {
-        properties: ko.observableArray()
-      , propertyTypes: ko.observableArray()
-
-      , newName: ko.observable()
-      , newType: ko.observable()
+    this.mapping = {
+      'properties': {
+          key: function(data) { return ko.utils.unwrapObservable(data.name); }
+        , create: _.bind(function(options) { return propertyViewModel.create(options.data) }, this)
+      }
     };
 
-    vm.addProperty = _.bind(function() {
-      if (this.newName() && this.newType()) {
-        this.properties.push({
-            name: ko.observable(this.newName())
-          , type: ko.observable(this.newType().type())
-          , typeLabel: ko.observable(this.newType().label())
-        });
+    ko.computed(function() {
+      var lastJSON = view._lastJSON;
+      var unmapped = ko.mapping.toJS(this);
+      var newJSON = unmapped.properties;
 
-        this.newName('');
+      if (lastJSON && !koUtil.objectEquals(lastJSON, newJSON)) {
+        view.collection.reset(unmapped.properties, {silent: true});
+        view.collection.trigger('update');
+        view._lastJSON = newJSON;
       }
-      
-    }, vm);
-
-    vm.removeProperty = _.bind(function(prop) {
-      var self = this;
-      var index = this.properties.indexOf(prop);
-
-      undoBtn.show('Delete ' + prop.name(), function() {
-        self.properties.splice(index, 0, prop);
-      });
-
-      this.properties.remove(prop);
-    }, vm);
-   
-    return vm;
+    }, this.viewModel).extend({throttle: 100});
 
   }
 
   , mapProperties: function() {
 
+    var json = this.collection.toJSON()
+
+    this._lastJSON = json;
+
     ko.mapping.fromJS({
-      properties: this.collection.toJSON()
+      properties: json
     }, this.mapping, this.viewModel);
 
   }

@@ -295,12 +295,16 @@ li.component-type-item {
   padding: 10px;
   border: 1px dashed darken(@textColor, 30%);
   margin-bottom: 4px;
-  height: 19px;
+  min-height: 19px;
 
   &.highlight {
     border-color: @linkColor;
     color: @linkColor;
-  }  
+  } 
+
+  input, select {
+    margin-bottom: 0;
+  } 
 }
 
 li.component-item {
@@ -314,7 +318,8 @@ li.component-item {
 
   &.active {
     .header {
-      .border-radius(3px 3px 0px 0px);
+      // .border-radius(3px 3px 0px 0px);
+      background: darken(@blue, 10%);
     }
   }
   
@@ -378,7 +383,7 @@ li.component-item {
 
 .editor-container {
   position: relative;
-  height: 100px;
+  height: 400px;
   width: 100%;
   background: #ffffff;
 

@@ -52,28 +52,28 @@ var CollectionEventView = module.exports = Backbone.View.extend({
 
   resize: function(force) {
   
-    var height = $(this.el).height();
+    // var height = $(this.el).height();
 
-    if (this._lastHeight !== height || force) {
-      var $editors = $(this.el).find('.editor-container');
-      $editors.height(0);
+    // if (this._lastHeight !== height || force) {
+    //   var $editors = $(this.el).find('.editor-container');
+    //   $editors.height(0);
 
-      var availableSpace = height;
+    //   var availableSpace = height;
 
-      $(this.el).children().each(function() {
-        availableSpace -= $(this).outerHeight(true);
-      });
+    //   $(this.el).children().each(function() {
+    //     availableSpace -= $(this).outerHeight(true);
+    //   });
 
-      $editors.height(availableSpace);
+    //   $editors.height(availableSpace);
 
-      _.each(this._editors, function(editor, name) {
-        if (editor) {
-          editor.resize();  
-        }
-      });
+    //   _.each(this._editors, function(editor, name) {
+    //     if (editor) {
+    //       editor.resize();  
+    //     }
+    //   });
 
-      this._lastHeight = height;
-    }
+    //   this._lastHeight = height;
+    // }
     
   },
 

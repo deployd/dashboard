@@ -6,6 +6,7 @@ define(function(require, exports, module) {
 // new require('./view/resources-view')();
 
 require('./backbone-utils');
+require('./knockout-utils');
 
 require('./view/undo-button-view');
 require('./view/divider-drag');
