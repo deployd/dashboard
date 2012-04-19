@@ -1,6 +1,8 @@
 <div class="full-width-container">
   <ul class="nav nav-pills pull-left">
+
     <li><a href="#">Resources</a></li>
+    <li><a href="<%- appUrl %>" target="_blank"><%- appUrl %></a></li>
     <% if (typeof resourceName !== 'undefined' && resourceName) { %>
       <li class="active">
         <a href="#<%= resourceId %>" class="resourceName"><%= resourceName %></a>

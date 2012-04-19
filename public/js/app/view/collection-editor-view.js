@@ -6,6 +6,7 @@ var DataCollection = require('../model/data-collection');
 var PropertyListView = require('./property-list-view');
 var CollectionDataView = require('./collection-data-view');
 var CollectionEventView = require('./collection-event-view');
+var CollectionRoutesView = require('./collection-routes-view');
 
 var app = require('../app');
 var router = require('../router');
@@ -36,6 +37,10 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
     this.dataView = new CollectionDataView({
       properties: this.model.get('properties')
       , collection: this.dataCollection
+    });
+
+    this.routesView = new CollectionRoutesView({
+      model: this.model
     });
 
     this.eventsView = new CollectionEventView({
