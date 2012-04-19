@@ -1,26 +1,26 @@
 define(function(require, exports) {
 
+  var undoBtn = require('../view/undo-button-view');
+
+  var propertyViewModel = require('./property-view-model');
+
   function create() {
 
-    var view = this;
-
-    var vm = this.viewModel = {
+    var vm = {
         properties: ko.observableArray()
       , propertyTypes: ko.observableArray()
-
-      , newName: ko.observable()
-      , newType: ko.observable()
     };
 
-    vm.addProperty = _.bind(function() {
-      if (this.newName() && this.newType()) {
-        this.properties.push(view.createPropertyViewModel({
-            name: ko.observable(this.newName())
-          , type: ko.observable(this.newType()._id())
-          , typeLabel: ko.observable(this.newType().label())
-        }));
+    vm.newProperty = propertyViewModel.create({}, vm);
+    vm.newProperty.nameFocus(true);
 
-        this.newName('');
+    vm.addProperty = _.bind(function() {
+      if (this.newProperty.name() && this.newProperty.type()) {
+        this.properties.push(propertyViewModel.create(
+          ko.mapping.toJS(this.newProperty)
+        ));
+
+        this.newProperty.name('');
       }
       
     }, vm);
@@ -44,8 +44,6 @@ define(function(require, exports) {
       }
       return true;
     }, vm);
-
-    
 
     return vm;
   }

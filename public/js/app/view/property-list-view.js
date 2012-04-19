@@ -64,6 +64,13 @@ var PropertyListView = module.exports = Backbone.View.extend({
       properties: json
     }, this.mapping, this.viewModel);
 
+    //Emergency remapping
+    var newJson = ko.mapping.toJS(this.viewModel);
+    if (!koUtil.objectEquals(newJson.properties, json)) {
+      console.log("WARNING: viewmodel/model mismatched. Remapping...")
+      this.viewModel.properties.removeAll();
+      setTimeout(_.bind(this.mapProperties, this), 1);
+    }
   }
 
   , mapTypes: function() {
@@ -73,6 +80,8 @@ var PropertyListView = module.exports = Backbone.View.extend({
   }
 
   , render: function() {
+    if (this.el) ko.cleanNode(this.el);
+
     $(this.el).html(this.template({
       resourceTypeId: app.get('resourceTypeId')
     }));

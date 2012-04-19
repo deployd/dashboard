@@ -278,8 +278,11 @@ li.component-type-item {
  
   margin: 0;
   list-style: none;
-  overflow-y: auto;
   
+
+  .type-selector {
+    margin-right: 4px;
+  }
 }
 
 .ide-container .component-list {
@@ -302,8 +305,9 @@ li.component-type-item {
     color: @linkColor;
   } 
 
-  input, select {
+  input, select, label {
     margin-bottom: 0;
+    margin-right: 5px;
   } 
 }
 
@@ -356,7 +360,7 @@ li.component-item {
       background: @blue;
     }
 
-    input {
+    input, label {
       margin-bottom: 0;
       margin-right: 10px;
     }

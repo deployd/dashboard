@@ -5,39 +5,63 @@ define(function(require, exports) {
   };
 
 
-  function create(data) {
+  function create(data, contextToAdd) {
 
-    data = _.defaults(data, {
-        _id: data.name
+    data = _.defaults(data || {}, {
+        name: " "
+      , type: "string"
+      , typeLabel: "string"
       , optional: false
       , required: true
-    })
+    });
+
+    data._id = data.name;
     
 
     var self = ko.mapping.fromJS(data, propertyMapping);
-
-    self.$renameFrom = self.name(); //TODO: This won't update after a save
     
     self.editing = ko.observable(false);
     self.nameFocus = ko.observable();
 
+    self.isNew = contextToAdd != null;
+
     self.toggleEditing = function() {
       self.editing(!self.editing());
-    };
-
-    self.onClickName = function(data, e) {
-      self.editing(true);
-      self.nameFocus(true);
+      if (self.editing()) self.nameFocus(true);
     };
 
     self.onClickHeader = function(data, e) {
-      if (e.target === e.currentTarget) {
+      if (e.target === e.currentTarget || $(e.target).is('div')) {
         self.toggleEditing();  
         return false;
       }
 
       return true;
-    }
+    };
+
+    self.onNameKeypress = function(data, e) {
+      if (e.which == 13) {
+        setTimeout(function() {
+          if (self.isNew) {
+            contextToAdd.addProperty();
+          } else {
+            self.editing(false);
+          }
+        }, 1);
+      }
+
+      return true;
+    };
+
+    self.setType = function(data) {
+      self.type(ko.utils.unwrapObservable(data._id));      
+      self.typeLabel(ko.utils.unwrapObservable(data.label));
+
+      if (self.type() === 'boolean') {
+        self.optional(false);
+      }
+    };
+
 
     return self;
   }

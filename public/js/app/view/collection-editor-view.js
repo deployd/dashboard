@@ -113,7 +113,6 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
 
 
   , render: function() {
-    this.propertyListView.render();
     return this;
   }
 
