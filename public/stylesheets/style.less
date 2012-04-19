@@ -305,10 +305,25 @@ li.component-type-item {
     color: @linkColor;
   } 
 
+  
+}
+
+.component-item-header {
+
+  .type-icons;
+    
+  .delete-btn {
+    cursor: pointer;
+  }
+
   input, select, label {
     margin-bottom: 0;
-    margin-right: 5px;
-  } 
+    margin-right: 10px;
+  }
+
+  .checkbox {
+    margin-top: 6px;
+  }
 }
 
 li.component-item {
@@ -321,10 +336,19 @@ li.component-item {
   // border: solid 1px @textColor;
 
   &.active {
-    .header {
+    .component-item-header {
       // .border-radius(3px 3px 0px 0px);
       background: darken(@blue, 10%);
+
+      .checkbox {
+        color: #ffffff;
+      }
+
+      .delete-btn i {
+        margin-top: 6px;
+      }
     }
+
   }
   
   &.unsaved {
@@ -350,7 +374,7 @@ li.component-item {
     padding: 5px;
   }
   
-  .header {
+  .component-item-header {
     border-radius: inherit; 
     padding: 10px; 
     min-height: 19px;
@@ -358,17 +382,6 @@ li.component-item {
 
     &:hover {
       background: @blue;
-    }
-
-    input, label {
-      margin-bottom: 0;
-      margin-right: 10px;
-    }
-
-    .type-icons;
-    
-    .delete-btn {
-      cursor: pointer;
     }
   }
 
@@ -387,7 +400,7 @@ li.component-item {
 
 .editor-container {
   position: relative;
-  height: 400px;
+  height: 250px;
   width: 100%;
   background: #ffffff;
 

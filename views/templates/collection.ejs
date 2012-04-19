@@ -5,16 +5,15 @@
       <div class="fixed2">
         <div class="well sidebar-nav">
           <ul id="page-nav" class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#property-list-cont" data-toggle="tab">Properties</a></li>
-            <li><a href="#data" data-toggle="tab">Data</a></li>
-            <li><a href="#events-panel" data-toggle="tab">Events</a></li>
+            <li class="active"><a href="#collection-panels" data-toggle="tab">Collection</a></li>
+            <li><a href="#api-panels" data-toggle="tab">API</a></li>
           </ul>
         </div>
       </div>
       
       <div class="span10">
         <div class="tab-content">
-          <div id="property-list-cont" class="tab-pane active">
+          <div id="collection-panels" class="tab-pane active">
             <div class="panel well stacked">
               <h3>
                 Properties
@@ -23,28 +22,26 @@
               </div>
             </div>
 
-            <div id="routes" class="well stacked">
-              
-            </div>
-          </div>
-
-          <div id="data" class="tab-pane well stacked">
-            <h3>Data</h3>
-            <div id="current-data">
-              <div class="table-container">
-                <table class="table table-bordered table-striped">
-                </table>
+            <div class="well stacked">
+              <h3>Data</h3>
+              <div id="current-data">
+                <div class="table-container">
+                  <table class="table table-bordered table-striped">
+                  </table>
+                </div>
+                <input id="current-data-querystring" type="text" placeholder="Query string" />
               </div>
-              <input id="current-data-querystring" type="text" placeholder="Query string" />
             </div>
           </div>
 
-          <div id="events-panel" class="tab-pane well stacked">
+          <div id="api-panels" class="tab-pane">          
+            <div id="events-panel" class="tab-pane well stacked">
+            </div>
+            <div id="routes" class="well stacked">
+                
+            </div>          
           </div>
-
-          
         </div>
-        
       </div>
     </div>
   </div>

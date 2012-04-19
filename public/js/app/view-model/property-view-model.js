@@ -31,7 +31,7 @@ define(function(require, exports) {
     };
 
     self.onClickHeader = function(data, e) {
-      if (e.target === e.currentTarget || $(e.target).is('div')) {
+      if (!self.editing() || (e.target === e.currentTarget || $(e.target).is('div'))) {
         self.toggleEditing();  
         return false;
       }

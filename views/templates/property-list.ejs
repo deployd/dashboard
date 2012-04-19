@@ -1,21 +1,21 @@
 <ul class="component-list">
-  <li class="component-item locked"><div class="header">
-    <i class="icon-white string" title="string"></i>
+  <li class="component-item locked"><div class="component-item-header">
+    <i class="icon-white string" data-bind="tooltip: {placement: 'left', title: 'string'}"></i>
     <span class="code name">_id</span>
     <div class="pull-right">
       <i class="icon-white icon-lock" title="Locked"></i>
     </div>
   </div></li>
   <% if (typeof resourceTypeId !== 'undefined' && resourceTypeId === 'UserCollection') { %>
-  <li class="component-item locked"><div class="header">
-    <i class="icon-white string" title="string"></i>
+  <li class="component-item locked"><div class="component-item-header">
+    <i class="icon-white string" data-bind="tooltip: {placement: 'left', title: 'string'}"></i>
     <span class="code name">email</span>
     <div class="pull-right">
       <i class="icon-white icon-lock" title="Locked"></i>
     </div>
   </div></li>
-  <li class="component-item"><div class="header">
-    <i class="icon-white string" title="string"></i>
+  <li class="component-item"><div class="component-item-header">
+    <i class="icon-white string" data-bind="tooltip: {placement: 'left', title: 'string'}"></i>
     <span class="code name">password</span>
     <div class="pull-right">
       <i class="icon-white icon-lock" title="Locked"></i>
@@ -23,21 +23,19 @@
   </div></li>
   <% } %>
   <!-- ko foreach: properties -->
-    <li class="component-item" data-bind="css: {active: editing}"><div class="header clearfix" data-bind="click: onClickHeader">
-      <!-- ko if: editing -->
-      <div data-bind="template: 'property-single-template'"></div>
-      <!-- /ko -->
-      <!-- ko if: !editing() -->
-      <i class="icon-white" data-bind="tooltip: {placement: 'left', title: typeLabel}, cssNamed: type"></i>
-      <span class="code name" data-bind="text: name, click: toggleEditing"></span>
-      <div class="pull-right">
-        <span class="label" data-bind="visible: optional">Optional</span>
-        <a href="#" data-bind="click: $root.removeProperty"><i class="icon-white icon-remove"></i></a>
+    <li class="component-item" data-bind="css: {active: editing}"><div class="component-item-header clearfix" data-bind="click: onClickHeader">
+      <div data-bind="template: 'property-single-template', visible: editing"></div>
+      <div data-bind="visible: !editing()">
+        <i class="icon-white" data-bind="tooltip: {placement: 'left', title: typeLabel}, cssNamed: type"></i>
+        <span class="code name" data-bind="text: name, click: toggleEditing"></span>
+        <div class="pull-right">
+          <span class="label" data-bind="visible: optional">Optional</span>
+          <a href="#" data-bind="click: $root.removeProperty"><i class="icon-white icon-remove"></i></a>
+        </div>
       </div>
-      <!-- /ko -->
     </div></li>
   <!-- /ko -->
-  <div class="placeholder type-icons">
+  <div class="placeholder component-item-header">
     <div class="alert alert-info" data-bind="visible: !properties().length">Add properties to describe the data you want to store.</div>
     <div data-bind="template: {name: 'property-single-template', data: newProperty}"></div>
   </div>
@@ -60,7 +58,7 @@
   <input type="text" data-bind="value: name, hasfocus: nameFocus, event: { keypress: onNameKeypress }" />
   <div class="pull-right">
     <label data-bind="if: type() !== 'boolean'" class="checkbox pull-left"><input type="checkbox" data-bind="checked: optional" />Optional</label>
-    <a href="#" data-bind="click: $root.removeProperty, visible: !isNew"><i class="icon-white icon-remove"></i></a>
-    <button class="btn btn-success" data-bind="click: $root.addProperty, visible: isNew">add</button>
+    <a href="#" class="delete-btn" data-bind="click: $root.removeProperty, visible: !isNew"><i class="icon-white icon-remove"></i></a>
+    <button class="btn btn-success" data-bind="click: $root.addProperty, visible: isNew"><i class="icon-white icon-plus"></i>&nbsp;add</button>
   </div>
 </script>
