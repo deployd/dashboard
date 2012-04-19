@@ -11,7 +11,7 @@ var ResourceView = module.exports = Backbone.View.extend({
   
   events: {
     'click .delete-btn': 'delete',
-    'click .header': 'onClickHeader',
+    'click .component-item-header': 'onClickHeader',
     'click .path': 'activate',
     'click .rename-btn': 'activate',
     'click .cancel-btn': 'deactivate',
@@ -92,7 +92,7 @@ var ResourceView = module.exports = Backbone.View.extend({
   },
 
   onClickHeader: function(e) {
-    if ($(e.target).hasClass('header')) {
+    if ($(e.target).hasClass('component-item-header')) {
       if (this.model.get('c_active')) {
         this.deactivate();
       } else {

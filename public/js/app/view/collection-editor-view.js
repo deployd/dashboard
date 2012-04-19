@@ -4,9 +4,11 @@ var CollectionSettings = require('../model/collection-settings');
 var DataCollection = require('../model/data-collection');
 
 var PropertyListView = require('./property-list-view');
+var PropertyReferenceView = require('./property-reference-view');
 var CollectionDataView = require('./collection-data-view');
 var CollectionEventView = require('./collection-event-view');
 var CollectionRoutesView = require('./collection-routes-view');
+
 
 var app = require('../app');
 var router = require('../router');
@@ -32,6 +34,10 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
       collection: this.model.get('properties')
       , typeCollection: this.propertyTypes
       , parentView: this
+    });
+
+    this.PropertyReferenceView = new PropertyReferenceView({
+      model: this.model
     });
 
     this.dataView = new CollectionDataView({
@@ -67,8 +73,7 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
     this.onScroll();
 
     if (this.model.get('properties').length) {
-      // TODO: Re-enable this when done testing
-      // this.$('#page-nav a[href="#data"]').click();
+      this.$('#page-nav a[href="#data"]').click();
     }
   }
 

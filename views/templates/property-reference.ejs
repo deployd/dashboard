@@ -1,0 +1,33 @@
+<h3>Properties</h3>
+<ul class="component-list">
+  <li class="component-item locked">
+    <div class="component-item-header">
+      <i class="icon-white string" title="string"></i>&nbsp;
+      <span class="code">_id</span>
+    </div>
+  </li>
+  <% if (model.get('type') == 'UserCollction') { %>
+  <li class="component-item locked">
+    <div class="component-item-header">
+      <i class="icon-white string" title="string"></i>&nbsp;
+      <span class="code">email</span>
+    </div>
+  </li>
+  <li class="component-item locked">
+    <div class="component-item-header">
+      <i class="icon-white string" title="string"></i>&nbsp;
+      <span class="code">password</span>
+    </div>
+  </li>
+  <% } %>
+  <% model.get('properties').forEach(function(propModel) { var prop = propModel.toJSON();  %>
+    <li class="component-item locked">
+      <div class="component-item-header">
+        <i class="icon-white <%- prop.type %>" title="<%- prop.typeLabel %>"></i>&nbsp;
+        <span class="code"><%- prop.name %></span>
+      </div>
+    </li>
+  <% }) %>
+</ul>
+
+     

@@ -1,32 +1,17 @@
-<thead>
+<thead class="type-icons">
   <tr>
-    <th class="code">_id</th>
+    <th class="code"><i class="icon-hack string" title="string"></i> _id</th>
     <% if (resourceType == "UserCollection") { %>
-      <th class="code">email</th>
-      <th class="code">password</th>
+      <th class="code"><i class="icon-hack string" title="string"></i> email</th>
+      <th class="code"><i class="icon-hack string" title="string"></i> password</th>
     <% } %>
     <% _.each(properties, function(property) { %>
-      <th class="code"><%- property.name %></th>
+      <th class="code"><i class="icon-hack <%- property.type %>" title=" <%- property.typeLabel %>"></i> <%- property.name %></th>
     <% }); %>
     <th></th>
   </tr>
 </thead>
 <tbody>
-
-  <% if (!collectionModel.length) { %> 
-    <tr>
-      <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>">
-        <% if(properties.length) { %>
-          <div class="alert alert-info">This collection is empty. Add an object to start storing data.</div>
-          <!-- <h4 style="margin-bottom:10px"><i class="icon-exclamation-sign" style="position: relative; top: 3px;"></i> This collection is empty</h4>
-          <p>Once your collection has some data you can edit and delete objects.</p>
-          <button class="btn btn-primary add-btn"><i class="icon-white icon-plus"></i> add an object</a> -->
-        <% } else {  %>
-          &nbsp;
-        <% } %>
-      </td>
-    </tr>
-  <% } %>
   <% collectionModel.each(function(rowModel) { if (!rowModel.get('c_delete')) { %>
     <% var row = rowModel.toJSON(); %>
     <tr data-cid="<%= rowModel.cid %>">
@@ -37,7 +22,7 @@
         <td data-prop="email">
           <% if (row.c_errors && row.c_errors.email) { %>
             <a class="error-tooltip" rel="tooltip" title="<%- row.c_errors.email %>">
-              <i class="icon-warning-sign icon-white"></i>
+              <i class="icon-warning-sign"></i>
             </a>
           <% } %>
           <% if (row.c_active) { %>
@@ -49,7 +34,7 @@
         <td data-prop="password">
           <% if (row.c_errors && row.c_errors.password) { %>
             <a class="error-tooltip" rel="tooltip" title="<%- row.c_errors.password %>">
-              <i class="icon-warning-sign icon-white"></i>
+              <i class="icon-warning-sign"></i>
             </a>
           <% } %>
           <% if (row.c_active) { %>
@@ -65,7 +50,7 @@
         <td data-prop="<%- property.name %>">
           <% if (row.c_errors && row.c_errors[property.name]) { %>
             <a class="error-tooltip" rel="tooltip" title="<%- row.c_errors[property.name] %>">
-              <i class="icon-warning-sign icon-white"></i>
+              <i class="icon-warning-sign"></i>
             </a>
           <% }
             if (row.c_active) { %>
@@ -101,7 +86,10 @@
 <tfoot>
   <tr>
     <td colspan="<%= properties.length + (resourceType == "UserCollection" ? 4 : 2) %>">
-      <button class="btn btn-success add-btn pull-right"><i class="icon-white icon-plus"></i> add</a>
+      <% if (!collectionModel.length) { %> 
+        <div class="alert alert-info">This collection is empty. Add an object to start storing data.</div>
+      <% } %>
+      <button class="btn btn-success add-btn"><i class="icon-white icon-plus"></i> add</a>
     </td>
   </tr>
 </tfoot>

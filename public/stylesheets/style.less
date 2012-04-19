@@ -6,6 +6,17 @@ h1 {
   padding: 10px;
 }
 
+h3 {
+  .header-link {
+    display: block;
+    float: right;
+    font-size: @baseFontSize;
+    font-family: @baseFontFamily;
+    text-transform: none;
+    font-weight: normal;
+  }
+}
+
 h6 {
   color: @bodyBackground;
   display: inline-block;
@@ -372,6 +383,11 @@ li.component-item {
     border: none;
     margin-left: 0;
     padding: 5px;
+  }
+
+  &.locked .component-item-header {
+    background: @black !important;
+    cursor: normal !important;
   }
   
   .component-item-header {

@@ -5,7 +5,8 @@
       <div class="fixed2">
         <div class="well sidebar-nav">
           <ul id="page-nav" class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#collection-panels" data-toggle="tab">Collection</a></li>
+            <li class="active"><a href="#properties" data-toggle="tab">Properties</a></li>
+            <li><a href="#data" data-toggle="tab">Data</a></li>
             <li><a href="#api-panels" data-toggle="tab">API</a></li>
           </ul>
         </div>
@@ -13,7 +14,7 @@
       
       <div class="span10">
         <div class="tab-content">
-          <div id="collection-panels" class="tab-pane active">
+          <div id="properties" class="tab-pane active">
             <div class="panel well stacked">
               <h3>
                 Properties
@@ -21,7 +22,8 @@
               <div id="property-list">
               </div>
             </div>
-
+          </div>
+          <div id="data" class="tab-pane">
             <div class="well stacked">
               <h3>Data</h3>
               <div id="current-data">
@@ -34,13 +36,20 @@
             </div>
           </div>
 
-          <div id="api-panels" class="tab-pane">          
-            <div id="events-panel" class="tab-pane well stacked">
+          <div id="api-panels" class="tab-pane">
+            <div class="row-fluid">
+            <div class="span9">
+              <div id="events-panel" class="tab-pane well stacked">
+              </div>
+              <div id="routes" class="well stacked">
+                  
+              </div>          
             </div>
-            <div id="routes" class="well stacked">
-                
-            </div>          
-          </div>
+            <div class="span3">
+              <div id="property-reference" class="well">
+
+              </div>
+          </div>          
         </div>
       </div>
     </div>
