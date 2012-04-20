@@ -1,9 +1,10 @@
 <tr class="component-item">
   <td>
     <i class="icon-file"></i>
-    <a href="#/edit<%= path %>"><%= filename %></a>
+    <a href="<%= path %>" target="_blank"><%= filename %></a>
   </td>
   <td>
+    <a class="edit" href="#edit<%= path %>" filename="<%= filename %>"><i class="icon-edit"></i></a>
     <a class="delete" href="#" filename="<%= filename %>"><i class="icon-remove"></i></a>
   </td>
 </tr>

@@ -5,7 +5,7 @@ var Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     ':id': 'resource',
-    '/edit/*path': 'edit'
+    'edit/*path': 'edit'
   },
 
   home: function() {
@@ -26,8 +26,7 @@ var Router = Backbone.Router.extend({
   
   edit: function (path) {
     app.set({
-      edit: path,
-      resourceId: undefined
+      edit: path
     });
   }
 });

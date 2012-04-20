@@ -6,7 +6,11 @@ var File = require('../model/file');
 
 var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).extend({
 
-  initialize: function () {
+  events: {
+    'click .back': 'back'
+  }
+
+  , initialize: function () {
     var path = this.path = '/' + app.get('edit');
     
     var view = this;
@@ -17,7 +21,7 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
       file.save();
       view.saved();
     })
-    
+  
     editor.on('change', function () {
       view.hasChanges();
     });
@@ -25,17 +29,25 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     $.get(path, function (data) {
       editor.setText(data);
     });
-  },
+
+    view.saved();
+  }
+
+  , back: function() {
+    app.unset('edit');
+
+    return false;
+  }
   
-  hasChanges: function () {
+  , hasChanges: function () {
     
     $('#file-status')
       .empty()
       .append('<i class="icon-asterisk"></i> ' + this.path)
     ;
-  },
+  }
   
-  saved: function () {
+  , saved: function () {
      $('#file-status')
       .empty()
       .append('<i class="icon-file"></i> ' + this.path)

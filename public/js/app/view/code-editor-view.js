@@ -4,10 +4,10 @@ var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
 var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).extend({
 
   initialize: function() {
-    _.bindAll(this, 'noteUpdate', 'update', 'render');
+    _.bindAll(this, 'trackUpdate', 'update', 'render');
   },
 
-  noteUpdate: function() {
+  trackUpdate: function() {
     if (this._timeout) {
       clearTimeout(this._timeout);
     }
@@ -35,7 +35,7 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     var editor = ace.edit(this.el);
     editor.getSession().setMode(new JavaScriptMode());
     // editor.setTheme("ace/theme/vibrant_ink");
-    editor.getSession().on('change', this.noteUpdate);
+    editor.getSession().on('change', this.trackUpdate);
     editor.commands.addCommand({
         name: 'save',
         bindKey: {

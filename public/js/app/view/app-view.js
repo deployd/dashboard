@@ -30,6 +30,7 @@ var AppView = module.exports = Backbone.View.extend({
     this.model = this.model || app;
     this.model.on('change:resourceId', this.loadResource, this);
     this.model.on('change:resource', this.render, this);
+    this.model.on('change:edit', this.render, this);
 
     this.headerView = new HeaderView({model: app});
 
@@ -121,6 +122,12 @@ var AppView = module.exports = Backbone.View.extend({
 
     undoBtn.init();
     saveStatus.init();
+
+    if (edit) {
+      router.navigate('/edit/' + edit);
+    } else {
+      router.navigate(this.model.get('resourceId'));
+    }
   },
 
 });
