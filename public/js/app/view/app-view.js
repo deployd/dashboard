@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 var CollectionSettings = require('../model/collection-settings');
 
 var ResourcesView = require('./resources-view');
-var CollectionEditorView = require('./collection-editor-view');
+var CollectionView = require('./collection-view');
 var StaticView = require('./static-view');
 var HeaderView = require('./header-view');
 
@@ -89,7 +89,7 @@ var AppView = module.exports = Backbone.View.extend({
 
     if (type === 'Collection' || type === 'UserCollection') {
       template = this.collectionTemplate;
-      bodyViewClass = CollectionEditorView;
+      bodyViewClass = CollectionView;
     } else if(type === 'Static') {
       template = this.staticTemplate;
       bodyViewClass = StaticView;

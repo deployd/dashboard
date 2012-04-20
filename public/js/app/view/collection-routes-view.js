@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 
 var CollectionRoutesView = module.exports = Backbone.View.extend({
 
-      el: '#routes'
+      el: '#api'
 
     , template: _.template($('#collection-routes-template').html())
 
