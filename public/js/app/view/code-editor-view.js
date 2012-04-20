@@ -39,7 +39,7 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   render: function() {
     var view = this;
     var editor = ace.edit(this.el);
-    var mode = this.mode || 'javascript';
+    var mode = this.mode || 'js';
     if (mode === 'html' || mode === 'htm') {
       editor.getSession().setMode(new HtmlMode());  
     } else if (mode === 'css') { 
