@@ -5,6 +5,7 @@ var ResourcesView = require('./resources-view');
 var CollectionEditorView = require('./collection-editor-view');
 var StaticView = require('./static-view');
 var HeaderView = require('./header-view');
+var FileEditorView = require('./file-editor-view');
 
 var undoBtn = require('./undo-button-view');
 var saveStatus = require('./save-status-view');
@@ -19,6 +20,7 @@ var AppView = module.exports = Backbone.View.extend({
   resourcesTemplate: _.template($('#resources-template').html()),
   collectionTemplate: _.template($('#collection-template').html()),
   staticTemplate: _.template($('#static-template').html()),
+  fileEditorTemplate: _.template($('#file-editor-template').html()),
 
   events: {
     'click #authModal .save': 'authenticate'
@@ -86,8 +88,12 @@ var AppView = module.exports = Backbone.View.extend({
     var template, bodyViewClass;
     var resourceId = this.model && this.model.get('resourceId');
     var type = this.model && resourceId && this.model.get('resourceTypeId');
-
-    if (type === 'Collection' || type === 'UserCollection') {
+    var edit = (this.model && this.model.get('edit')) || false;
+    
+    if(edit) {
+      template = this.fileEditorTemplate;
+      bodyViewClass = FileEditorView;
+    } else if (type === 'Collection' || type === 'UserCollection') {
       template = this.collectionTemplate;
       bodyViewClass = CollectionEditorView;
     } else if(type === 'Static') {

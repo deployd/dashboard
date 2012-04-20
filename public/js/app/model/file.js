@@ -22,11 +22,19 @@ var File = module.exports = Backbone.Model.extend({
     function next() {
     }
     
-    var info = model.get('info');
+    var info = model.get('info')
+      , data = model.get('data')
+    ;
     
-    if(method === 'create' && info) {
-      var form = new FormData();
-      form.append('data', info);
+    if(method === 'create' && (info || data)) {
+      var form;
+      
+      if(info) {
+        form = new FormData();
+        form.append('data', info);
+      } else if(data || data === '') {
+        form = data;
+      }
       
       // use custom sync
       var url = _.isFunction(model['url']) ? model['url']() : model['url'];

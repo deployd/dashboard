@@ -4,20 +4,30 @@ var app = require('./app');
 var Router = Backbone.Router.extend({
   routes: {
     '': 'home',
-    ':id': 'resource'
+    ':id': 'resource',
+    '/edit/*path': 'edit'
   },
 
   home: function() {
     app.set({
       resourceId: '',
       resourceName: undefined,
-      resourceType: undefined
+      resourceType: undefined,
+      edit: undefined
     });
   },
 
   resource: function(id) {
     app.set({
-      resourceId: id
+      resourceId: id,
+      edit: undefined
+    });
+  },
+  
+  edit: function (path) {
+    app.set({
+      edit: path,
+      resourceId: undefined
     });
   }
 });

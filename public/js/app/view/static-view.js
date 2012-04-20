@@ -36,6 +36,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
         html += template({
           filename: filename,
           url: app.get('appUrl') + path + '/' + filename,
+          path: path + '/' + filename,
           isEditable: isEditable(filename)
         });
       })

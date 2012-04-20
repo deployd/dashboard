@@ -4,12 +4,13 @@
         <div class="clearfix">
           <h3 class="pull-left">Files</h3>
           <div id="file-upload" class="pull-right">
+            <a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i> New File</a>
+            <a href="#sync-info-modal" data-toggle="modal" class="btn"><i class="icon-resize-vertical"></i> Setup Local Sync</a>
             <span class="btn btn-success fileinput-button">
-                <i class="icon-plus icon-white"></i>
-                <span>Add files</span>
+                <i class="icon-upload icon-white"></i>
+                <span>Quick Upload Files</span>
                 <input type="file" multiple="multiple" />
             </span>
-            
           </div>
         </div>
         <div id="files-empty" class="well">
@@ -27,5 +28,37 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="sync-info-modal" class="hide modal" style="margin-top: -280px">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Setup Local Sync</h3>
+  </div>
+  <div class="modal-body">
+		<p>To download your app's files, first install the <code>dpd</code> command line utility. <em>It requires <a href="http://nodejs.org/#download">Node.js</a>.</em></p>
+
+		<p>Run the following commands from terminal to install the utility and setup your app.</p>
+
+		<pre><code>sudo npm install deployd -g</code></pre>
+
+		<p>In the directory where you want to keep your app files, run the following command.
+		It will grant local access to your app and tell <code>dpd</code> to store the files in that directory.</p>
+
+		<pre><code>dpd init http://<%= window.location.host %> '<%= $.cookie('DPDAuthKey') %>'</code></pre>
+
+		<p id="scroll_to_here" >Now you can push and pull the entire contents of the directory with the following commands.</p>
+
+		<pre><code>dpd push</code></pre>
+
+		<p>Running <code>dpd push</code> will upload the contents of your current directory to your app.</p>
+
+		<pre><code>dpd pull</code></pre>
+
+		<p>Running <code>dpd pull</code> will download all of your app's files into the current directory.</p>
+  </div>
+  <div class="modal-footer">
+
   </div>
 </div>
