@@ -7,8 +7,9 @@ var app = require('../app')
 var ModelEditorView = module.exports = Backbone.View.extend({
   
   events: {
-    'change #file-upload input': 'onChange',
-    'click a.delete': 'delete'
+      'change #file-upload input': 'onChange'
+    , 'click .new-file-btn': 'addFile'
+    , 'click a.delete': 'delete'
   },
   
   initialize: function () {
@@ -89,6 +90,22 @@ var ModelEditorView = module.exports = Backbone.View.extend({
       files.fetch();
     }});
     
+    return false;
+  }
+
+  , addFile: function() {
+    var name = prompt("Enter a name for this file, including the extension:");
+    var path = this.files.url;
+    if (path === '/') {
+      path = ''
+    }  else {
+      path = path.slice(1) + '/'
+    }
+
+    if (name) {
+      app.set('edit', path + name);
+    }
+
     return false;
   }
   

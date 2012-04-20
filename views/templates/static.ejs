@@ -4,8 +4,9 @@
         <div class="clearfix">
           <h3 class="pull-left">Files</h3>
           <div id="file-upload" class="pull-right">
-            <a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i> New File</a>
+            
             <a href="#sync-info-modal" data-toggle="modal" class="btn"><i class="icon-resize-vertical"></i> Setup Local Sync</a>
+            <a href="#" class="new-file-btn btn btn-success"><i class="icon-plus icon-white"></i> New File</a>
             <span class="btn btn-success fileinput-button">
                 <i class="icon-upload icon-white"></i>
                 <span>Quick Upload Files</span>
@@ -13,10 +14,8 @@
             </span>
           </div>
         </div>
-        <div id="files-empty" class="well">
-          <p>
-            You have not uploaded any files to this resource
-          </p>
+        <div id="files-empty" class="hide alert alert-info">
+          This resource does not have any files.
         </div>
         <table id="files" class="table table-bordered table-striped">
           <thead>

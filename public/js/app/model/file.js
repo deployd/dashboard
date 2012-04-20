@@ -54,6 +54,9 @@ var File = module.exports = Backbone.Model.extend({
       
       // sync
       xhr.addEventListener('readystatechange', function () {
+        if (typeof options.success === 'function') {
+          options.success();
+        }
         self.trigger('sync');
       });
       

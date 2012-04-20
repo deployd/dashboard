@@ -1,9 +1,12 @@
 define(["require", "exports", "module"], function(require, exports, module) {
 var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
+var CssMode = ace.require("ace/mode/css").Mode;
+var HtmlMode = ace.require("ace/mode/html").Mode;
 
 var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).extend({
 
   initialize: function() {
+    this.mode = this.options.mode;
     _.bindAll(this, 'trackUpdate', 'update', 'render');
   },
 
@@ -11,7 +14,9 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     if (this._timeout) {
       clearTimeout(this._timeout);
     }
-    this._timeout = setTimeout(this.update, 1000);
+    var length = this.updateTime || 1000;
+
+    this._timeout = setTimeout(this.update, length);
   },
 
   update: function() {
@@ -23,7 +28,8 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   },
   
   setText: function(val) {
-    this.editor.getSession().setValue(val)
+    this.editor.getSession().setValue(val);
+    clearTimeout(this._timeout);
   },
 
   resize: function() {
@@ -33,7 +39,15 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   render: function() {
     var view = this;
     var editor = ace.edit(this.el);
-    editor.getSession().setMode(new JavaScriptMode());
+    var mode = this.mode || 'javascript';
+    if (mode === 'html' || mode === 'htm') {
+      editor.getSession().setMode(new HtmlMode());  
+    } else if (mode === 'css') { 
+      editor.getSession().setMode(new CssMode());
+    } else if (mode === 'js') {
+      editor.getSession().setMode(new JavaScriptMode());  
+    }
+    
     // editor.setTheme("ace/theme/vibrant_ink");
     editor.getSession().on('change', this.trackUpdate);
     editor.commands.addCommand({

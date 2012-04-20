@@ -57,6 +57,7 @@ var CollectionView = module.exports = Backbone.View.extend({
 
     this.model.on('change', this.save, this);
 
+    this.dataCollection.on('reset', this.render, this);
     this.model.on('change', this.render, this);
 
     this.propertyTypes.fetch();
