@@ -14,9 +14,10 @@ var app = require('../app');
 var router = require('../router');
 var undoBtn = require ('./undo-button-view');
 
-var CollectionEditorView = module.exports = Backbone.View.extend({
+var CollectionView = module.exports = Backbone.View.extend({
 
   events: {
+    'click .cta-link': 'onClickCta'
   }
 
   , initialize: function() {
@@ -56,9 +57,13 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
 
     this.model.on('change', this.save, this);
 
+    this.model.on('change', this.render, this);
+
     this.propertyTypes.fetch();
 
     this.initializeDom();
+
+    this.render();
   }
 
   , initializeDom: function() {
@@ -112,6 +117,14 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
     // });
   }
 
+  , onClickCta: function(e) {
+    var href = $(e.currentTarget).attr('href');
+    var $navLink = $('#page-nav a[href="' + href + '"]');
+    $navLink.click(); //Proxy click to navbar
+
+    return false;
+  }
+
   , navigate: function(e) {
     var $link = $(e.currentTarget);
     var selector = $link.attr('href');
@@ -123,6 +136,12 @@ var CollectionEditorView = module.exports = Backbone.View.extend({
 
 
   , render: function() {
+    var $nowWhat = $('#property-now-what');
+    if (this.model.get('properties').length && !this.dataCollection.length) {
+      $nowWhat.show();
+    } else {
+      $nowWhat.hide();
+    }
     return this;
   }
 
