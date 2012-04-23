@@ -20,7 +20,8 @@ httpProxy.createServer(function (req, res, proxy) {
   proxy.proxyRequest(req, res, {
     host: 'localhost',
     port: _port
-  })
+  });
+  
 })
 .listen(3000);
 

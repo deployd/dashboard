@@ -27,7 +27,6 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     this.properties = this.options.properties;
     this.collection = this.options.collection;
 
-    
     this.properties.on('reset', this.render, this);
     this.properties.on('add', this.render, this);
     this.properties.on('remove', this.render, this);
