@@ -21,9 +21,9 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
       '\n' +
       '/* Automatic properties */\n' +
       '// this.creator = me._id;\n' +
-      '// this.creatorName = me.name;',
+      '// this.creatorName = me.name;\n',
     onPut: '/* Readonly properties */\n' +
-    '// protect("creator");',
+    '// protect("creator");\n',
     onDelete: ''
   },
 
