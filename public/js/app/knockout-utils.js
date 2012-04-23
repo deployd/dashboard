@@ -14,10 +14,22 @@ ko.bindingHandlers.cssNamed = {
 ko.bindingHandlers.tooltip = {
   init: function(element, valueAccessor) {
     var value = ko.toJS(valueAccessor());
+    if (typeof value === 'string') {
+      value = {title: value};
+    }
     $(element).tooltip(value);
   }
   , update: function(element, valueAccessor) {
-    $(element).attr('data-original-title', unwrap(valueAccessor().title));
+    var value = valueAccessor();
+    var title;
+
+    if (typeof value === 'string') {
+      title = value;
+    } else {
+      title = unwrap(value.title);
+    }
+
+    $(element).attr('data-original-title', title);
   }
 }
 

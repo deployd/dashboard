@@ -1,0 +1,47 @@
+<h3>Data</h3>
+<div id="current-data">
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead class="type-icons">
+        <tr>
+        <td class="code">
+          <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
+          _id
+        </td>
+        <% if (resourceType === "UserCollection") { %>
+          <td class="code">
+            <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
+            email
+          </td>
+          <td class="code">
+            <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
+            password
+          </td>
+        <% } %>
+        <!-- ko foreach: properties -->
+          <td class="code">
+            <i class="icon-hack" data-bind="tooltip: typeLabel, cssNamed: type"></i>
+            <span data-bind="text: name"></span>
+          </td>
+        <!-- /ko -->
+          <td></td>
+        </tr>
+        <tbody data-bind="foreach: collection">
+          <tr>
+            <td data-bind="text: _id"></td>
+            <% if (resourceType === "UserCollection") { %>
+              <td data-bind="text: email"></td>
+              <td>...</td>
+            <% } %>
+            <!-- ko foreach: $root.properties -->
+              <td data-bind="text: $parent[name()]"></td>
+            <!-- /ko -->
+            <td>
+              <a href="#" class="btn" data-bind="click: $root.deleteRow"><i class="icon-remove-sign"></i> delete</a>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+  <input id="current-data-querystring" type="text" placeholder="Query string" />
+</div>
