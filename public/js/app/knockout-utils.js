@@ -32,6 +32,26 @@ ko.bindingHandlers.popover = {
   }
 };
 
+ko.extenders.variableName = function(target) {
+
+  var result = ko.computed({
+    read: target,
+    write: function(newValue) {
+      var current = target();
+      newValue = newValue.replace(/[^A-Za-z0-9_]/g, '');
+
+      if (current !== newValue) {
+        target(newValue);
+      }
+    }
+  });
+
+  result(target());
+
+  return result;
+
+};
+
 //Copied from http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
 function objectEquals(x, y){
   var p;
