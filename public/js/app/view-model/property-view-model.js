@@ -19,6 +19,8 @@ define(function(require, exports) {
     
 
     var self = ko.mapping.fromJS(data, propertyMapping);
+
+    self.name = self.name.extend({variableName: true});
     
     self.editing = ko.observable(false);
     self.nameFocus = ko.observable();
@@ -28,6 +30,8 @@ define(function(require, exports) {
     self.toggleEditing = function() {
       self.editing(!self.editing());
       if (self.editing()) self.nameFocus(true);
+
+      return false;
     };
 
     self.onClickHeader = function(data, e) {
