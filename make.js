@@ -34,9 +34,9 @@ target.build = function() {
   //Lib
   mkdir('js/lib');
   var lib = '../public/js/lib/';
-  for (file in ls(lib)) {
+  ls(lib).forEach(function(file) {
     exec('uglifyjs ' + lib + file, {silent: true}).output.to('js/lib/' + file);
-  }
+  });
 
   //require.js
   var config = {
