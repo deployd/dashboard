@@ -32,6 +32,10 @@ p a {
   margin-bottom: 20px;
 }
 
+.span10 {
+  overflow-x: auto;
+}
+
 .right-sidebar .well {
   position: absolute;
   top: 0;
@@ -179,6 +183,10 @@ p a {
       .icon-time;
     }
 
+    &.password {
+      .icon-asterisk;
+    }
+
     &.files {
       .icon-file;
     }
@@ -272,6 +280,16 @@ li.component-type-item {
 #current-data {
   .table-container {
     overflow-x: scroll;
+  }
+
+  table {
+    td, th {
+      white-space: nowrap;
+
+      .alert {
+        margin-bottom: 0;
+      }
+    }
   }
 
   #current-data-querystring {

@@ -11,6 +11,28 @@ ko.bindingHandlers.cssNamed = {
   }
 };
 
+ko.bindingHandlers.enter = {
+  init: function(element, valueAccessor, allBindings, viewModel) {
+    var handler = ko.utils.unwrapObservable(valueAccessor());
+    $(element).keypress(function(e) {
+      if (e.which === 13) {
+        handler.call(viewModel, viewModel, e);
+      }
+    });
+  }
+};
+
+ko.bindingHandlers.escape = {
+  init: function(element, valueAccessor, allBindings, viewModel) {
+    var handler = ko.utils.unwrapObservable(valueAccessor());
+    $(element).keypress(function(e) {
+      if (e.which === 23) {
+        handler.call(viewModel, viewModel, e);
+      }
+    });
+  }
+};
+
 ko.bindingHandlers.tooltip = {
   init: function(element, valueAccessor) {
     var value = ko.toJS(valueAccessor());
@@ -29,7 +51,7 @@ ko.bindingHandlers.tooltip = {
       title = unwrap(value.title);
     }
 
-    $(element).attr('data-original-title', title);
+    $(element).attr('data-original-title', title).tooltip('fixTitle');
   }
 }
 
@@ -50,7 +72,7 @@ ko.extenders.variableName = function(target) {
     read: target,
     write: function(newValue) {
       var current = target();
-      newValue = newValue.replace(/[^A-Za-z0-9_]/g, '');
+      newValue = newValue.replace(/[^A-Za-z0-9]/g, '');
 
       if (current !== newValue) {
         target(newValue);

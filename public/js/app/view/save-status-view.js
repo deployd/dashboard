@@ -31,6 +31,11 @@ function set(text) {
   $span.text(text);
 }
 
+function error() {
+  set("Error");
+  setActive(false);
+}
+
 function setActive(nowActive) {
   if (nowActive) {
     $span.removeClass('inactive');
@@ -43,7 +48,8 @@ function setActive(nowActive) {
 module.exports = {
   init: init,
   saving: saving,
-  saved: saved
+  saved: saved,
+  error: error
 };
 
 init();

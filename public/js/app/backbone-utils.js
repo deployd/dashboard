@@ -16,13 +16,21 @@ Backbone.sync = function(method, model, options) {
   if (method === 'create' || method === 'update' || method === 'delete') {
     saveStatus.saving();
     var lastSuccess = options.success;
+    var lastError = options.error;
     var success = function() {
       saveStatus.saved();
       if (lastSuccess) {
         lastSuccess.apply(this, arguments);
       }
     }
+    var error = function() {
+      saveStatus.error();
+      if (lastError) {
+        lastError.apply(this, arguments);
+      }
+    }
     options.success = success;
+    options.error = error;
   }
 
   if (method === 'create' || method === 'update') {

@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 var collectionDataViewModel = require('../view-model/collection-data-view-model');
 var app = require('../app');
+var undoBtn = require('./undo-button-view');
 
 var CollectionDataView = module.exports = Backbone.View.extend({
     el: "#data"
@@ -15,6 +16,10 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
     self.initializeViewModel();
 
+    self.initializeMapping();
+
+    self.isUser = app.get('resourceTypeId') === 'UserCollection';
+
     self.mapProperties();
     self.properties.on('reset', self.mapProperties, self);
     self.properties.on('add', self.mapProperties, self);
@@ -26,7 +31,14 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     self.collection.on('add', self.mapCollection, self);
     self.collection.on('remove', self.mapCollection, self);
 
-    (function poll() {
+    (function poll(model, xhr) {
+
+      if (xhr && xhr.responseText) {
+        self.viewModel.queryError(xhr.responseText);
+      } else {
+        self.viewModel.queryError("");
+      }
+
       self._timeout = setTimeout(function() {
         self.collection.fetch({success: poll, error: poll});
       }, 1000);
@@ -40,30 +52,130 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     var vm = view.viewModel = collectionDataViewModel.create();
 
     vm.deleteRow = function(data) {
-      var row = view.collection.get(data._id());
+      var collection = view.collection;
+      var row = collection.get(data._id());
+      var index = collection.indexOf(row);
       if (row) row.destroy();
+      row.set('_id', undefined);
+
+      undoBtn.show('Delete row', function() {
+        collection.create(row, {at: index});
+      });
     }
+
+    vm.saveRow = function(data) {
+      var rowData = ko.mapping.toJS(data);
+      var collection = view.collection;
+
+      function error(model, xhr) {
+        try {
+          var res = JSON.parse(xhr.responseText);
+          data.c_errors(res.errors);
+        } catch (e) {
+          alert("An error occurred when saving: " + xhr.responseText);
+        }
+      }
+
+      if (data.isNew) {
+        collection.create(rowData, {success: function() {
+          data.c_errors({});
+          vm.properties().forEach(function(prop) {
+            if (data[prop.name()]) {
+              data[prop.name()](null);
+            }
+          });
+        }, error: error, wait: true});
+      } else {
+        
+        var row = collection.get(data._id());
+        row.save(data, {success: function() {
+          data.c_editing(false);
+          data.c_errors({});
+          ko.mapping.fromJS(row.toJSON(), {}, data);
+        }, error: error
+      });
+      } 
+    }
+
+    vm.revertRow = function(data) {
+      var collection = view.collection;
+      var row = collection.get(data._id());
+      row.fetch({success: function() {
+        ko.mapping.fromJS(row.toJSON(), {}, data);
+        data.c_editing(false);
+      }});
+    };
+
+    ko.computed(function() {
+      view.collection.querystring = vm.queryString();
+    }, vm).extend({throttle: 100});
+
+    //Hack - this would take a fairly complex custom binding to do the right way
+    ko.computed(function() {
+      var error = vm.queryError();
+      var $field = view.$('#current-data-querystring');
+      if (error) {
+        $field.attr('data-original-title', error).tooltip('fixTitle')
+          .tooltip('show');
+      } else {
+        $field.attr('data-original-title', '').tooltip('fixTitle')
+          .tooltip('hide');
+      }
+    }, vm);
   }
 
-  , propertiesMapping: {
-    'properties': {
-      key: function(data) {
-        return ko.utils.unwrapObservable(data._id);
+  , initializeMapping: function() {
+    var view = this;
+    var vm = this.viewModel;
+
+    view.propertiesMapping = {
+      'properties': {
+        key: function(data) {
+          return ko.utils.unwrapObservable(data._id);
+        }
       }
     }
-  }
 
-  , collectionMapping: {
-    'collection': {
-      key: function(data) {
-        return ko.utils.unwrapObservable(data._id);
-      }
+    view.collectionMapping = {
+      'collection': {
+        key: function(data) {
+          return ko.utils.unwrapObservable(data._id);
+        }
+        , create: function(options) {
+          return collectionDataViewModel.createRow(options.data, ko.mapping.toJS(vm.properties), vm)
+        }
+        , update: function(options) {
+          if (!options.target.c_editing()) {
+            return options.target;
+          } else {
+            return options.data;  
+          }
+        }
+      } 
     }
   }
 
   , mapProperties: function() {
+    var props = this.properties.toJSON();
+    if (app.get('resourceTypeId') === 'UserCollection') {
+      props.unshift({
+          name: 'email'
+        , type: 'string'
+        , typeLabel: 'string'
+      }, {
+          name: 'password'
+        , type: 'password'
+        , typeLabel: 'password'
+      });
+    }
+
+    this.viewModel.collection().forEach(function(row) {
+      row.c_remapProps(props);
+    });
+    this.viewModel.newRow.c_remapProps(props);
+
     ko.mapping.fromJS({
-        properties: this.properties.toJSON()
+        properties: props
       }
       , this.propertiesMapping, this.viewModel
     );

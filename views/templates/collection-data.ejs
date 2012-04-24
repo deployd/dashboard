@@ -8,16 +8,6 @@
           <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
           _id
         </td>
-        <% if (resourceType === "UserCollection") { %>
-          <td class="code">
-            <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
-            email
-          </td>
-          <td class="code">
-            <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
-            password
-          </td>
-        <% } %>
         <!-- ko foreach: properties -->
           <td class="code">
             <i class="icon-hack" data-bind="tooltip: typeLabel, cssNamed: type"></i>
@@ -29,19 +19,50 @@
         <tbody data-bind="foreach: collection">
           <tr>
             <td data-bind="text: _id"></td>
-            <% if (resourceType === "UserCollection") { %>
-              <td data-bind="text: email"></td>
-              <td>...</td>
-            <% } %>
             <!-- ko foreach: $root.properties -->
-              <td data-bind="text: $parent[name()]"></td>
+            <td data-bind="event: {dblclick: $parent._onDoubleclick}">
+              <span data-bind="text: $parent.c_formatted(name(), type()), visible: !$parent.c_editing()"></span>
+              <div data-bind="visible: $parent.c_editing, template: 'data-cell-edit-template'"></div>
+            </td>
             <!-- /ko -->
             <td>
-              <a href="#" class="btn" data-bind="click: $root.deleteRow"><i class="icon-remove-sign"></i> delete</a>
+              <a href="#" class="btn" data-bind="click: c_toggleEditing, visible: !c_editing()"><i class="icon-edit"></i> edit</a>
+              <a href="#" class="btn" data-bind="click: $root.deleteRow, visible: !c_editing()"><i class="icon-remove-sign"></i> delete</a>
+
+              <a href="#" class="btn btn-primary" data-bind="click: $root.saveRow, visible: c_editing"><i class="icon-white icon-ok-sign"></i> done</a>
+              <a href="#" class="btn" data-bind="click: c_toggleEditing, visible: c_editing">cancel</a>
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr data-bind="visible: !collection().length">
+            <td data-bind="attr: {colspan: properties().length + 2}">
+              <div class="alert alert-info">This collection is empty. Add an object to start storing data.</div>
+            </td>
+            
+          </tr>
+          <tr data-bind="with: newRow">
+            <td>...</td>
+            <!-- ko foreach: $root.properties -->
+              <td>
+                <div data-bind="template: 'data-cell-edit-template'"></div>
+              </td>
+            <!-- /ko -->
+            <td>
+              <a href="#" class="btn btn-success" data-bind="click: $root.saveRow"><i class="icon-white icon-plus"></i> add</a>
+            </td>
+          </tr>
+        </tfoot>
     </table>
   </div>
-  <input id="current-data-querystring" type="text" placeholder="Query string" />
+  <input id="current-data-querystring" data-bind="value: queryString, valueUpdate: 'afterkeydown', tooltip: {placement: 'left', title: queryError, trigger: 'focus'}" type="text" placeholder="Query string" />
 </div>
+
+<script type="text/html" id="data-cell-edit-template">
+  <i class="icon-warning-sign" data-bind="tooltip: {title: $parent.c_errors()[name()]}, visible: $parent.c_errors()[name()]"></i>
+  <!-- ko if: type() === 'string' --> <input type="text" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}", /> <!-- /ko -->
+  <!-- ko if: type() === 'boolean' --> <input type="checkbox" data-bind="checked: $parent[name()]" /> <!-- /ko -->
+  <!-- ko if: type() === 'date' --> <input type="datetime" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}" /> <!-- /ko -->
+  <!-- ko if: type() === 'number' --> <input type="number" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}" /> <!-- /ko -->
+  <!-- ko if: type() === 'password' --> <input type="password" placeholder="*******" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}" /> <!-- /ko -->
+</script>
