@@ -191,11 +191,13 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
   , render: function() {
 
+    var self = this;
+
     ko.cleanNode(this.el);
 
     $(this.el).html(this.template({
       resourceType: app.get('resourceTypeId')
-    }));
+    }))
 
     ko.applyBindings(this.viewModel, this.el);
 
