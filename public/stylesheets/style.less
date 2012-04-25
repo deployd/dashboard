@@ -36,6 +36,10 @@ p a {
   overflow-x: auto;
 }
 
+.resource-list .container {
+  width: 443px;
+}
+
 .right-sidebar .well {
   position: absolute;
   top: 0;
@@ -188,7 +192,7 @@ p a {
     }
 
     &.files {
-      .icon-file;
+      .icon-folder-close;
     }
 
     &.collection {
@@ -375,7 +379,7 @@ li.component-item {
         color: #ffffff;
       }
 
-      .delete-btn i {
+      .delete-btn {
         margin-top: 6px;
       }
     }
@@ -417,7 +421,7 @@ li.component-item {
     cursor: pointer;
 
     &:hover {
-      background: @blue;
+      background: lighten(@black, 20%);
     }
   }
 
@@ -511,6 +515,57 @@ table input {
   margin-bottom: 20px;
 }
 
+.file-list .container {
+  width: 507px;
+  table {
+    margin-bottom: 0;
+    td {
+      vertical-align: middle;
+    }
+  }
+}
+
 .cta-link {
   text-decoration: underline;
+}
+
+.get-started {
+  .well;
+  background: @black;
+  color: @bodyBackground;
+  margin: 20px 0;
+  padding: 19px 19px 9px 19px;
+}
+
+.tutorial-help {
+  text-align: center;
+  width: 250px;
+  margin: auto;
+}
+
+#properties {
+  width: 485px;
+  margin: auto;
+  label {
+    margin-right: 12px;
+  }
+  .label {
+    margin-left: 10px;
+  }
+  input[type=text] {
+    width: 201px;
+    margin-left: 5px;
+  }
+}
+
+.sidebar-nav {
+  margin-right: 20px;
+  height: 133px;
+}
+
+#property-now-what {
+  display: block;
+  width: 242px;
+  padding-right: 14px;
+  margin: 20px auto;
 }

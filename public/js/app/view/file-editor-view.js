@@ -36,7 +36,17 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     $.get(path, function (data) {
       editor.setText(data);
     });
-
+    
+    var container = $('.editor-container');
+    var win = $(window);
+    
+    win.resize(function () {
+      container.height(win.height() - 200);
+      editor.resize();
+    });
+    
+    win.resize();
+    
     view.saved();
   }
 

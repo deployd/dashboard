@@ -37,7 +37,7 @@
         <tfoot>
           <tr data-bind="visible: !collection().length">
             <td data-bind="attr: {colspan: properties().length + 2}">
-              <div class="alert alert-info">This collection is empty. Add an object to start storing data.</div>
+              <div class="alert alert-info" style="margin: 40px auto; width: 120px;">This collection is empty.</div>
             </td>
             
           </tr>
@@ -49,7 +49,7 @@
               </td>
             <!-- /ko -->
             <td>
-              <a href="#" class="btn btn-success" data-bind="click: $root.saveRow"><i class="icon-white icon-plus"></i> add</a>
+              <a href="#" class="btn btn-success" data-bind="click: $root.saveRow"><i class="icon-white icon-plus"></i> Add</a>
             </td>
           </tr>
         </tfoot>

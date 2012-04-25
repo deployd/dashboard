@@ -1,15 +1,15 @@
 <div class="component-item-header">
   <i title="<%= resource.typeLabel %>" class="icon-white <%= resource.typeLabel.toLowerCase().replace(' ', '-') %>"></i>
   <% if (resource.c_active) { %>
-    <input type="text" class="code" name="path" value="<%- resource.path %>" />
-    <a href="#" class="btn btn-primary save-btn">save</a>
+    <input style="margin-left: 3px; width: 225px;" type="text" class="code" name="path" value="<%- resource.path %>" />
+    <a style="margin-right: 3px;" href="#" class="btn btn-primary save-btn">save</a>
     <a href="#" class="btn cancel-btn">cancel</a>
   <% } else { %>
     <span class="code path"><%- resource.path %></span>
+    <div class="pull-right">
+      <i class="icon-white icon-remove delete-btn"></i>
+    </div>
   <% } %>
-  <div class="pull-right">
-    <i class="icon-white icon-remove delete-btn"></i>
-  </div>
   <div class="tags pull-right">
     <!-- <span class="label label-info type"><%- resource.typeLabel %></span> -->
   </div>

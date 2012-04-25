@@ -1,6 +1,6 @@
-<div id="resource-editor">
+<div id="resource-editor" class="file-list">
   <div class="container">
-      <div class="header-offset well">
+      <div class="well">
         <div class="clearfix">
           <h3 class="pull-left">Files</h3>
           <div id="file-upload" class="pull-right">
@@ -14,8 +14,19 @@
             </span>
           </div>
         </div>
-        <div id="files-empty" class="hide alert alert-info">
-          This resource does not have any files.
+        <div id="files-empty" class="hide">
+          <div class="alert alert-info"><strong>This folder is empty.</strong> Create or upload some files to get started.</div>
+          <div class="get-started" style="margin-bottom: 0;">
+             <p>
+               <strong><i class="icon-upload icon-white"></i> Uploading</strong> - There are a couple of ways to upload files. The easiest way is to use the "Quick Upload Files" button.
+             </p>
+             <p>
+               <strong><i class="icon-pencil icon-white"></i> Editing</strong> - Once you have uploaded files, you can click on a filename to edit with deployd's built in text editor.
+             </p>
+             <p>
+                <strong><i class="icon-download-alt icon-white"></i> Working Locally</strong> - Setup the <a href="#sync-info-modal" data-toggle="modal">deployd command line tool</a> to easily sync your local files with deployd.
+              </p>
+          </div>
         </div>
         <table id="files" class="table table-bordered table-striped">
           <thead>
@@ -36,7 +47,7 @@
     <h3>Setup Local Sync</h3>
   </div>
   <div class="modal-body">
-		<p>To download your app's files, first install the <code>dpd</code> command line utility. <em>It requires <a href="http://nodejs.org/#download">Node.js</a>.</em></p>
+		<p>To sync your app's files with your local filesystem, first install the <code>dpd</code> command line utility. <em>It requires <a href="http://nodejs.org/#download">Node.js</a>.</em></p>
 
 		<p>Run the following commands from the command line to install the utility and setup your app.</p>
 

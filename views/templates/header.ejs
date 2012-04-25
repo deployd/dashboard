@@ -1,7 +1,11 @@
 <div class="full-width-container">
-  <ul class="nav nav-pills pull-left">
-    <li <%= (typeof resourceName === 'undefined' || !resourceName) ? 'class="active"' : '' %>><a href="#">Resources</a></li>
-    <li><a href="<%- appUrl %>" target="_blank"><%- appUrl %></a></li>
+  <ul class="nav nav-pills pull-left" style="margin-left: 19px;">
+    <li <%= (typeof resourceName === 'undefined' || !resourceName) ? 'class="active"' : '' %>>
+      <a href="#">Resources</a>
+    </li>
+    <li>
+    <a href="<%- appUrl %>" target="_blank"><%- appUrl %></a>
+    </li>
     <% if (typeof resourceName !== 'undefined' && resourceName) { %>
       <li class="active">
         <a href="#<%= resourceId %>" class="resourceName"><%= resourceName %></a>
