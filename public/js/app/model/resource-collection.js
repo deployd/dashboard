@@ -1,12 +1,22 @@
-define(["require", "exports", "module", "../model/resource"], function(require, exports, module) {
+define(function(require, exports, module) {
 var Resource = require('../model/resource');
 
-var ResourceCollection = module.exports = Backbone.Collection.extend({
-  model: Resource,
-  url: '/resources',
+var app = require('../app');
 
-  comparator: function(resource) {
+var ResourceCollection = module.exports = Backbone.Collection.extend({
+    model: Resource
+  , url: '/resources'
+
+  , initialize: function() {
+    this.on('error', this.error, this);
+  }
+
+  , comparator: function(resource) {
     return resource.get('order');
+  }
+
+  , error: function() {
+    app.set('authKey', undefined);
   }
 });
 });

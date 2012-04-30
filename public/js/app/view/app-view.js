@@ -43,12 +43,20 @@ var AppView = module.exports = Backbone.View.extend({
       authKey: $.cookie('DPDAuthKey')
     })
 
+    app.on('change:authKey', this.showModal, this);
+
+    this.$modal.on('click', '.save', _.bind(this.authenticate, this));
+
+    this.showModal();
+
+  },
+
+  showModal: function() {
     if (app.get('appUrl') && app.get('authKey')) {
       this.$modal.modal('hide');
     } else {
-      this.$modal.on('click', '.save', _.bind(this.authenticate, this));
+      this.$modal.modal('show');
     }
-
   },
 
   authenticate: function() {
@@ -107,7 +115,7 @@ var AppView = module.exports = Backbone.View.extend({
       bodyViewClass = ResourcesView;
     }
 
-    var body = $('<div id="body">').html(template(model));
+    var body = $('<div id="body" class="span9">').html(template(model));
     $('#body').replaceWith(body);
     require('./divider-drag')();
     
