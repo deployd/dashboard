@@ -88,7 +88,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
       } else {
         
         var row = collection.get(data._id());
-        row.save(data, {success: function() {
+        row.save(rowData, {success: function() {
           data.c_editing(false);
           data.c_errors({});
           ko.mapping.fromJS(row.toJSON(), {}, data);
