@@ -79,7 +79,9 @@ var CollectionView = module.exports = Backbone.View.extend({
     this.onScroll();
 
     if (this.model.get('properties').length) {
-      this.$('#page-nav a[href="#data"]').click();
+      this.$('#resource-sidebar a[href="#data"]').click();
+    } else {
+      this.$('#resource-sidebar a[href="#properties"]').click();
     }
   }
 
@@ -120,7 +122,7 @@ var CollectionView = module.exports = Backbone.View.extend({
 
   , onClickCta: function(e) {
     var href = $(e.currentTarget).attr('href');
-    var $navLink = $('#page-nav a[href="' + href + '"]');
+    var $navLink = $('#resource-sidebar a[href="' + href + '"]');
     $navLink.click(); //Proxy click to navbar
 
     return false;

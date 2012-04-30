@@ -125,16 +125,15 @@ var AppView = module.exports = Backbone.View.extend({
       app.set({resourceName: ''});
     }
 
-    if (bodyViewClass) {
-      var body = $('<div id="body" class="span9">').html(template(model));
-      $('#body').replaceWith(body);
-      require('./divider-drag')();
-      
-      $(window).resize();
+    if (this.bodyView) {
+      this.bodyView.close();
+    }
 
-      if (this.bodyView) {
-        this.bodyView.close();
-      }
+    if (bodyViewClass) {
+      var body = $('<div>').html(template(model));
+      $('#body').empty().append(body);
+      require('./divider-drag')();
+      $(window).resize();
 
       this.bodyView = new bodyViewClass({el: body, model: this.model.get('resource')});  
       this.bodyView.render();

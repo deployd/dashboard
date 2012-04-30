@@ -1,56 +1,37 @@
 <div id="model-editor">
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span2">&nbsp;</div>
-      <div class="fixed2">
-        <div class="well sidebar-nav">
-          <ul id="page-nav" class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#properties" data-toggle="tab">Properties</a></li>
-            <li><a href="#data" data-toggle="tab">Data</a></li>
-            <li><a href="#api" data-toggle="tab">API</a></li>
-            <li><a href="#events" data-toggle="tab">Events</a></li>
-          </ul>
+  <div class="tab-content">
+    <div id="properties" class="container tab-pane active">
+      <div class="panel well stacked">
+        <h3>
+          Properties
+        </h3>
+        <div id="property-list">
         </div>
       </div>
-      
-      <div class="span10">
-        <div class="tab-content">
-          <div id="properties" class="container tab-pane active">
-            <div class="panel well stacked">
-              <h3>
-                Properties
-              </h3>
-              <div id="property-list">
-              </div>
-            </div>
 
-            <div id="property-now-what" class="alert alert-info hide">
-              When you're done adding properties, you should <a href="#data" class="cta-link">add some data</a> to this collection.
-            </div>
-          </div>
-          <div id="data" class="tab-pane well stacked">
-            
-          </div>
-
-          <div id="api" class="tab-pane well stacked">
-                  
-          </div>    
-
-          <div id="events" class="tab-pane">
-            <div class="row-fluid">
-            <div class="span9">
-              <div id="events-panel" class="well stacked">
-              </div>
-                    
-            </div>
-            <div class="span3">
-              <div id="property-reference" class="well">
-
-              </div>
-          </div>          
-        </div>
-
+      <div id="property-now-what" class="alert alert-info hide">
+        When you're done adding properties, you should <a href="#data" class="cta-link">add some data</a> to this collection.
       </div>
     </div>
+    <div id="data" class="tab-pane well stacked">
+      
+    </div>
+
+    <div id="api" class="tab-pane well stacked">
+            
+    </div>    
+
+    <div id="events" class="tab-pane">
+      <div class="row-fluid">
+      <div class="span9">
+        <div id="events-panel" class="well stacked">
+        </div>
+              
+      </div>
+      <div class="span3">
+        <div id="property-reference" class="well">
+
+        </div>
+    </div>          
   </div>
 </div>
