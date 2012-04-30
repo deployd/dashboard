@@ -16,8 +16,8 @@ var ResourcesView = module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
+    this.resources = this.options.resources;    
     this.resourceTypes = new ResourceTypeCollection();
-    this.resources = new ResourceCollection();
 
     this.resourceListView = new ResourceListView({
       collection: this.resources,

@@ -30,6 +30,10 @@ p a {
   text-decoration: underline;
 }
 
+.row-fluid .container {
+  margin-left: 0;
+}
+
 .well {margin-bottom: 0;}
 
 .well.stacked {
@@ -195,7 +199,7 @@ p a {
       .icon-asterisk;
     }
 
-    &.files {
+    &.files, &.static {
       .icon-folder-close;
     }
 
@@ -203,7 +207,7 @@ p a {
       .icon-th-list;
     }
 
-    &.users-collection {
+    &.users-collection, &.userscollection {
       .icon-user;
     }
   }
@@ -549,7 +553,7 @@ table input {
 
 #properties {
   width: 485px;
-  margin: auto;
+
   label {
     margin-right: 12px;
   }

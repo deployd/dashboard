@@ -1,0 +1,8 @@
+<% collection.each(function(resourceModel) { var resource = resourceModel.toJSON(); %>
+  <li <%= resource._id === app.resourceId ? 'class="active"' : '' %>>
+    <a href="#<%= resource._id %>">
+      <i class="icon-hack <%- resource.type.toLowerCase() %>"></i>&nbsp;
+      <%- resource.path %>
+    </a>
+  </li>
+<% }); %>

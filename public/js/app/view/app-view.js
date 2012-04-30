@@ -1,7 +1,9 @@
 define(function(require, exports, module) {
 var CollectionSettings = require('../model/collection-settings');
+var ResourceCollection = require('../model/resource-collection');
 
 var ResourcesView = require('./resources-view');
+var ResourceSidebarView = require('./resource-sidebar-view');
 var CollectionView = require('./collection-view');
 var StaticView = require('./static-view');
 var HeaderView = require('./header-view');
@@ -33,6 +35,11 @@ var AppView = module.exports = Backbone.View.extend({
     this.model.on('change:edit', this.render, this);
 
     this.headerView = new HeaderView({model: app});
+
+    this.resources = new ResourceCollection();
+
+    $('#resources-container').html(this.resourcesTemplate({
+    }));
 
     this.$modal = $('#authModal').modal();
 
@@ -93,6 +100,11 @@ var AppView = module.exports = Backbone.View.extend({
   },
 
   render: function() {
+    if (!this.resourcesView && !this.resourceSidebarView) {
+      this.resourcesView = new ResourcesView({el: '#resources-container', resources: this.resources});
+      this.resourceSidebarView = new ResourceSidebarView({collection: this.resources});
+    }
+
     var model = this.model.toJSON();
     var template, bodyViewClass;
     var resourceId = this.model && this.model.get('resourceId');
@@ -111,23 +123,31 @@ var AppView = module.exports = Backbone.View.extend({
     } else {
       app.set({resourceType: ''});
       app.set({resourceName: ''});
-      template = this.resourcesTemplate;
-      bodyViewClass = ResourcesView;
     }
 
-    var body = $('<div id="body" class="span9">').html(template(model));
-    $('#body').replaceWith(body);
-    require('./divider-drag')();
+    if (bodyViewClass) {
+      var body = $('<div id="body" class="span9">').html(template(model));
+      $('#body').replaceWith(body);
+      require('./divider-drag')();
+      
+      $(window).resize();
+
+      if (this.bodyView) {
+        this.bodyView.close();
+      }
+
+      this.bodyView = new bodyViewClass({el: body, model: this.model.get('resource')});  
+      this.bodyView.render();
+
+      $('#body-container').show();
+      $('#resources-container').hide();
+    } else {
+      $('#body-container').hide();
+      $('#resources-container').show();
+    }
+
     
-    $(window).resize();
-
-    if (this.bodyView) {
-      this.bodyView.close();
-    }
-
-    this.bodyView = new bodyViewClass({el: body, model: this.model.get('resource')});  
-    this.bodyView.render();
-
+    this.resources.fetch();
     undoBtn.init();
     saveStatus.init();
 

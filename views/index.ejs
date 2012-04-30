@@ -14,16 +14,20 @@
 
     <div id="header" class="subnav clearfix"></div>
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span3">
-                <div class="well">
-                    <h3>Resources</h3>
-                </div>
-            </div>
-            <div class="span9" id="body">
-            </div>
+    <div id="resources-container">
+    </div>
+    <div id="body-container" class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well">
+            <h3><a href="#">Resources</a></h3>
+            <ul class="nav nav-pills nav-stacked type-icons" id="resource-sidebar">
+            </ul>
+          </div>
         </div>
+        <div class="span9" id="body">
+        </div>
+      </div>
     </div>
 
     <div class="modal" id="authModal" style="display: none">
@@ -50,6 +54,7 @@
     <%- template('file-editor') %>
     
     <%- template('resource-types') %>
+    <%- template('resource-sidebar') %>
     <%- template('resource') %>
 
     <%- template('collection-routes') %>
