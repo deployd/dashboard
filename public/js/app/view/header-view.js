@@ -15,6 +15,7 @@ var HeaderView = module.exports = Backbone.View.extend({
 
   initialize: function() {
     this.model.on('change', this.render, this);
+    this.render();
   },
 
   rename: function() {

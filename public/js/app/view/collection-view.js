@@ -16,11 +16,15 @@ var undoBtn = require ('./undo-button-view');
 
 var CollectionView = module.exports = Backbone.View.extend({
 
-  events: {
+  template: _.template($('#collection-template').html())
+
+  , events: {
     'click .cta-link': 'onClickCta'
   }
 
   , initialize: function() {
+    $(this.el).html(this.template({}));
+
     this.propertyTypes = new PropertyTypeCollection();
 
     this.dataCollection = new DataCollection([]);
@@ -62,21 +66,16 @@ var CollectionView = module.exports = Backbone.View.extend({
 
     this.propertyTypes.fetch();
 
-    this.initializeDom();
-
     this.render();
+
+    this.initializeDom();
   }
 
   , initializeDom: function() {
+
     this.onKeypress = _.bind(this.onKeypress, this);
     
     $('.icon-info-sign').popover();
-
-    this._navSections = navSections = [];
-    
-    this.onScroll = _.bind(this.onScroll, this);
-    $(window).on('scroll', this.onScroll);
-    this.onScroll();
 
     if (this.model.get('properties').length) {
       this.$('#resource-sidebar a[href="#data"]').click();
@@ -99,25 +98,6 @@ var CollectionView = module.exports = Backbone.View.extend({
       e.preventDefault();
       return false;
     }   
-  }
-
-  , onScroll: function(e) {
-    // var scrollTop = $(window).scrollTop();
-
-    // $('#page-nav').find('a').each(function() {
-    //   var selector = $(this).attr('href');
-    //   var $element = $(selector);
-    //   var pos = $element.offset().top + $element.outerHeight();
-
-    //   if (scrollTop < pos - 50) {
-
-    //     $('#page-nav').find('.active').removeClass('active').end()
-    //       .find('[href="' + selector + '"]').parent().addClass('active')
-    //     ;
-
-    //     return false;
-    //   }
-    // });
   }
 
   , onClickCta: function(e) {

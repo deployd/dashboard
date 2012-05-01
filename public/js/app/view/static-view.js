@@ -1,18 +1,21 @@
-define(["require", "exports", "module", "../app","../model/file"], function(require, exports, module) {
+define(function(require, exports, module) {
 var app = require('../app')
   , File = require('../model/file')
-  , template = _.template($('#file-template').html())
+  , fileTemplate = _.template($('#file-template').html())
+  , template = _.template($('#static-template').html())
 ;
 
 var ModelEditorView = module.exports = Backbone.View.extend({
   
-  events: {
+    events: {
       'change #file-upload input': 'onChange'
     , 'click .new-file-btn': 'addFile'
     , 'click a.delete': 'delete'
-  },
+  }
   
-  initialize: function () {
+  , initialize: function () {
+    this.initializeDom();
+
     this.list = this.$('#files tbody');
     this.files = new Backbone.Model();
     this.files.parse = function (data) {
@@ -21,9 +24,13 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     this.files.url = this.model.get('path');
     this.files.on('change:all', this.render, this);
     this.files.fetch();
-  },
+  }
+
+  , initializeDom: function() {
+    $(this.el).html(template({}));
+  }
   
-  render: function (model, data, options) {
+  , render: function (model, data, options) {
     var list = this.list
       , html = ''
       , model = this.model
@@ -34,7 +41,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     
     if(data) {
       _.each(data.reverse(), function (filename) {
-        html += template({
+        html += fileTemplate({
           filename: filename,
           url: app.get('appUrl') + path + '/' + filename,
           path: path + '/' + filename,

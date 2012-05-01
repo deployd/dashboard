@@ -8,12 +8,16 @@ var saveStatus = require('./save-status-view');
 
 var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).extend({
 
-  events: {
+  template: _.template($('#file-editor-template').html())
+
+  , events: {
       'click .back': 'back'
     , 'click #save-btn': 'save'
   }
 
   , initialize: function () {
+    $(this.el).html(this.template({}));
+
     var path = this.path = '/' + app.get('edit');
     
     var view = this;

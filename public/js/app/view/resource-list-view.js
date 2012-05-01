@@ -18,6 +18,8 @@ var ResourceListView = module.exports = Backbone.View.extend({
     this.collection.on('remove', this.render, this);
 
     this.initializeDom();
+
+    this.render();
   },
 
   initializeDom: function() {

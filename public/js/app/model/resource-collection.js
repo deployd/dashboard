@@ -16,7 +16,8 @@ var ResourceCollection = module.exports = Backbone.Collection.extend({
   }
 
   , error: function() {
-    app.set('authKey', undefined);
+    app.set({authKey: undefined}, {silent: true});
+    app.trigger('change:authKey');
   }
 });
 });

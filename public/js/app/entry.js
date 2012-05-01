@@ -14,7 +14,7 @@ require('./view/divider-drag');
 var AppView = require('./view/app-view');
 var router = require('./router');
 
-var appView = new AppView();
+AppView.init();
 
 Backbone.history.start();
 });

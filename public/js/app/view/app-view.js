@@ -1,162 +1,119 @@
 define(function(require, exports, module) {
-var CollectionSettings = require('../model/collection-settings');
-var ResourceCollection = require('../model/resource-collection');
 
-var ResourcesView = require('./resources-view');
-var ResourceSidebarView = require('./resource-sidebar-view');
-var CollectionView = require('./collection-view');
-var StaticView = require('./static-view');
-var HeaderView = require('./header-view');
-var FileEditorView = require('./file-editor-view');
+  var app = require('../app');
+  var router = require('../router');
 
-var undoBtn = require('./undo-button-view');
-var saveStatus = require('./save-status-view');
+  var undoBtn = require('./undo-button-view');
+  var saveStatus = require('./save-status-view');
 
-var app = require('../app');
-var router = require('../router');
+  var ResourceCollection = require('../model/resource-collection');
 
-var AppView = module.exports = Backbone.View.extend({
+  var AuthModalView = require('./auth-modal-view');
+  var ResourceSidebarView = require('./resource-sidebar-view');
+  var ResourcesView = require('./resources-view');
+  var HeaderView = require('./header-view');
 
-  headerTemplate: _.template($('#header-template').html()),
+  var CollectionView = require('./collection-view');
+  var StaticView = require('./static-view');
+  var FileEditorView = require('./file-editor-view');
 
-  resourcesTemplate: _.template($('#resources-template').html()),
-  collectionTemplate: _.template($('#collection-template').html()),
-  staticTemplate: _.template($('#static-template').html()),
-  fileEditorTemplate: _.template($('#file-editor-template').html()),
+  var AppView = module.exports = Backbone.View.extend({
 
-  events: {
-    'click #authModal .save': 'authenticate'
-  },
-
-  initialize: function() {
-    this.model = this.model || app;
-    this.model.on('change:resourceId', this.loadResource, this);
-    this.model.on('change:resource', this.render, this);
-    this.model.on('change:edit', this.render, this);
-
-    this.headerView = new HeaderView({model: app});
+    initialize: function() {
 
     this.resources = new ResourceCollection();
 
-    $('#resources-container').html(this.resourcesTemplate({
-    }));
+    this.modal = new AuthModalView();
 
-    this.$modal = $('#authModal').modal();
+    this.authenticate();
+    app.on('change:authKey', this.authenticate, this);
+    this.resources.on('reset', this.initRender, this);
+    this.resources.on('error', this.modal.showError, this.modal);
+  }
 
-    var appUrl = location.protocol + '//' + location.host;
+  , authenticate: function() {
 
-    app.set({
-      appUrl: appUrl,
-      authKey: $.cookie('DPDAuthKey')
-    })
-
-    app.on('change:authKey', this.showModal, this);
-
-    this.$modal.on('click', '.save', _.bind(this.authenticate, this));
-
-    this.showModal();
-
-  },
-
-  showModal: function() {
-    if (app.get('appUrl') && app.get('authKey')) {
-      this.$modal.modal('hide');
+    if (app.get('authKey')) {
+      this.resources.fetch();  
     } else {
-      this.$modal.modal('show');
+      this.modal.show();
     }
-  },
 
-  authenticate: function() {
-    app.set({
-      authKey: this.$modal.find('[name=key]').val()
-    });
+  }
 
-    $.cookie('DPDAuthKey', app.get('authKey'), {expires: 7});
+  , initRender: function() {
+    this.resourceSidebarView = new ResourceSidebarView({collection: this.resources});
+    this.resourceView = new ResourcesView({resources: this.resources});
+    this.headerView = new HeaderView({model: app});
 
-    this.$modal.modal('hide');
+    this.resources.off('reset', this.initRender, this);
+
+    app.on('change:resource', this.render, this);
+    app.on('change:edit', this.render, this);
+
     this.render();
+  }
 
-    return false;
-  },
-
-  loadResource: function() {
-    var self = this;
-    if (this.model.get('resourceId')) {
-      var resource = new Backbone.Model({_id: self.model.get('resourceId')});
-      resource.url = '/resources/' + resource.id;
-      resource.fetch({success: function() {
-        var newResource = new CollectionSettings();
-        app.set({
-          resourceName: resource.get('path'),
-          resourceType: resource.get('typeLabel'),
-          resourceTypeId: resource.get('type')
-        })
-        newResource.set(newResource.parse(resource.attributes));
-        self.model.set({resource: newResource});
-      }});
-    } else {
-      self.model.set({resource: null});
-    }
-  },
-
-  render: function() {
-    if (!this.resourcesView && !this.resourceSidebarView) {
-      this.resourcesView = new ResourcesView({el: '#resources-container', resources: this.resources});
-      this.resourceSidebarView = new ResourceSidebarView({collection: this.resources});
-    }
-
-    var model = this.model.toJSON();
-    var template, bodyViewClass;
-    var resourceId = this.model && this.model.get('resourceId');
-    var type = this.model && resourceId && this.model.get('resourceTypeId');
-    var edit = (this.model && this.model.get('edit')) || false;
-    
-    if(edit) {
-      template = this.fileEditorTemplate;
-      bodyViewClass = FileEditorView;
-    } else if (type === 'Collection' || type === 'UserCollection') {
-      template = this.collectionTemplate;
-      bodyViewClass = CollectionView;
-    } else if(type === 'Static') {
-      template = this.staticTemplate;
-      bodyViewClass = StaticView;
-    } else {
-      app.set({resourceType: ''});
-      app.set({resourceName: ''});
-    }
+  , render: function() {
 
     if (this.bodyView) {
       this.bodyView.close();
     }
 
-    if (bodyViewClass) {
-      var body = $('<div>').html(template(model));
-      $('#body').empty().append(body);
-      require('./divider-drag')();
-      $(window).resize();
+    var resource = app.get('resource');
 
-      this.bodyView = new bodyViewClass({el: body, model: this.model.get('resource')});  
-      this.bodyView.render();
+    var edit = app.get('edit');
+
+    if (resource || edit) {
+
+      var type = resource.get('type');
+      
+      var viewClass = null;
+
+      if (edit) {
+        viewClass = FileEditorView;
+      } else if (type === 'Collection' || type === 'UserCollection') {
+        viewClass = CollectionView;
+      } else if (type === 'Static') {
+        viewClass = StaticView;
+      }
+
+      if (viewClass) {
+        var el = $('<div>');
+        $('#body').empty().append(el);
+        this.bodyView = new viewClass({model: resource, el: el});
+      }
 
       $('#body-container').show();
       $('#resources-container').hide();
+
+      if (edit) {
+        router.navigate('/edit/' + edit);
+      } else {
+        router.navigate(app.get('resourceId'));
+      }
     } else {
       $('#body-container').hide();
       $('#resources-container').show();
+
+      this.resources.fetch();
+
+      router.navigate('');
     }
 
-    
-    this.resources.fetch();
+
+
     undoBtn.init();
     saveStatus.init();
+  }
 
-    if (edit) {
-      router.navigate('/edit/' + edit);
-    } else {
-      router.navigate(this.model.get('resourceId'));
-    }
-  },
+  });
 
-});
+  var instance;
+
+  AppView.init = function() {
+    if (!instance) { instance = new AppView(); }
+    return instance;
+  };
 
 });
