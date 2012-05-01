@@ -1,12 +1,14 @@
+<li>
+  <a href="#">Resources</a>
+</li>
 <% collection.each(function(resourceModel) { var resource = resourceModel.toJSON(); %>
-  <li class="nav-header <%= resource._id === app.resourceId ? 'active' : '' %>" >
+  <li class="<%= resource._id === app.resourceId ? 'active' : '' %>" >
     <a href="#<%= resource._id %>">
       <i class="icon-hack <%- resource.type.toLowerCase() %>"></i>&nbsp;
       <%- resource.path %>
-
     </a>
     <% if (resource._id === app.resourceId && (resource.type === 'Collection' || resource.type === 'UserCollection')) { %>
-      <ul class="nav nav-list nav-sublist">
+      <ul class="nav nav-tabs nav-stacked nav-sublist">
         <li class="active"><a href="#properties" data-toggle="tab">Properties</a></li>
         <li><a href="#data" data-toggle="tab">Data</a></li>
         <li><a href="#api" data-toggle="tab">API</a></li>
