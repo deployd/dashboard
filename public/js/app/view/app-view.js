@@ -66,16 +66,19 @@ define(function(require, exports, module) {
 
     if (resource || edit) {
 
-      var type = resource.get('type');
+      
       
       var viewClass = null;
 
       if (edit) {
         viewClass = FileEditorView;
-      } else if (type === 'Collection' || type === 'UserCollection') {
-        viewClass = CollectionView;
-      } else if (type === 'Static') {
-        viewClass = StaticView;
+      } else {
+        var type = resource.get('type');
+        if (type === 'Collection' || type === 'UserCollection') {
+          viewClass = CollectionView;
+        } else if (type === 'Static') {
+          viewClass = StaticView;
+        }
       }
 
       if (viewClass) {

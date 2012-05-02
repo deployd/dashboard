@@ -4,31 +4,31 @@
   <a class="pull-right header-link" target="_blank" href="http://deployd.github.com/deployd/#Collection-Event-Handlers">Documentation</a> 
 </h3>
   
-<ul class="nav nav-tabs">
-  <li><a href="#get-panel" data-toggle='tab'>On GET</a></li>
-  <li class="active"><a href="#post-panel" data-toggle='tab'>On POST</a></li>
-  <li><a href="#put-panel" data-toggle='tab'>On PUT</a></li>
-  <li><a href="#delete-panel" data-toggle='tab'>On DELETE</a></li>
+<ul class="nav nav-tabs" id="event-nav">
+  <li><a href="#get-panel" data-toggle='tab' data-editor="onGet">On GET</a></li>
+  <li class="active"><a href="#post-panel" data-toggle='tab' data-editor="onPost">On POST</a></li>
+  <li><a href="#put-panel" data-toggle='tab' data-editor="onPut">On PUT</a></li>
+  <li><a href="#delete-panel" data-toggle='tab' data-editor="onDelete">On DELETE</a></li>
 </ul>
 <div class="tab-content">
   <div class="tab-pane" id="get-panel">
     <div class="editor-container">
-      <div id="onGet"><%= onGet %></div>
+      <div id="onGet"></div>
     </div>
   </div>
   <div class="tab-pane active" id="post-panel">
     <div class="editor-container">
-      <div id="onPost"><%= onPost %></div>
+      <div id="onPost"></div>
     </div>
   </div>
   <div class="tab-pane" id="put-panel">
     <div class="editor-container">
-      <div id="onPut"><%= onPut %></div>
+      <div id="onPut"></div>
     </div>
   </div>
   <div class="tab-pane" id="delete-panel">
     <div class="editor-container">
-      <div id="onDelete"><%= onDelete %></div>
+      <div id="onDelete"></div>
     </div>
   </div>
 </div>

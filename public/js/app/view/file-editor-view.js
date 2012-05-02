@@ -93,6 +93,10 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     $('#save-btn').attr('disabled', true);
   }
 
+  , close: function() {
+    this.editor.close();
+  }
+
 });
 
 

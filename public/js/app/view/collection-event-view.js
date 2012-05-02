@@ -3,53 +3,60 @@ var CodeEditorView = require('./code-editor-view');
 
 var CollectionEventView = module.exports = Backbone.View.extend({
 
-  template: _.template($('#events-template').html()),
+    template: _.template($('#events-template').html())
 
-  initialize: function() {
-    this._editors = {
-      onGet: null,
-      onPost: null,
-      onPut: null,
-      onDelete: null
-    };
-  },
+  , events: {
+    'click #event-nav a': 'updateRender'
+  }
 
-  update: function(e) {
-    var values = {};
+  , initialize: function() {
 
-    _.each(this._editors, function(editor, name) {
-      if (editor) {
-        values[name] = editor.getText();
-      }
-    });
-
-    this.model.set(values);
-  },
-
-  render: function() {
     var self = this;
 
     $(this.el).html(this.template(this.model.toJSON()));
 
-    _.each(this._editors, function(editor, name) {
-      if (editor) {
-        editor.close();  
-      }
 
-      editor = new CodeEditorView({ el: self.$('#' + name) }).render();
-      editor.on('change', self.update, self);
-      self._editors[name] = editor;
-    });
+    this.editor = new CodeEditorView({ }).render();
+    this.editor.on('change', self.update, self);
 
+    _.bind(this.resize, this);
+    $('#resource-sidebar').on('click', 'a', this.resize);
+  }
+
+  , getActive: function() {
+    return this.$('#event-nav .active a').attr('data-editor');
+  }
+
+  , update: function(e) {
+    var text = this.editor.getText();
+    if (typeof text !== 'undefined') this.model.set(this.getActive(), text);
+  }
+
+  , updateRender: function() {
+    this.update();
+
+    setTimeout(_.bind(this.render, this), 1);
+  }
+
+  , render: function() {
+
+    var active = this.getActive();
+
+
+    this.editor.setText(this.model.get(active));
+    this.editor.setElement('#' + active);
+    this.editor.render();
+    
     return this;
-  },
+  }
 
-  close: function() {
-    _.each(this._editors, function(editor, name) {
-      if (editor) {
-        editor.close();  
-      }    
-    });
+  , resize: function() {
+    this.editor.resize();
+  }
+
+  , close: function() {
+    $('#resource-sidebar').off('click', 'a', this.resize);
+    this.editor.close();    
   }
 
 });
