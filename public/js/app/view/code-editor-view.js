@@ -65,5 +65,12 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     return this;
   }
 
+  , close: function() {
+    if (this._timeout) {
+      clearTimeout(this._timeout);
+    }
+    this.editor.destroy();
+  }
+
 });
 });

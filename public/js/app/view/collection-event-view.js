@@ -5,10 +5,6 @@ var CollectionEventView = module.exports = Backbone.View.extend({
 
   template: _.template($('#events-template').html()),
 
-  events: {
-    'shown .nav-tabs a': 'resize'
-  },
-
   initialize: function() {
     this._editors = {
       onGet: null,
@@ -33,13 +29,11 @@ var CollectionEventView = module.exports = Backbone.View.extend({
   render: function() {
     var self = this;
 
-    this._resizeInterval = setInterval(_.bind(this.resize, this), 100);
-
     $(this.el).html(this.template(this.model.toJSON()));
 
     _.each(this._editors, function(editor, name) {
       if (editor) {
-        editor.off();  
+        editor.close();  
       }
 
       editor = new CodeEditorView({ el: self.$('#' + name) }).render();
@@ -50,38 +44,10 @@ var CollectionEventView = module.exports = Backbone.View.extend({
     return this;
   },
 
-  resize: function(force) {
-  
-    // var height = $(this.el).height();
-
-    // if (this._lastHeight !== height || force) {
-    //   var $editors = $(this.el).find('.editor-container');
-    //   $editors.height(0);
-
-    //   var availableSpace = height;
-
-    //   $(this.el).children().each(function() {
-    //     availableSpace -= $(this).outerHeight(true);
-    //   });
-
-    //   $editors.height(availableSpace);
-
-    //   _.each(this._editors, function(editor, name) {
-    //     if (editor) {
-    //       editor.resize();  
-    //     }
-    //   });
-
-    //   this._lastHeight = height;
-    // }
-    
-  },
-
   close: function() {
-    clearInterval(this._resizeInterval);
     _.each(this._editors, function(editor, name) {
       if (editor) {
-        editor.off();  
+        editor.close();  
       }    
     });
   }
