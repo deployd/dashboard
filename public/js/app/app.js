@@ -7,6 +7,7 @@ var App = Backbone.Model.extend({
       appName: 'My App'
     , appUrl: ''
     , resourceType: ''
+    , files: undefined
   }
 
   , initialize: function() {
@@ -50,7 +51,12 @@ var App = Backbone.Model.extend({
         self.set({resource: resource});
       }});
     } else {
-      self.set({resource: null});
+      self.set({
+        resource: null,
+        resourceName: undefined,
+        resourceType: undefined,
+        resourceTypeId: undefined
+      });
     }
   }
 

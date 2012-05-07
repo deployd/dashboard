@@ -7,6 +7,8 @@ var TemplateView = require('./template-view');
 var ResourceCollection = require('../model/resource-collection');
 var ResourceTypeCollection = require('../model/resource-type-collection');
 
+var router = require('router');
+
 var ResourcesView = module.exports = TemplateView.extend({
     el: '#resources-container'
 
@@ -15,7 +17,8 @@ var ResourcesView = module.exports = TemplateView.extend({
   , typesTemplate: _.template($('#resource-types-template').html())
 
   , events: {
-    'click #property-types a': 'addItem'
+    'click #property-types a': 'addItem',
+    'click #files-resource': 'goToFiles'
   }
 
   , initialize: function() {
@@ -33,6 +36,10 @@ var ResourcesView = module.exports = TemplateView.extend({
     this.resourceTypes.on('reset', this.renderTypes, this);
 
     this.resourceTypes.fetch();
+  }
+
+  , goToFiles: function() {
+    router.navigate('files', {trigger: true});
   }
 
   , addItem: function(e) {

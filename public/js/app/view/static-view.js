@@ -5,7 +5,7 @@ var app = require('../app')
   , template = _.template($('#static-template').html())
 ;
 
-var ModelEditorView = module.exports = Backbone.View.extend({
+var StaticView = module.exports = Backbone.View.extend({
   
     events: {
       'change #file-upload input': 'onChange'
@@ -21,7 +21,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
     this.files.parse = function (data) {
       return {all: data}
     };
-    this.files.url = this.model.get('path');
+    this.files.url = '/';
     this.files.on('change:all', this.render, this);
     this.files.fetch();
   }
@@ -33,8 +33,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   , render: function (model, data, options) {
     var list = this.list
       , html = ''
-      , model = this.model
-      , path = model.get('path')
+      , path = '/' //model.get('path')
     ;
     
     if(path === '/') path = '';
@@ -65,7 +64,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   
   onChange: function (e) {
     var files = e.target.files && e.target.files
-      , path = this.model.get('path')
+      , path = '/'
       , self = this
     ;
     
@@ -89,7 +88,7 @@ var ModelEditorView = module.exports = Backbone.View.extend({
   
   delete: function (e) {
     var filename = $(e.currentTarget).attr('filename')
-      , file = new File({path: this.model.get('path'), info: {fileName: filename}, _id: filename});
+      , file = new File({path: '/', info: {fileName: filename}, _id: filename});
     
     var files = this.files;
     

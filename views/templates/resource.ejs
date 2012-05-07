@@ -1,5 +1,5 @@
 <div class="component-item-header">
-  <i title="<%= resource.typeLabel %>" class="icon-white <%= resource.typeLabel.toLowerCase().replace(' ', '-') %>"></i>
+  <i title="<%= resource.typeLabel %>" class="type-icon icon-white <%= resource.typeLabel.toLowerCase().replace(' ', '-') %>"></i>
   <% if (resource.c_active) { %>
     <input style="margin-left: 3px; width: 225px;" type="text" class="code" name="path" value="<%- resource.path %>" />
     <a style="margin-right: 3px;" href="#" class="btn btn-primary save-btn">save</a>

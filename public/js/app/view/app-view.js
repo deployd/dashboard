@@ -49,7 +49,7 @@ define(function(require, exports, module) {
     this.resources.off('reset', this.initRender, this);
 
     app.on('change:resource', this.render, this);
-    app.on('change:edit', this.render, this);
+    app.on('change:files', this.render, this);
 
     this.render();
   }
@@ -62,22 +62,26 @@ define(function(require, exports, module) {
 
     var resource = app.get('resource');
 
-    var edit = app.get('edit');
+    var files = app.get('files');
 
-    if (resource || edit) {
+    if (app.get('resourceId') || files) {
 
       
       
       var viewClass = null;
 
-      if (edit) {
-        viewClass = FileEditorView;
-      } else {
+      if (files) {
+
+        if (files !== true) {
+          viewClass = FileEditorView;  
+        } else {
+          viewClass = StaticView;
+        }
+        
+      } else if (resource) {
         var type = resource.get('type');
         if (type === 'Collection' || type === 'UserCollection') {
           viewClass = CollectionView;
-        } else if (type === 'Static') {
-          viewClass = StaticView;
         }
       }
 
@@ -90,8 +94,12 @@ define(function(require, exports, module) {
       $('#body-container').show();
       $('#resources-container').hide();
 
-      if (edit) {
-        router.navigate('/edit/' + edit);
+      if (files) {
+        var path = "/files";
+        if (files !== true) {
+          path += '/' + files;
+        }
+        router.navigate(path);
       } else {
         router.navigate(app.get('resourceId'));
       }

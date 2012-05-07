@@ -40,10 +40,6 @@ p a {
   margin-bottom: 20px;
 }
 
-.span10 {
-  overflow-x: auto;
-}
-
 .resource-list .container {
   width: 443px;
 }
@@ -421,10 +417,12 @@ li.component-item {
     padding: 5px;
   }
   
-  &.locked:hover .name {
-    border: none;
-    margin-left: 0;
-    padding: 5px;
+  &.locked:hover {
+    .name, .path {
+      border: none;
+      margin-left: 0;
+      padding: 5px;  
+    }
   }
 
   &.locked .component-item-header {

@@ -1,6 +1,12 @@
 <li>
   <a href="#">Resources</a>
 </li>
+<li <%= app.files ? 'class="active"' : '' %>>
+  <a href="#files">
+    <i class="icon-hack static"></i>&nbsp;
+    Files
+  </a>
+</li>
 <% collection.each(function(resourceModel) { var resource = resourceModel.toJSON(); %>
   <li class="<%= resource._id === app.resourceId ? 'active' : '' %>" >
     <a href="#<%= resource._id %>">

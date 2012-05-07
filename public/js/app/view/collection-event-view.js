@@ -19,7 +19,7 @@ var CollectionEventView = module.exports = Backbone.View.extend({
     this.editor = new CodeEditorView({ }).render();
     this.editor.on('change', self.update, self);
 
-    _.bind(this.resize, this);
+    this.resize = _.bind(this.resize, this);
     $('#resource-sidebar').on('click', 'a', this.resize);
   }
 
