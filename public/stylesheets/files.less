@@ -29,12 +29,20 @@
   margin-top: 30px;
 }
 
-.file-list {
+.file-list-container {
   margin-left: 14px;
+}
+
+.file-list {
+  margin-left: 0;
+  cursor: pointer;
 
   li {
     list-style: none;
-    padding: 4px 4px;
+  }
+
+  .file, .folder {
+    padding: 2px 2px;
     height: 28px;
     line-height: 28px;
     position: relative;
@@ -42,8 +50,8 @@
     .buttons {
       display: none;
       position: absolute;
-      top: 4px;
-      right: 4px;
+      top: 2px;
+      right: 2px;
     }
 
     &:hover {

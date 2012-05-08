@@ -1,13 +1,65 @@
 define(function(require, exports, module) {
 
   var File = require('model/file');
+  var Resource = require('model/resource');
 
   var app = require('app');
+
+  var foldersMapping = {
+    'folders': {
+      key: function(data) {
+        return ko.utils.unwrapObservable(data.path);
+      }
+    }
+  };
 
   var template = exports.template = {
 
     mapFiles: function() {
       this.files(this.model.get('data'));
+    }
+
+    , mapFolders: function() {
+      var folders = [];
+      var self = this;
+      this.foldersCollection.each(function(folder) {
+        var path = folder.get('path');
+        if (path === '/') return; //Root is never going to be a subfolder
+        var prefix = '/' + self.getPath('');
+
+        if (path.indexOf(prefix) !== -1) { //Path should start with the current path
+          var relPath = path.slice(prefix.length);
+          //Path should not be the current (have relative length)
+          //And not have any more levels
+          if (relPath.length && relPath.indexOf('/') === -1) {
+
+            var folderEntry = _.find(self.folders, function(folder) {folder.path === path});
+
+            if (!folderEntry) {
+              folderEntry = {
+                  path: path
+                , name: relPath
+                , model: folder
+                , isOpen: ko.observable(false)
+                , viewModel: create(path)
+              };
+            }
+
+            folders.push(folderEntry)
+          } 
+        }
+      });
+
+      self.folders(folders);
+    }
+
+    , fetch: function() {
+      this.fetchFiles();
+      this.fetchFolders();
+    }
+
+    , fetchFolders: function() {
+      this.foldersCollection.fetch();
     }
 
     , fetchFiles: function() {
@@ -70,13 +122,55 @@ define(function(require, exports, module) {
       if (name) this.editFile(name);
     }
 
+    , deleteFolder: function(folder) {
+      var self = this;
+      folder.model.destroy({success: function() {
+        self.fetchFolders();
+      }});
+    }
+
+    , addFolder: function() {
+      var name = prompt("Enter a name for this folder:");
+      var self = this;
+      if (name) {
+        var resourcePath = Resource.sanitizePath(name);
+        if (self.path !== '/') resourcePath = self.path + resourcePath;
+        this.foldersCollection.create({
+            path: resourcePath
+          , type: 'Static'
+        }, {success: function() {
+          self.fetchFolders();
+        }});
+      }
+    }
+
+    , toggleFolder: function(folder) {
+      folder.isOpen(!folder.isOpen());
+      if (folder.isOpen()) { folder.viewModel.fetch(); }
+    }
+
+    , onClickFolder: function(folder, e) {
+      if (!$(e.target).is('a')) {
+        this.toggleFolder(folder);
+      } else {
+        return true;
+      }
+    }
+
   };
 
   function parseModel(json) {
     return {data: json};
   }
 
-  exports.create = function create(path) {
+  function fetchFolders(options) {
+    options = _.extend(options || {}, {
+      data: {type: 'Static'}
+    });
+    return Backbone.Collection.prototype.fetch.call(this, options);
+  }
+
+  var create = exports.create = function(path) {
     path = path || '/';
 
     var self = Object.create(template);
@@ -88,6 +182,11 @@ define(function(require, exports, module) {
     self.model.parse = parseModel;
     self.model.url = path;
     self.model.on('change:data', self.mapFiles, self);
+
+    var foldersCollection = self.foldersCollection = new Backbone.Collection();
+    foldersCollection.url = '/resources';
+    foldersCollection.fetch = fetchFolders;
+    foldersCollection.on('reset', self.mapFolders, self);
 
     self.files = ko.observableArray();
     self.folders = ko.observableArray();

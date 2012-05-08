@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 
     , initializeViewModel: function() {
       this.viewModel = FolderViewModel.create();
-      this.viewModel.fetchFiles();
+      this.viewModel.fetch();
     }
 
     , render: function() {

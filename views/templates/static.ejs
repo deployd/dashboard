@@ -7,7 +7,6 @@
             
             <a href="#sync-info-modal" data-toggle="modal" class="btn btn-primary"><i class="icon-white icon-resize-vertical"></i> Setup Local Sync</a>
             
-            
           </div>
         </div>
         <div id="files-empty" class="hide">
@@ -24,25 +23,8 @@
               </p>
           </div>
         </div>
-        <ul class="file-list">
-          <!-- ko foreach: files -->
-          <li class="file" data-bind="click: $parent.onClickFile">
-            <i class="icon-file"></i>
-            <span data-bind="text: $data"></span>
-            <div class="buttons">
-              <a href="#" target="_blank" class="btn" data-bind="attr: {href: '/' + $parent.getPath($data)}, clickBubble: false"><i class="icon-eye-open"></i> View</a>
-              <a href="#" class="btn" data-bind="click: $parent.deleteFile, clickBubble: false"><i class="icon-remove"></i> Delete</a>
-            </div>
-          </li>
-          <!-- /ko -->
-        </ul>
-        <a href="#" class="btn btn-success" data-bind="click: addFile"><i class="icon-plus icon-white"></i> File</a>
-        <span class="btn btn-primary fileinput-button">
-            <i class="icon-upload icon-white"></i>
-            <span>Upload</span>
-            <input type="file" multiple="multiple" data-bind="event: {change: onChangeUpload}" />
-        </span>
-        <span id="currentUploads" data-bind="text: uploadingText"></span>
+        <div data-bind="template: 'folder-template'" class="file-list-container">
+        </div>
       </div>
     </div>
   </div>
@@ -79,3 +61,37 @@
 
   </div>
 </div>
+
+<script type="text/html" id="folder-template">
+  <ul class="file-list">
+    <!-- ko foreach: folders -->
+      <li class="folder" data-bind="click: $parent.onClickFolder">
+        <i class="icon-folder-close" data-bind="css: {'icon-folder-close': !isOpen(), 'icon-folder-open': isOpen}"></i>
+        <span data-bind="text: name"></span>
+        <div class="buttons">
+          <a href="#" class="btn" data-bind="click: $parent.deleteFolder"><i class="icon-remove"></i> Delete</a>
+        </div>
+      </li>
+      <li class="file-list-container" data-bind="template: {name: 'folder-template', data: viewModel}, visible: isOpen">
+      </li>
+    <!-- /ko -->
+    <!-- ko foreach: files -->
+    <li class="file" data-bind="click: $parent.onClickFile">
+      <i class="icon-file"></i>
+      <span data-bind="text: $data"></span>
+      <div class="buttons">
+        <a href="#" target="_blank" class="btn" data-bind="attr: {href: '/' + $parent.getPath($data)}, clickBubble: false"><i class="icon-eye-open"></i> View</a>
+        <a href="#" class="btn" data-bind="click: $parent.deleteFile"><i class="icon-remove"></i> Delete</a>
+      </div>
+    </li>
+    <!-- /ko -->
+  </ul>
+  <a href="#" class="btn btn-success" data-bind="click: addFile"><i class="icon-plus icon-white"></i> File</a>
+  <a href="#" class="btn btn-success" data-bind="click: addFolder"><i class="icon-plus icon-white"></i> Folder</a>
+  <span class="btn btn-primary fileinput-button">
+      <i class="icon-upload icon-white"></i>
+      <span>Upload</span>
+      <input type="file" multiple="multiple" data-bind="event: {change: onChangeUpload}" />
+  </span>
+  <span id="currentUploads" data-bind="text: uploadingText"></span>
+</script>
