@@ -76,6 +76,8 @@ var CodeEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     });
     this.editor = editor;
 
+    editor.focus();
+
     return this;
   }
 

@@ -3,14 +3,14 @@
 </li>
 <li <%= app.files ? 'class="active"' : '' %>>
   <a href="#files">
-    <i class="icon-hack static"></i>&nbsp;
+    <i class="<%= app.files ? 'icon-white' : 'icon-hack' %> static"></i>&nbsp;
     Files
   </a>
 </li>
 <% collection.each(function(resourceModel) { var resource = resourceModel.toJSON(); %>
   <li class="<%= resource._id === app.resourceId ? 'active' : '' %>" >
     <a href="#<%= resource._id %>">
-      <i class="icon-hack <%- resource.type.toLowerCase() %>"></i>&nbsp;
+      <i class="<%= resource._id === app.resourceId ? 'icon-white' : 'icon-hack' %> <%- resource.type.toLowerCase() %>"></i>&nbsp;
       <%- resource.path %>
     </a>
     <% if (resource._id === app.resourceId && (resource.type === 'Collection' || resource.type === 'UserCollection')) { %>

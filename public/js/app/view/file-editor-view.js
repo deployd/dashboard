@@ -18,7 +18,7 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   , initialize: function () {
     $(this.el).html(this.template({}));
 
-    var path = this.path = '/' + app.get('edit');
+    var path = this.path = '/' + app.get('files');
     
     var view = this;
 
@@ -39,7 +39,7 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     
     $.get(path, function (data) {
       editor.setText(data);
-    });
+    }, 'text');
     
     var container = $('.editor-container');
     var win = $(window);
@@ -55,7 +55,7 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   }
 
   , back: function() {
-    app.unset('edit');
+    app.set('files', true);
 
     return false;
   }

@@ -5,13 +5,9 @@
           <h3 class="pull-left">Files</h3>
           <div id="file-upload" class="pull-right">
             
-            <a href="#sync-info-modal" data-toggle="modal" class="btn"><i class="icon-resize-vertical"></i> Setup Local Sync</a>
-            <a href="#" class="new-file-btn btn btn-success"><i class="icon-plus icon-white"></i> New File</a>
-            <span class="btn btn-success fileinput-button">
-                <i class="icon-upload icon-white"></i>
-                <span>Quick Upload Files</span>
-                <input type="file" multiple="multiple" />
-            </span>
+            <a href="#sync-info-modal" data-toggle="modal" class="btn btn-primary"><i class="icon-white icon-resize-vertical"></i> Setup Local Sync</a>
+            
+            
           </div>
         </div>
         <div id="files-empty" class="hide">
@@ -28,14 +24,25 @@
               </p>
           </div>
         </div>
-        <table id="files" class="table table-bordered table-striped">
-          <thead>
-            <th>Filename</th>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <div id="currentUploads">
-        </div>
+        <ul class="file-list">
+          <!-- ko foreach: files -->
+          <li class="file" data-bind="click: $parent.onClickFile">
+            <i class="icon-file"></i>
+            <span data-bind="text: $data"></span>
+            <div class="buttons">
+              <a href="#" target="_blank" class="btn" data-bind="attr: {href: '/' + $parent.getPath($data)}, clickBubble: false"><i class="icon-eye-open"></i> View</a>
+              <a href="#" class="btn" data-bind="click: $parent.deleteFile, clickBubble: false"><i class="icon-remove"></i> Delete</a>
+            </div>
+          </li>
+          <!-- /ko -->
+        </ul>
+        <a href="#" class="btn btn-success" data-bind="click: addFile"><i class="icon-plus icon-white"></i> File</a>
+        <span class="btn btn-primary fileinput-button">
+            <i class="icon-upload icon-white"></i>
+            <span>Upload</span>
+            <input type="file" multiple="multiple" data-bind="event: {change: onChangeUpload}" />
+        </span>
+        <span id="currentUploads" data-bind="text: uploadingText"></span>
       </div>
     </div>
   </div>
