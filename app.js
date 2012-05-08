@@ -31,17 +31,9 @@ var exec = cp.exec;
 var spawn = cp.spawn;
 var key;
 
-// Generate auth key
-
-exec('dpd key --json', function (err, data) {
-  if(err) return console.log(err);
-  
-  key = data;
-})
-
 // Start testing server
 
-var server = spawn('dpd', ['listen', '-p', '2403']);
+var server = exec('mkdir -p example && cd example && dpd -d');
 
 server.stdout.on('data', function (data) {
   console.log(data.toString());
