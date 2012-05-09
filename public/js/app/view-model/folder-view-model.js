@@ -55,6 +55,11 @@ define(function(require, exports, module) {
               };
             }
 
+            if (self.foldersToOpen[path]) {
+              folderEntry.isOpen(true);
+              delete self.foldersToOpen[path];
+            }
+
             folders.push(folderEntry)
           } 
         }
@@ -154,6 +159,7 @@ define(function(require, exports, module) {
             path: resourcePath
           , type: 'Static'
         }, {success: function() {
+          self.foldersToOpen[resourcePath] = true;
           self.fetchFolders();
         }});
       }
@@ -202,6 +208,8 @@ define(function(require, exports, module) {
     foldersCollection.url = '/resources';
     foldersCollection.fetch = fetchFolders;
     foldersCollection.on('reset', self.mapFolders, self);
+
+    self.foldersToOpen = {};
 
     self.files = ko.observableArray();
     self.folders = ko.observableArray();
