@@ -10,6 +10,7 @@ var ResourceSidebarView = module.exports = TemplateView.extend({
   , initialize: function() {
 
     app.on('change:resourceId', this.render, this);
+    app.on('change:files', this.render, this);
 
     TemplateView.prototype.initialize.apply(this, arguments);
   }

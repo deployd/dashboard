@@ -23,32 +23,32 @@ var ResourceListView = module.exports = Backbone.View.extend({
   },
 
   initializeDom: function() {
-    $(this.el).sortable({
-      revert: false,
-      placeholder: 'placeholder',
-      cancel: '.placeholder',
-      distance: 10,
+    // $(this.el).sortable({
+    //   revert: false,
+    //   placeholder: 'placeholder',
+    //   cancel: '.placeholder',
+    //   distance: 10,
 
-      receive: _.bind(function() {
-        if ($(this.el).is(':visible')) {
-          var $newItem = $($(this.el).data().sortable.currentItem);
-          var index = $(this.el).children(':not(.placeholder)').index($newItem);
-          this.onReceiveComponent($newItem, index);
-        }
-      }, this),
-      update: _.bind(this.onReorder, this)
-    });
+    //   receive: _.bind(function() {
+    //     if ($(this.el).is(':visible')) {
+    //       var $newItem = $($(this.el).data().sortable.currentItem);
+    //       var index = $(this.el).children(':not(.placeholder)').index($newItem);
+    //       this.onReceiveComponent($newItem, index);
+    //     }
+    //   }, this),
+    //   update: _.bind(this.onReorder, this)
+    // });
 
-    $('.placeholder', this.emptyEl).droppable({
-      hoverClass: 'highlight',
+    // $('.placeholder', this.emptyEl).droppable({
+    //   hoverClass: 'highlight',
 
-      drop: _.bind(function(event, ui) {
-        if (this.collection.length === 0) {
-          var $newItem = $(ui.helper);
-          this.onReceiveComponent($newItem);    
-        }
-      }, this)
-    });
+    //   drop: _.bind(function(event, ui) {
+    //     if (this.collection.length === 0) {
+    //       var $newItem = $(ui.helper);
+    //       this.onReceiveComponent($newItem);    
+    //     }
+    //   }, this)
+    // });
   },
 
   addItem: function(type, index) {
@@ -116,7 +116,7 @@ var ResourceListView = module.exports = Backbone.View.extend({
     _.each(self.subViews, function(subView) {
       subView.destroy();
     });
-    $(self.el).empty();
+    $(self.el).find('li:not(.locked)').remove();
     if (self.collection.length) {
       $(self.el).show();
       $(self.emptyEl).hide();

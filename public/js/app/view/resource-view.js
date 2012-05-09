@@ -92,7 +92,7 @@ var ResourceView = module.exports = Backbone.View.extend({
   },
 
   onClickHeader: function(e) {
-    if ($(e.target).hasClass('component-item-header')) {
+    if ($(e.target).hasClass('component-item-header') || $(e.target).hasClass('type-icon')) {
       if (this.model.get('c_active')) {
         this.deactivate();
       } else {

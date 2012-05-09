@@ -19,5 +19,12 @@ var ResourceCollection = module.exports = Backbone.Collection.extend({
     app.set({authKey: undefined}, {silent: true});
     app.trigger('change:authKey');
   }
+
+  , fetch: function(options) {
+    options = _.extend(options || {}, {
+      data: {q: '{"type": {"$ne": "Static"}}'}
+    });
+    Backbone.Collection.prototype.fetch.call(this, options);
+  }
 });
 });
