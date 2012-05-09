@@ -9,22 +9,30 @@
             
           </div>
         </div>
-        <div id="files-empty" class="hide">
-          <div class="alert alert-info"><strong>This folder is empty.</strong> Create or upload some files to get started.</div>
+        <div id="files-empty" data-bind="visible: !(files().length || folders().length)">
+          <div class="alert alert-info"><strong>There are no files in your app.</strong> Create or upload some files to get started.</div>
           <div class="get-started" style="margin-bottom: 0;">
              <p>
-               <strong><i class="icon-upload icon-white"></i> Uploading</strong> - The easiest way to get files in your app is to use the "Quick Upload Files" button.
+               <strong><i class="icon-upload icon-white"></i> Uploading</strong> - If you've already built part of your app, you can quickly get your files online by uploading them.
              </p>
              <p>
-               <strong><i class="icon-pencil icon-white"></i> Editing</strong> - Once you have uploaded files, you can click on a filename to edit with deployd's built in text editor.
+               <strong><i class="icon-pencil icon-white"></i> Editing</strong> - You can create your entire app in the dashboard if you want. Create a file and use deployd's built-in text editor to write HTML, JavaScript, and CSS.
              </p>
              <p>
-                <strong><i class="icon-download-alt icon-white"></i> Working Locally</strong> - Setup the <a href="#sync-info-modal" data-toggle="modal">deployd command line tool</a> to easily sync your local files with deployd.
+                <strong><i class="icon-download-alt icon-white"></i> Working Locally</strong> - Setup the <a href="#sync-info-modal" data-toggle="modal">deployd command line tool</a> to easily sync files to deployd from your favorite text-editor.
               </p>
           </div>
         </div>
-        <div data-bind="template: 'folder-template'" class="file-list-container">
+        <div id="files" data-bind="template: 'folder-template'" class="file-list-container">
         </div>
+        <a href="#" class="btn btn-success" data-bind="click: addFile"><i class="icon-plus icon-white"></i> File</a>
+        <a href="#" class="btn btn-success" data-bind="click: addFolder"><i class="icon-plus icon-white"></i> Folder</a>
+        <span class="fileinput-button btn btn-primary">
+          <i class="icon-upload icon-white" title="Upload"></i>
+          Upload
+          <input type="file" multiple="multiple" data-bind="event: {change: onChangeUpload}" />
+        </spab>
+        <span id="currentUploads" data-bind="text: uploadingText"></span>
       </div>
     </div>
   </div>
@@ -63,6 +71,18 @@
 </div>
 
 <script type="text/html" id="folder-template">
+  <div class="add-buttons">
+    <a href="#" data-bind="click: addFile"><i class="icon-plus"></i> File</a>
+    &nbsp;
+    <a href="#" data-bind="click: addFolder"><i class="icon-plus"></i> Folder</a>
+    &nbsp;
+    <a class="fileinput-button">
+      <i class="icon-upload" title="Upload"></i>
+      Upload
+      <input type="file" multiple="multiple" data-bind="event: {change: onChangeUpload}" />
+    </a>
+    <span id="currentUploads" data-bind="text: uploadingText"></span>
+  </div>
   <ul class="file-list">
     <!-- ko foreach: folders -->
       <li class="folder" data-bind="click: $parent.onClickFolder">
@@ -86,12 +106,4 @@
     </li>
     <!-- /ko -->
   </ul>
-  <a href="#" class="btn btn-success" data-bind="click: addFile"><i class="icon-plus icon-white"></i> File</a>
-  <a href="#" class="btn btn-success" data-bind="click: addFolder"><i class="icon-plus icon-white"></i> Folder</a>
-  <span class="btn btn-primary fileinput-button">
-      <i class="icon-upload icon-white"></i>
-      <span>Upload</span>
-      <input type="file" multiple="multiple" data-bind="event: {change: onChangeUpload}" />
-  </span>
-  <span id="currentUploads" data-bind="text: uploadingText"></span>
 </script>

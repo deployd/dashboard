@@ -6,15 +6,33 @@
   text-align: center;
 }
 
+#files > .add-buttons {
+  display: none;
+}
+
+#files .add-buttons{
+  .opacity(50);
+
+  &:hover {
+    .opacity(100);
+  }
+
+  a {
+    display: inline-block;  
+  }
+  
+}
+
 .fileinput-button {
   height: 18px;
   width: 58px;
+  position: relative;
 }
 
 .fileinput-button input {
-  position: relative;
-  top: -23px;
-  right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   margin: 0;
   border: solid transparent;
   opacity: 0;
@@ -30,7 +48,8 @@
 }
 
 .file-list-container {
-  margin-left: 14px;
+  padding-left: 14px;
+  border-left: @grayLighter 1px solid;
 }
 
 .file-list {
@@ -63,3 +82,4 @@
     }
   }
 }
+

@@ -15,7 +15,16 @@ define(function(require, exports, module) {
 
   var template = exports.template = {
 
-    mapFiles: function() {
+    eventIsButton: function(e) {
+      var $target = $(e.target);
+      if ($target.is('a') || $target.parentsUntil('.file, .folder').is('a')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    , mapFiles: function() {
       this.files(this.model.get('data'));
     }
 
@@ -33,9 +42,10 @@ define(function(require, exports, module) {
           //And not have any more levels
           if (relPath.length && relPath.indexOf('/') === -1) {
 
-            var folderEntry = _.find(self.folders, function(folder) {folder.path === path});
+            var folderEntry = _.find(self.folders(), function(folder) {return folder.path === path});
 
             if (!folderEntry) {
+              folder.urlRoot = self.foldersCollection.url;
               folderEntry = {
                   path: path
                 , name: relPath
@@ -56,6 +66,11 @@ define(function(require, exports, module) {
     , fetch: function() {
       this.fetchFiles();
       this.fetchFolders();
+      _.each(this.folders(), function(f) {
+        if (f.isOpen()) {
+          f.viewModel.fetch();
+        }
+      });
     }
 
     , fetchFolders: function() {
@@ -86,7 +101,7 @@ define(function(require, exports, module) {
     }
 
     , onClickFile: function(filename, e) {
-      if (!$(e.target).is('a')) {
+      if (!this.eventIsButton(e)) {
         this.editFile(filename);
       } else {
         return true;
@@ -150,7 +165,7 @@ define(function(require, exports, module) {
     }
 
     , onClickFolder: function(folder, e) {
-      if (!$(e.target).is('a')) {
+      if (!this.eventIsButton(e)) {
         this.toggleFolder(folder);
       } else {
         return true;

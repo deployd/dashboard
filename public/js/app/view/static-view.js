@@ -2,6 +2,8 @@ define(function(require, exports, module) {
 
   var FolderViewModel = require('view-model/folder-view-model');
 
+  var viewModelInstance;
+
   var StaticView = module.exports = Backbone.View.extend({
 
     template: _.template($('#static-template').html())
@@ -12,7 +14,11 @@ define(function(require, exports, module) {
     }
 
     , initializeViewModel: function() {
-      this.viewModel = FolderViewModel.create();
+      if (!viewModelInstance) {
+        viewModelInstance = FolderViewModel.create();  
+
+      }
+      this.viewModel = viewModelInstance;
       this.viewModel.fetch();
     }
 
