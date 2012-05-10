@@ -6,7 +6,8 @@
   
 <ul class="nav nav-tabs" id="event-nav">
   <li><a href="#get-panel" data-toggle='tab' data-editor="onGet">On GET</a></li>
-  <li class="active"><a href="#post-panel" data-toggle='tab' data-editor="onPost">On POST</a></li>
+  <li class="active"><a href="#validate-panel" data-toggle='tab' data-editor="onValidate">On Validate</a></li>
+  <li><a href="#post-panel" data-toggle='tab' data-editor="onPost">On POST</a></li>
   <li><a href="#put-panel" data-toggle='tab' data-editor="onPut">On PUT</a></li>
   <li><a href="#delete-panel" data-toggle='tab' data-editor="onDelete">On DELETE</a></li>
 </ul>
@@ -16,7 +17,12 @@
       <div id="onGet"></div>
     </div>
   </div>
-  <div class="tab-pane active" id="post-panel">
+  <div class="tab-pane active" id="validate-panel">
+    <div class="editor-container">
+      <div id="onValidate"></div>
+    </div>
+  </div>
+  <div class="tab-pane" id="post-panel">
     <div class="editor-container">
       <div id="onPost"></div>
     </div>

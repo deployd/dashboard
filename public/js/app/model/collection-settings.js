@@ -9,12 +9,7 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
   defaults: {
     properties: null,
     onGet: '',
-    onPost: '/* Validation */\n' +
-      '// if (this.name.length < 10) {\n' +
-      '//   error("name", "Must be at least 10 characters");\n' +
-      '// }\n' +
-      '\n' +
-      '/* Authentication */\n' +
+    onPost: '/* Authentication */\n' +
       '// if (!me || !me.isAdmin) {\n' +
       '//   cancel("You must be an admin!", 401);\n'+
       '// }\n'+
@@ -24,7 +19,11 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
       '// this.creatorName = me.name;\n',
     onPut: '/* Readonly properties */\n' +
     '// protect("creator");\n',
-    onDelete: ''
+    onDelete: '',
+    onValidate: '/* Validation */\n' +
+      '// if (this.name.length < 10) {\n' +
+      '//   error("name", "Must be at least 10 characters");\n' +
+      '// }\n'
   },
 
   initialize: function() {
