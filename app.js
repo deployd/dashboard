@@ -30,14 +30,18 @@ var cp = require('child_process');
 var exec = cp.exec;
 var spawn = cp.spawn;
 var key;
+var dpd = require('deployd');
+
 
 // Start testing server
-
-var server = exec('mkdir -p example && cd example && dpd -d');
-
-server.stdout.on('data', function (data) {
-  console.log(data.toString());
+dpd.use('http://localhost:2403').listen(function () {
+  dpd.use('/keys').post(require('deployd/lib/key').keygen(), function (err, k) {
+    key = JSON.stringify(k);
+  })
 })
+
+
+
 
 // Configuration
 
