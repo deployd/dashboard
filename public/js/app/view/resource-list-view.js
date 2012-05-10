@@ -118,7 +118,6 @@ var ResourceListView = module.exports = Backbone.View.extend({
     });
     $(self.el).find('li:not(.locked)').remove();
     if (self.collection.length) {
-      $(self.el).show();
       $(self.emptyEl).hide();
       self.subViews = self.collection.map(function(resource) {
         var view = new ResourceView({model: resource, parentView: self});
@@ -127,7 +126,6 @@ var ResourceListView = module.exports = Backbone.View.extend({
         return view;
       });
     } else {
-      $(self.el).hide();
       $(self.emptyEl).show();
     }
   },

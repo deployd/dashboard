@@ -427,8 +427,8 @@ li.component-item {
   }
 
   &.locked .component-item-header {
-    background: @black !important;
-    cursor: normal !important;
+    /*background: @black !important;*/
+    /*cursor: normal !important;*/
   }
   
   .component-item-header {
@@ -453,6 +453,13 @@ li.component-item {
   
   .type-icons;
   
+}
+
+#property-list {
+  .locked .component-item-header {
+    background: @black !important;
+    cursor: normal !important;
+  }
 }
 
 .editor-container {
@@ -519,6 +526,9 @@ table input {
   .well;
   background: @black;
   color: @bodyBackground;
+}
+
+.get-started, .get-started-light {
   margin: 20px 0;
   padding: 19px 19px 9px 19px;
 }
