@@ -55,7 +55,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
       var collection = view.collection;
       var row = collection.get(data._id());
       var index = collection.indexOf(row);
-      if (row) row.destroy();
+      if (row) row.destroy({wait: true});
       row.set('_id', undefined);
 
       undoBtn.show('Delete row', function() {
