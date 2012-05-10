@@ -27,21 +27,16 @@ httpProxy.createServer(function (req, res, proxy) {
 
 var app = module.exports = express.createServer();
 var cp = require('child_process');
+var fork = cp.fork;
 var exec = cp.exec;
 var spawn = cp.spawn;
-var key;
-var dpd = require('deployd');
+var key = '';
 
-
-// Start testing server
-dpd.use('http://localhost:2403').listen(function () {
-  dpd.use('/keys').post(require('deployd/lib/key').keygen(), function (err, k) {
-    key = JSON.stringify(k);
-  })
-})
-
-
-
+var dpd = fork('dpd-server');
+dpd.on('message', function(res) {
+  key = JSON.stringify(res);
+  console.log(key || "no key");
+});
 
 // Configuration
 
