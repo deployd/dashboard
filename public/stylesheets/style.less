@@ -1,7 +1,14 @@
 @import "../../bootstrap/less/bootstrap.less";
+
+body {
+  background: url(../img/outlets.png);
+}
+
 @import "./files.less";
 
 .label {vertical-align: inherit !important;} // fixes bootstrap
+
+#header {background: none !important}
 
 h1 {
   padding: 10px;
@@ -43,6 +50,59 @@ p a {
 
 .resource-list .container {
   width: 443px;
+}
+
+#resource-sidebar {
+  margin-bottom: 0;
+  .border-radius(10px 10px 10px 10px);
+  li {
+    padding: 10px;
+    background: rgba(0,0,0,.27);
+    .box-shadow(inset 3px 3px 10px rgba(0,0,0,.75));
+    margin-bottom: 5px;
+    li {
+      padding: 5px;
+      border-top: solid 1px darken(@black, 10%);
+      border-left: solid 1px darken(@black, 12%);
+      border-bottom: solid 1px darken(@black, 14%);
+      border-right: solid 1px darken(@black, 14%);
+      .box-shadow(1px 1px 5px rgba(0,0,0,.75));
+      margin-left: 14px;
+      margin-right: 14px;
+      text-align: center;
+    }
+    &:hover {
+      background: @bodyBackground;
+      background: rgba(0,0,0,.0);
+      cursor: pointer;
+    }
+    &.active:hover {
+      background: rgba(0,0,0,.27);
+    }
+  }
+  a {
+    cursor: pointer;
+    color: @black;
+    &:hover {
+      background: none !important;
+    }
+  }
+  li.active > a {
+    color: @bodyBackground;
+  }
+  > li.active > a {
+    display: block;
+  }
+  ul {
+    margin-top: 10px;
+  }
+  .nav {
+    margin-bottom: 0;
+  }
+}
+
+#sidebar-well {
+  background: none;
 }
 
 .right-sidebar .well {

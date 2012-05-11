@@ -1,5 +1,8 @@
 <li>
-  <a href="#">Resources</a>
+  <a href="#">
+    <i class="icon-align-justify"></i>&nbsp;
+    Resources
+  </a>
 </li>
 <li <%= app.files ? 'class="active"' : '' %>>
   <a href="#files">
@@ -14,7 +17,7 @@
       <%- resource.path %>
     </a>
     <% if (resource._id === app.resourceId && (resource.type === 'Collection' || resource.type === 'UserCollection')) { %>
-      <ul class="nav nav-tabs nav-stacked nav-sublist">
+      <ul class="nav">
         <li class="active"><a href="#properties" data-toggle="tab">Properties</a></li>
         <li><a href="#data" data-toggle="tab">Data</a></li>
         <li><a href="#api" data-toggle="tab">API</a></li>
