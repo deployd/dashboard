@@ -9,6 +9,8 @@ var _editor;
 function getEditor(el) {
   if (!_editor) {
     _editor = ace.edit($editorEl[0]);
+    _editor.setTheme("ace/theme/deployd");
+    _editor.setShowPrintMargin(false);
   }
 
   $(el).append($editorEl);

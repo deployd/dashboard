@@ -56,6 +56,14 @@ define(function(require, exports) {
 
       return true;
     };
+    
+    self.onNameKeyDown = function (data, e) {
+      if(commands[e.which]) {
+        return execCommand(data, e);
+      }
+      
+      return true;
+    };
 
     self.setType = function(data) {
       self.type(ko.utils.unwrapObservable(data._id));      
@@ -66,6 +74,60 @@ define(function(require, exports) {
       }
     };
 
+    // var types = {'string': 0, 'number': 1, 'boolean': 2, 'date': 3};
+    var types = ['string', 'number', 'boolean', 'date'];
+
+    var commands = {
+      // cmd + b (boolean)
+      66: function (data) {
+        data.type('boolean');
+      },
+      // cmd + s (string)
+      83: function (data) {
+        data.type('string');
+      },
+      // cmd + m (number)
+      77: function (data) {
+        data.type('number');
+      },
+      // cmd + d (date)
+      68: function (data) {
+        data.type('date');
+      },
+      // up arrow
+      38: function (data) {
+        var cur = data.type();
+        for(var i = 0; i < types.length; i++) {
+          if(cur === types[i]) {
+            data.type(types[i + 1] || types[0]);
+            return;
+          }
+        }
+      },
+      // down arrow
+      40: function (data) {
+        var cur = data.type();
+        for(var i = 0; i < types.length; i++) {
+          if(cur === types[i]) {
+            data.type(types[i - 1] || types[types.length - 1]);
+            return;
+          }
+        }
+      },
+      // cmd + o
+      79: function (data) {
+        data.optional(!data.optional());
+      }
+    };
+    
+    function execCommand(data, e) {
+      console.log(e.which);
+      if(e.metaKey || e.which === 38 || e.which === 40) {
+       commands[e.which] && commands[e.which](data);
+       return false;
+      }
+      return true;
+    }
 
     return self;
   }

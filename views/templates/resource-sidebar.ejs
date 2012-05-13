@@ -1,27 +1,27 @@
 <li>
   <a href="#">
-    <i class="icon-align-justify"></i>&nbsp;
+    <i class="icon-white icon-align-justify"></i>&nbsp;
     Resources
   </a>
 </li>
 <li <%= app.files ? 'class="active"' : '' %>>
   <a href="#files">
-    <i class="<%= app.files ? 'icon-white' : 'icon-hack' %> static"></i>&nbsp;
+    <i class="icon-white static"></i>&nbsp;
     Files
   </a>
 </li>
 <% collection.each(function(resourceModel) { var resource = resourceModel.toJSON(); %>
   <li class="<%= resource._id === app.resourceId ? 'active' : '' %>" >
     <a href="#<%= resource._id %>">
-      <i class="<%= resource._id === app.resourceId ? 'icon-white' : 'icon-hack' %> <%- resource.type.toLowerCase() %>"></i>&nbsp;
-      <%- resource.path %>
+      <i class="icon-white <%- resource.type.toLowerCase() %>"></i>&nbsp;
+      <%- resource.path.substr(1) %>
     </a>
     <% if (resource._id === app.resourceId && (resource.type === 'Collection' || resource.type === 'UserCollection')) { %>
       <ul class="nav">
-        <li class="active"><a href="#properties" data-toggle="tab">Properties</a></li>
-        <li><a href="#data" data-toggle="tab">Data</a></li>
-        <li><a href="#api" data-toggle="tab">API</a></li>
-        <li><a href="#events" data-toggle="tab">Events</a></li> 
+        <li class="active"><a href="#properties" data-toggle="tab"><i class="icon-white icon-list"></i> Properties</a></li>
+        <li><a href="#data" data-toggle="tab"><i class="icon-white icon-list-alt"></i> Data</a></li>
+        <li><a href="#events" data-toggle="tab"><i class="icon-white icon-exclamation-sign"></i> Events</a></li>
+        <li><a href="#api" data-toggle="tab"><i class="icon-white icon-info-sign"></i> API</a></li>
       </ul>
     <% } %>
   </li>

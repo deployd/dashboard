@@ -74,7 +74,7 @@
       </li>
     </ul>
   </div>
-  <input type="text" placeholder="myPropertyName" data-bind="value: name, hasfocus: nameFocus, event: { keypress: onNameKeypress }" />
+  <input type="text" placeholder="myPropertyName" data-bind="value: name, hasfocus: nameFocus, event: { keypress: onNameKeypress, keydown: onNameKeyDown }" />
   <button class="btn" data-bind="click: toggleEditing, clickBubble: false, visible: !isNew">done</button>
   <div class="pull-right">
     <label data-bind="if: type() !== 'boolean'" class="checkbox pull-left"><input type="checkbox" data-bind="checked: optional" />Optional</label>

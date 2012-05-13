@@ -9,7 +9,6 @@ var CollectionDataView = require('./collection-data-view');
 var CollectionEventView = require('./collection-event-view');
 var CollectionRoutesView = require('./collection-routes-view');
 
-
 var app = require('../app');
 var router = require('../router');
 var undoBtn = require ('./undo-button-view');

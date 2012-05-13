@@ -1,5 +1,5 @@
 #files {
-  // width: 300px;
+  margin: 4px 0 20px 0
 }
 
 #file-upload {
@@ -49,10 +49,18 @@
 
 .file-list-container {
   padding-left: 14px;
-  border-left: @grayLighter 1px solid;
+  border-left: @black 1px solid;
 }
 
 .file-list {
+  li {
+    i {opacity: 0.5;}
+    .btn {
+      i {opacity: 1;}
+    }
+    color: @white;
+    span {opacity: 0.5;}
+  }
   margin-left: 0;
   cursor: pointer;
 
@@ -65,7 +73,8 @@
     height: 28px;
     line-height: 28px;
     position: relative;
-
+    margin-left: -13px;
+    padding-left: 13px;
     .buttons {
       display: none;
       position: absolute;
@@ -74,7 +83,7 @@
     }
 
     &:hover {
-      background: @grayLighter;
+      background: rgba(0, 0, 0, 0.1);
 
       .buttons {
         display: block;

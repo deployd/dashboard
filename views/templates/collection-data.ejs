@@ -5,12 +5,12 @@
       <thead class="type-icons">
         <tr>
         <td class="code">
-          <i class="icon-hack string" data-bind="tooltip: 'string'"></i>
+          <i class="icon-white icon-hack string" data-bind="tooltip: 'string'"></i>
           _id
         </td>
         <!-- ko foreach: properties -->
           <td class="code">
-            <i class="icon-hack" data-bind="tooltip: typeLabel, cssNamed: type"></i>
+            <i class="icon-white icon-hack" data-bind="tooltip: typeLabel, cssNamed: type"></i>
             <span data-bind="text: name"></span>
           </td>
         <!-- /ko -->
@@ -59,10 +59,12 @@
 </div>
 
 <script type="text/html" id="data-cell-edit-template">
-  <i class="icon-warning-sign" data-bind="tooltip: {title: $parent.c_errors()[name()]}, visible: $parent.c_errors()[name()]"></i>
+  <div class="data-cell-input">
+  <i class="icon-white icon-warning-sign" data-bind="tooltip: {title: $parent.c_errors()[name()]}, visible: $parent.c_errors()[name()]"></i>
   <!-- ko if: type() === 'string' --> <input type="text" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}", /> <!-- /ko -->
   <!-- ko if: type() === 'boolean' --> <input type="checkbox" data-bind="checked: $parent[name()]" /> <!-- /ko -->
   <!-- ko if: type() === 'date' --> <input type="datetime" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}" /> <!-- /ko -->
   <!-- ko if: type() === 'number' --> <input type="number" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}" /> <!-- /ko -->
   <!-- ko if: type() === 'password' --> <input type="password" placeholder="*******" data-bind="value: $parent[name()], hasfocus: $parent.c_focus() === name(), event: {keydown: $parent._onKeypress}" /> <!-- /ko -->
+  </div>
 </script>

@@ -4,7 +4,7 @@ var CollectionRoutesView = module.exports = Backbone.View.extend({
 
       el: '#api'
 
-    , template: _.template($('#collection-routes-template').html())
+    , template: _.template($('#collection-routes-template').html(), null, {variable: 'resourceData'})
 
     , initialize: function() {
       this.render();
@@ -13,6 +13,7 @@ var CollectionRoutesView = module.exports = Backbone.View.extend({
 
     , render: function() {
       $(this.el).html(this.template(this.model.toJSON()));
+      prettyPrint();
     }
 
 });
