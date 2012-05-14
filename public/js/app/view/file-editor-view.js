@@ -31,15 +31,24 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     
     editor.on('save', function () {
       view.save();
-    })
+    });
   
     editor.on('change', function () {
       view.hasChanges();
     });
     
-    $.get(path, function (data) {
-      editor.setText(data);
-    }, 'text');
+    if(app.get('new file')) {
+      if(path.indexOf('.html') > -1 || path.indexOf('.htm') > -1) {
+        editor.setText($('#empty-html-template').html().replace(/\n/, '').replace(/xscript/g, 'script'));
+        view.hasChanges();
+      }
+    } else {
+      $.get(path, function (data) {
+        editor.setText(data);
+      }, 'text');
+      view.saved();
+    }
+
     
     var container = $('.editor-container');
     var win = $(window);
@@ -51,7 +60,6 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
     
     win.resize();
     
-    view.saved();
   }
 
   , back: function() {
@@ -85,7 +93,7 @@ var FileEditorView = module.exports = Backbone.View.extend(Backbone.Events).exte
   }
   
   , saved: function () {
-     $('#file-status')
+    $('#file-status')
       .empty()
       .append('<i class="icon-file"></i> ' + this.link())
     ;

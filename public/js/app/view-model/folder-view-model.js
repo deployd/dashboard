@@ -102,6 +102,7 @@ define(function(require, exports, module) {
     }
 
     , editFile: function(filename) {
+      app.set('new file', false);
       app.set('files', this.getPath(filename));
     }
 
@@ -139,7 +140,10 @@ define(function(require, exports, module) {
 
     , addFile: function() {
       var name = prompt("Enter a name for this file, including the extension:");
-      if (name) this.editFile(name);
+      if (name) {
+        app.set('new file', true);
+        app.set('files', this.getPath(name));
+      }
     }
 
     , deleteFolder: function(folder) {
