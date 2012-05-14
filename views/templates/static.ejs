@@ -48,21 +48,26 @@
 
 		<p>Run the following commands from the command line to install the utility and setup your app.</p>
 
-		<pre><code>npm install deployd -g</code></pre>
+		<pre><code>npm install dpdc -g</code></pre>
 
-		<p>To copy down all your apps resources and files run the following command. It will create a folder for you.</p>
+		<p>To copy all your apps files run the following command. It will create a folder for you and configure it to point to your remote deployd server.</p>
 
-		<pre><code>dpd clone <%= window.location.host %></code></pre>
+		<pre><code>dpdc clone <%= window.location.host %></code></pre>
 
 		<p id="scroll_to_here" >Now you can push and pull the entire contents of the directory with the following commands.</p>
 
-		<pre><code>dpd push</code></pre>
+		<pre><code>dpdc push</code></pre>
 
-		<p>Running <code>dpd push</code> will upload all resources and the contents of your current directory to your app.</p>
+		<p>Running <code>dpdc push</code> will upload all the files of your current directory to your deployd server.</p>
 
-		<pre><code>dpd pull</code></pre>
+		<pre><code>dpdc pull</code></pre>
 
-		<p>Running <code>dpd pull</code> will download all of your app's files into the current directory as well as download all the resources from the remote server.</p>
+		<p>Running <code>dpdc pull</code> will download all of your app's files into the current directory.</p>
+		
+
+		<p>You can see your changes without uploading by running a dev server.</p>
+				
+		<pre><code>dpdc dev</code></pre>
   </div>
   <div class="modal-footer">
 
