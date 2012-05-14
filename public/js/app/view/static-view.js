@@ -28,6 +28,8 @@ define(function(require, exports, module) {
       ko.cleanNode(this.el);
 
       ko.applyBindings(this.viewModel, this.el);
+
+      prettyPrint();
     }
 
     , close: function() {

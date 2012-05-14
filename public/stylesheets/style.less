@@ -534,19 +534,7 @@ li.component-item {
     padding: 5px;
   }
   
-  &.locked:hover {
-    .name, .path {
-      border: none;
-      margin-left: 0;
-      padding: 5px;  
-      background: none;
-    }
-  }
-
-  &.locked .component-item-header {
-    background: rgba(0, 0, 0, 0.25);
-    cursor: normal !important;  
-  }
+  
   
   .component-item-header {
     border-radius: inherit; 
@@ -573,12 +561,18 @@ li.component-item {
 }
 
 #property-list {
-  .locked {
-    .component-item-header {
-      // background: @black !important;
-      opacity: 0.5;
-      cursor: normal !important;
+  .locked:hover {
+    .name, .path {
+      border: none;
+      margin-left: 0;
+      padding: 5px;  
+      background: none;
     }
+  }
+
+  .locked .component-item-header {
+    background: rgba(0, 0, 0, 0.25);
+    cursor: normal !important;  
   }
 }
 
@@ -689,7 +683,7 @@ table input {
   margin: 20px auto;
 }
 
-#sync-info-modal {
+.modal-header {
   h3 {color: @black;}
 }
 
@@ -702,13 +696,15 @@ table input {
 // editor
 @import "editor.less";
 
+.tab-content.tab-content-styled {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  margin: 0;
+  .border-radius(5px);
+}
+
 #events-panel {
-  .tab-content {
-    background: rgba(0, 0, 0, 0.25);
-    padding: 20px;
-    margin: 0;
-    .border-radius(5px);
-  }
+  
 }
 
 #event-nav {

@@ -3,8 +3,9 @@
       <div class="well">
         <div class="clearfix">
           <h3 class="pull-left">Files</h3>
-          <div id="file-upload" class="pull-right">
+          <div class="pull-right">
             
+            <a href="#dpd-js-modal" data-toggle="modal" class="btn btn-primary"><i class="icon-white icon-file"></i> Use dpd.js</a>
             <a href="#sync-info-modal" data-toggle="modal" class="btn btn-primary"><i class="icon-white icon-resize-vertical"></i> Setup Local Sync</a>
             
           </div>
@@ -38,9 +39,24 @@
   </div>
 </div>
 
+<div id="dpd-js-modal" class="hide modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>Using Dpd.js</h3>
+  </div>
+  <div class="modal-body">
+    <p>Deployd generates a JavaScript client library for your app using the resources you add.</p>
+    <p><a href="/dpd.js" target="_blank">dpd.js</a> is automatically hosted by your server. To use it in your app, add it to your HTML pages:</p>
+    <pre class="prettyprint lang-html">&lt;script src="http://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
+&lt;script src="dpd.js"&gt;&lt;/script&gt;</pre>
+    <p><strong>If you would like to use dpd.js in your local testing</strong>, use the dpd.js loader proxy. Put it at the root of your app and include it just like the full library. When you load the script, it will download the latest version of dpd.js from your server. When you upload your app, Deployd will replace the loader proxy with the full library.</p>
+    <a href="/dpd.js?proxy=true" class="btn btn-primary"><i class="icon-white icon-download"></i> Download dpd.js proxy</a>
+  </div>
+</div>
+
 <div id="sync-info-modal" class="hide modal" style="margin-top: -280px">
   <div class="modal-header">
-    <a class="close" data-dismiss="modal">×</a>
+    <a class="close" data-dismiss="modal">&times;</a>
     <h3>Setup Local Sync</h3>
   </div>
   <div class="modal-body">
