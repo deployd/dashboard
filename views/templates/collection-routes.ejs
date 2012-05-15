@@ -91,7 +91,7 @@
 
   <p>Get a single object in the <code><%= resourceData.path %></code> collection by id:</p>
   <pre class="code prettyprint">
-  dpd<%= ns(resourceData.path) %>.getFirst("000000000000000000000000", function (result) {
+  dpd<%= ns(resourceData.path) %>.first("000000000000000000000000", function (result) {
     console.log(result);
   });</pre>
 
@@ -99,7 +99,7 @@
   <pre class="code prettyprint">
   var query = <%= getObj() %>;
 
-  dpd<%= ns(resourceData.path) %>.getFirst(query, function (result) {
+  dpd<%= ns(resourceData.path) %>.first(query, function (result) {
     console.log(result);
   });</pre>
 
