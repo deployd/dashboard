@@ -3,6 +3,7 @@ require('shelljs/make');
 var requirejs = require('requirejs');
 var ejs = require('ejs');
 
+var libs = require('./client-libs');
 var templateHelper = require('./util/template-html');
 templateHelper.root = '../views/templates';
 
@@ -32,17 +33,21 @@ target.build = function() {
   mkdir('js');
 
   //Lib
-  mkdir('js/lib');
-  var lib = '../public/js/lib/';
-  ls(lib).forEach(function(file) {
-    exec('uglifyjs ' + lib + file, {silent: true}).output.to('js/lib/' + file);
+
+  var libFolder = '../public/js/lib/'
+  var libsjs = '';
+  libs.forEach(function(file) {
+    libsjs += exec('uglifyjs ' + libFolder + file, {silent: true}).output + '\n;\n';
   });
+  libsjs.to('js/lib.js');
+
+  cp('../public/js/lib/require.js', 'js/require.js');
 
   //require.js
   var config = {
     baseUrl: '../public/js/app',
     name: 'entry',
-    out: '../build/js/app/entry.js'
+    out: '../build/js/entry.js'
   };
   requirejs.optimize(config);
 

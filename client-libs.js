@@ -1,0 +1,16 @@
+module.exports = [
+    'jquery-1.7.2.js'
+  , 'jquery.plugins.js'
+  , 'bootstrap.js'
+  , 'underscore.js'
+  , 'underscore.string.min.js'
+  , 'backbone.js'
+  , 'knockout-2.0.0.js'
+  , 'knockout.mapping.js'
+  , 'ace-noconflict.js'
+  , 'ace-mode-javascript-noconflict.js'
+  , 'ace-mode-css-noconflict.js'
+  , 'ace-mode-html-noconflict.js'
+  , 'theme-twilight-noconflict.js'
+  , 'prettify.js'
+];

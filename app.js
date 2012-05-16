@@ -79,7 +79,8 @@ app.configure('production', function(){
 });
 
 app.helpers({
-  template: require('./util/template-html')
+    template: require('./util/template-html')
+  , libs: require('./client-libs')
 });
 
 // Routes
