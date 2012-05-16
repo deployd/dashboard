@@ -33,6 +33,8 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
     (function poll(model, xhr) {
 
+      if (self._cleared) return;
+
       if (xhr && xhr.responseText) {
         self.viewModel.queryError(xhr.responseText);
       } else {
@@ -204,6 +206,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
   }
 
   , close: function() {
+    this._cleared = true;
     clearTimeout(this._timeout);
     ko.removeNode(this.el);
   }
