@@ -8,7 +8,8 @@ var File = module.exports = Backbone.Model.extend({
     ;
     
     if(info) {
-      return path + '/' + info.fileName;
+      if(path === '/') path = '';
+      return path + '/' + (info.name || info.fileName);
     } else {
       return path;
     }

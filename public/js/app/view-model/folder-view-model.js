@@ -93,7 +93,7 @@ define(function(require, exports, module) {
     }
 
     , deleteFile: function(filename) {
-      var file = new File({path: '/', info: {fileName: filename}, _id: filename});
+      var file = new File({path: this.path, info: {name: filename}, _id: filename});
       var self = this;
       
       file.destroy({success: function () {
@@ -124,7 +124,7 @@ define(function(require, exports, module) {
 
     , uploadFile: function(file) {
       var f = new File({info: file, path: this.path});
-      var name = file.fileName;
+      var name = file.name;
       var self = this;
 
       this.uploadingFiles.push(name);
@@ -135,7 +135,6 @@ define(function(require, exports, module) {
       });
 
       f.save();
-      
     }
 
     , addFile: function() {
