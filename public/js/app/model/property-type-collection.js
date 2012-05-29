@@ -21,7 +21,13 @@ var PropertyTypeCollection = module.exports = Backbone.Collection.extend({
         json[key].tooltipTitle = "True or false";
       } else if (key === "date") {
         json[key].tooltip = "Add a date string property. If the incoming value is not a valide date string it will be rejected.";
-        json[key].tooltipTitle = "specific point in time";
+        json[key].tooltipTitle = "A specific point in time";
+      } else if (key === "object") {
+        json[key].tooltip = "Add an object property. If the incoming value is not an object it will be rejected.";
+        json[key].tooltipTitle = "A JSON Object";
+      } else if (key === "array") {
+        json[key].tooltip = "Add an array property. If the incoming value is not an array it will be rejected.";
+        json[key].tooltipTitle = "A JSON Array";
       }
     });
     return Backbone.Utils.parseDictionary(json);
