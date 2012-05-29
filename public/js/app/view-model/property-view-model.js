@@ -75,7 +75,7 @@ define(function(require, exports) {
     };
 
     // var types = {'string': 0, 'number': 1, 'boolean': 2, 'date': 3};
-    var types = ['string', 'number', 'boolean', 'date'];
+    var types = ['string', 'number', 'boolean', 'date', 'object', 'array'];
 
     var commands = {
       // cmd + b (boolean)
