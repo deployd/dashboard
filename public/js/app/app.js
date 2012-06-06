@@ -32,8 +32,8 @@ var App = Backbone.Model.extend({
   , loadResource: function() {
     var self = this;
     if (self.get('resourceId')) {
-      var resource = new Backbone.Model({_id: self.get('resourceId')});
-      resource.url = '/resources/' + resource.id;
+      var resource = new Backbone.Model({id: self.get('resourceId')});
+      resource.url = '/__resources/' + resource.id;
       resource.fetch({success: function() {
         
         self.set({

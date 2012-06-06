@@ -2,7 +2,6 @@ define(["require", "exports", "module", "./app","./view/save-status-view"], func
 var app = require('./app');
 var saveStatus = require('./view/save-status-view');
 
-Backbone.Model.prototype.idAttribute = "_id";
 Backbone.View.prototype.close = function () {
   this.remove();
   this.unbind();
@@ -120,7 +119,7 @@ Backbone.Utils.parseDictionary = function(resp, options) {
 
   _.each(keys, function(key) {
     var model = resp[key];
-    model._id = key;
+    model.id = key;
     model[options.keyProperty] = model[options.keyProperty] || key;
     result.push(model);
   });

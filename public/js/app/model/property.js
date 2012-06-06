@@ -19,7 +19,7 @@ var Property = module.exports = Backbone.Model.extend({
 
   toJSON: function() {
     var json = Backbone.Model.prototype.toJSON.call(this);
-    json.$renameFrom = json.$renameFrom || json._id;
+    json.$renameFrom = json.$renameFrom || json.id;
     if (json.$renameFrom == json.name) {
       delete json.$renameFrom;
     }

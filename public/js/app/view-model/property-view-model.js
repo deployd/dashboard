@@ -1,7 +1,7 @@
 define(function(require, exports) {
 
   var propertyMapping = {
-    include: ['optional', '_id', '$renameFrom']
+    include: ['optional', 'id', '$renameFrom']
   };
 
 
@@ -15,7 +15,7 @@ define(function(require, exports) {
       , required: true
     });
 
-    data._id = data.name;
+    data.id = data.name;
     
 
     var self = ko.mapping.fromJS(data, propertyMapping);
@@ -66,7 +66,7 @@ define(function(require, exports) {
     };
 
     self.setType = function(data) {
-      self.type(ko.utils.unwrapObservable(data._id));      
+      self.type(ko.utils.unwrapObservable(data.id));      
       self.typeLabel(ko.utils.unwrapObservable(data.label));
 
       if (self.type() === 'boolean') {

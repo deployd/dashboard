@@ -88,7 +88,7 @@ var StaticView = module.exports = Backbone.View.extend({
   
   delete: function (e) {
     var filename = $(e.currentTarget).attr('filename')
-      , file = new File({path: '/', info: {fileName: filename}, _id: filename});
+      , file = new File({path: '/', info: {fileName: filename}, id: filename});
     
     var files = this.files;
     

@@ -24,7 +24,7 @@ var ResourceView = module.exports = Backbone.View.extend({
     this.parentView = this.options.parentView;
 
     this.model.on('change:c_active', this.render, this);
-    this.model.on('change:_id', this.render, this);
+    this.model.on('change:id', this.render, this);
     this.model.on('change:path', this.render, this);
   },
   
@@ -44,7 +44,7 @@ var ResourceView = module.exports = Backbone.View.extend({
 
   gotoDetail: function() {
     if (!this.model.isNew()) {
-      router.navigate(this.model.get('_id'), {trigger: true});
+      router.navigate(this.model.get('id'), {trigger: true});
     }
 
     return false;
@@ -136,7 +136,7 @@ var ResourceView = module.exports = Backbone.View.extend({
 
   destroy: function() {
     this.model.off('change:c_active', this.render);
-    this.model.off('change:_id', this.render);
+    this.model.off('change:id', this.render);
     this.model.off('change:path', this.render);
   }
 });

@@ -55,10 +55,10 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
     vm.deleteRow = function(data) {
       var collection = view.collection;
-      var row = collection.get(data._id());
+      var row = collection.get(data.id());
       var index = collection.indexOf(row);
       if (row) row.destroy({wait: true});
-      row.set('_id', undefined);
+      row.set('id', undefined);
 
       undoBtn.show('Delete row', function() {
         collection.create(row, {at: index});
@@ -89,7 +89,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
         }, error: error, wait: true});
       } else {
         
-        var row = collection.get(data._id());
+        var row = collection.get(data.id());
         row.save(rowData, {success: function() {
           data.c_editing(false);
           data.c_errors({});
@@ -101,7 +101,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
 
     vm.revertRow = function(data) {
       var collection = view.collection;
-      var row = collection.get(data._id());
+      var row = collection.get(data.id());
       row.fetch({success: function() {
         ko.mapping.fromJS(row.toJSON(), {}, data);
         data.c_editing(false);
@@ -133,7 +133,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     view.propertiesMapping = {
       'properties': {
         key: function(data) {
-          return ko.utils.unwrapObservable(data._id);
+          return ko.utils.unwrapObservable(data.id);
         }
       }
     }
@@ -141,7 +141,7 @@ var CollectionDataView = module.exports = Backbone.View.extend({
     view.collectionMapping = {
       'collection': {
         key: function(data) {
-          return ko.utils.unwrapObservable(data._id);
+          return ko.utils.unwrapObservable(data.id);
         }
         , create: function(options) {
           return collectionDataViewModel.createRow(options.data, ko.mapping.toJS(vm.properties), vm)

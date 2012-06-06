@@ -7,7 +7,6 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var httpProxy = require('http-proxy');
-// var bootware = require('bootware');
 
 // proxy server
 httpProxy.createServer(function (req, res, proxy) {
@@ -32,11 +31,11 @@ var exec = cp.exec;
 var spawn = cp.spawn;
 var key = '';
 
-var dpd = fork('dpd-server');
-dpd.on('message', function(res) {
-  key = JSON.stringify(res);
-  console.log(key || "no key");
-});
+// var dpd = fork('dpd-server');
+// dpd.on('message', function(res) {
+//   key = JSON.stringify(res);
+//   console.log(key || "no key");
+// });
 
 // Configuration
 
@@ -52,7 +51,7 @@ app.configure(function(){
   })
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use('/__dashboard', express.static(__dirname + '/public'));
+  app.use('/__dashboard/', express.static(__dirname + '/public'));
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 
   app.set('view options', { layout: false });

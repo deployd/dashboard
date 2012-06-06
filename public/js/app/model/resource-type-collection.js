@@ -3,7 +3,7 @@ require('../backbone-utils');
 
 
 var ResourceTypeCollection = module.exports = Backbone.Collection.extend({
-  url: '/types',
+  url: '/__resources/types',
 
   sort: function(model) {
     return model.get('label');

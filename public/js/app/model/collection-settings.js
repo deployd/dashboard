@@ -3,7 +3,7 @@ var PropertyCollection = require('./property-collection');
 
 var CollectionSettings = module.exports = Backbone.Model.extend({
   url: function() {
-    return '/resources/' + this.id
+    return '/__resources/' + this.id
   },
 
   defaults: {
@@ -15,7 +15,7 @@ var CollectionSettings = module.exports = Backbone.Model.extend({
       '// }\n'+
       '\n' +
       '/* Automatic properties */\n' +
-      '// this.creator = me._id;\n' +
+      '// this.creator = me.id;\n' +
       '// this.creatorName = me.name;\n',
     onPut: '/* Readonly properties */\n' +
     '// protect("creator");\n',

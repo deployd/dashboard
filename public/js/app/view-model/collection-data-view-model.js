@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     var self = {};
 
     function map(data, props) {
-      var defaults = {_id: null};
+      var defaults = {id: null};
       props.forEach(function(prop) {
         defaults[prop.name] = undefined;
       });

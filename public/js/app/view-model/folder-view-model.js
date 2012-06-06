@@ -93,7 +93,7 @@ define(function(require, exports, module) {
     }
 
     , deleteFile: function(filename) {
-      var file = new File({path: this.path, info: {name: filename}, _id: filename});
+      var file = new File({path: this.path, info: {name: filename}, id: filename});
       var self = this;
       
       file.destroy({success: function () {

@@ -26,18 +26,21 @@ define(function(require, exports, module) {
     this.modal = new AuthModalView();
 
     this.authenticate();
-    app.on('change:authKey', this.authenticate, this);
+    this.resources.fetch();
+    // app.on('change:authKey', this.authenticate, this);
     this.resources.on('reset', this.initRender, this);
     this.resources.on('error', this.modal.showError, this.modal);
   }
 
   , authenticate: function() {
 
-    if (app.get('authKey')) {
-      this.resources.fetch();  
-    } else {
-      this.modal.show();
-    }
+    this.resources.fetch();  
+
+    // if (app.get('authKey')) {
+    //   this.resources.fetch();  
+    // } else {
+    //   this.modal.show();
+    // }
 
   }
 
