@@ -6,7 +6,7 @@
         <tr>
         <td class="code">
           <i class="icon-white icon-hack string" data-bind="tooltip: 'string'"></i>
-          _id
+          id
         </td>
         <!-- ko foreach: properties -->
           <td class="code">
@@ -18,7 +18,7 @@
         </tr>
         <tbody data-bind="foreach: collection">
           <tr>
-            <td data-bind="text: _id"></td>
+            <td data-bind="text: id"></td>
             <!-- ko foreach: $root.properties -->
             <td data-bind="event: {dblclick: $parent._onDoubleclick}">
               <span data-bind="text: $parent.c_formatted(name(), type()), visible: !$parent.c_editing()"></span>

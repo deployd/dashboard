@@ -69,7 +69,7 @@
   <pre class="code prettyprint">
   dpd<%= ns(resourceData.path) %>.post(<%= getObj() %>, function(result, err) {
     if(err) return console.log(err);
-    console.log(result, result._id);
+    console.log(result, result.id);
   });</pre>
 
   <% } %>
@@ -107,7 +107,7 @@
   <pre class="code prettyprint">
   dpd<%= ns(resourceData.path) %>.put("000000000000000000000000", <%= getObj() %>, function(result, err) {
     if(err) return console.log(err);
-    console.log(result, result._id);
+    console.log(result, result.id);
   });</pre>
 
   <p>Remove a single object from the <code><%= resourceData.path %></code> collection:</p>
@@ -149,21 +149,21 @@
           <tr>
             <td><a href="http://deployd.github.com/deployd/#Retrieving-a-specific-object" target="_blank">Getting an object</a></td>
             <td>GET</td>
-            <td><%- resourceData.path %>/&lt;_id&gt;</td>
+            <td><%- resourceData.path %>/&lt;id&gt;</td>
             <td><em>Nothing</em></td>
             <td>A single object</td>
           </tr>
           <tr>
             <td><a href="http://deployd.github.com/deployd/#Updating-an-object" target="_blank">Updating an object</a></td>
             <td>PUT</td>
-            <td><%- resourceData.path %>/&lt;_id&gt;</td>
+            <td><%- resourceData.path %>/&lt;id&gt;</td>
             <td>A single object</td>
             <td>The saved object (or errors)</td>
           </tr>
           <tr>
             <td><a href="http://deployd.github.com/deployd/#Deleting-an-object" target="_blank">Deleting an object</a></td>
             <td>DELETE</td>
-            <td><%- resourceData.path %>/&lt;_id&gt;</td>
+            <td><%- resourceData.path %>/&lt;id&gt;</td>
             <td>A single object</td>
             <td><em>Nothing</em></td>
           </tr>

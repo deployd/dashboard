@@ -4,19 +4,19 @@
     Dashboard
   </a>
 </li>
-<li <%= app.files ? 'class="active"' : '' %>>
+<% /* <li <%= app.files ? 'class="active"' : '' %>>
   <a href="#files">
     <i class="icon-white static"></i>&nbsp;
     Files
   </a>
-</li>
+</li> */ %>
 <% collection.each(function(resourceModel) { var resource = resourceModel.toJSON(); %>
-  <li class="<%= resource._id === app.resourceId ? 'active' : '' %>" >
-    <a href="#<%= resource._id %>">
+  <li class="<%= resource.id === app.resourceId ? 'active' : '' %>" >
+    <a href="#<%= resource.id %>">
       <i class="icon-white <%- resource.type.toLowerCase() %>"></i>&nbsp;
       <%- resource.path.substr(1) %>
     </a>
-    <% if (resource._id === app.resourceId && (resource.type === 'Collection' || resource.type === 'UserCollection')) { %>
+    <% if (resource.id === app.resourceId && (resource.type === 'Collection' || resource.type === 'UserCollection')) { %>
       <ul class="nav">
         <li class="active"><a href="#properties" data-toggle="tab"><i class="icon-white icon-list"></i> Properties</a></li>
         <li><a href="#data" data-toggle="tab"><i class="icon-white icon-list-alt"></i> Data</a></li>
