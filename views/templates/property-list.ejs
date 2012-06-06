@@ -29,7 +29,7 @@
       <div data-bind="visible: !editing()">
         <i class="icon-white" data-bind="tooltip: {placement: 'left', title: typeLabel}, cssNamed: type"></i>
         <span class="code name" data-bind="text: name, click: toggleEditing"></span>
-        <span class="label" data-bind="visible: optional">optional</span>
+        <span class="label" data-bind="visible: required">required</span>
         <div class="pull-right">
           <a href="#" data-bind="click: $root.removeProperty"><i class="icon-white icon-remove"></i></a>
         </div>
@@ -77,7 +77,7 @@
   <input type="text" placeholder="myPropertyName" data-bind="value: name, hasfocus: nameFocus, event: { keypress: onNameKeypress, keydown: onNameKeyDown }" />
   <button class="btn" data-bind="click: toggleEditing, clickBubble: false, visible: !isNew">done</button>
   <div class="pull-right">
-    <label data-bind="if: type() !== 'boolean'" class="checkbox pull-left"><input type="checkbox" data-bind="checked: optional" />Optional</label>
+    <label class="checkbox pull-left"><input type="checkbox" data-bind="checked: required" />Required</label>
     <a href="#" class="delete-btn" data-bind="click: $root.removeProperty, visible: !isNew"><i class="icon-white icon-remove"></i></a>
     <button class="btn btn-success" data-bind="click: $root.addProperty, visible: isNew"><i class="icon-white icon-plus"></i>&nbsp;Add</button>
   </div>

@@ -1,7 +1,7 @@
 define(function(require, exports) {
 
   var propertyMapping = {
-    include: ['optional', 'id', '$renameFrom']
+    include: ['required', 'id', '$renameFrom']
   };
 
 
@@ -11,8 +11,7 @@ define(function(require, exports) {
         name: " "
       , type: "string"
       , typeLabel: "string"
-      , optional: false
-      , required: true
+      , required: false
     });
 
     data.id = data.name;
@@ -68,10 +67,6 @@ define(function(require, exports) {
     self.setType = function(data) {
       self.type(ko.utils.unwrapObservable(data.id));      
       self.typeLabel(ko.utils.unwrapObservable(data.label));
-
-      if (self.type() === 'boolean') {
-        self.optional(false);
-      }
     };
 
     // var types = {'string': 0, 'number': 1, 'boolean': 2, 'date': 3};
@@ -116,7 +111,7 @@ define(function(require, exports) {
       },
       // cmd + o
       79: function (data) {
-        data.optional(!data.optional());
+        data.required(!data.required());
       }
     };
     

@@ -2,13 +2,7 @@ define(["require", "exports", "module"], function(require, exports, module) {
 var Property = module.exports = Backbone.Model.extend({
 
   defaults: {
-    required: true
-  },
-
-  initialize: function() {
-    this.on('change:optional', function() {
-      this.set({required: !this.get('optional')})
-    }, this);
+    required: false
   },
 
   parse: function(json) {
