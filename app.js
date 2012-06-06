@@ -51,7 +51,7 @@ app.configure(function(){
   })
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use('/__dashboard/', express.static(__dirname + '/public'));
+  app.use('/dashboard/', express.static(__dirname + '/public'));
   app.use('/bootstrap', express.static(__dirname + '/bootstrap'));
 
   app.set('view options', { layout: false });
@@ -88,7 +88,7 @@ app.helpers({
 //   res.redirect('/__dashboard/');
 // });
 
-app.get('/__dashboard/', function(req, res) {
+app.get('/dashboard/', function(req, res) {
   // res.redirect('/dashboard');
   res.render('index');
 });
