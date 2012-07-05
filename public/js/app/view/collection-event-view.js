@@ -51,7 +51,7 @@ var CollectionEventView = module.exports = Backbone.View.extend({
   }
 
   , resize: function() {
-    this.editor.resize();
+    setTimeout(_.bind(this.editor.resize, this), 1);
   }
 
   , close: function() {

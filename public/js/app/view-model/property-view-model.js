@@ -116,7 +116,6 @@ define(function(require, exports) {
     };
     
     function execCommand(data, e) {
-      console.log(e.which);
       if(e.metaKey || e.which === 38 || e.which === 40) {
        commands[e.which] && commands[e.which](data);
        return false;
