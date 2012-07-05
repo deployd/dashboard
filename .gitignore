@@ -1,6 +1,4 @@
 node_modules
-bootstrap
 build
-/bootstrap../
 .DS_Store
 package.js

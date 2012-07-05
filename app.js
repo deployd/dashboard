@@ -12,7 +12,8 @@ var httpProxy = require('http-proxy');
 httpProxy.createServer(function (req, res, proxy) {
   var _port = 3004;
 
-  if(req.method === 'POST' || req.method === 'PUT') {
+  console.log(req.url);
+  if(req.url.indexOf('/dashboard') !== 0 && req.url.indexOf('/bootstrap') !== 0) {
     _port = 2403;
   }
   
