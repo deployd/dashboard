@@ -14,6 +14,12 @@ target.all = function() {
 target.build = function() {
   cd(__dirname);
 
+  if (!which('uglifyjs')) {
+    echo("Uglifyjs is required for building.");
+    echo("npm install -g uglify-js");
+    exit(1);
+  }
+
   //Clean out build target
   rm('-rf', 'build/');
 
