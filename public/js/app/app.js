@@ -6,6 +6,7 @@ var App = Backbone.Model.extend({
   defaults: {
       appName: 'My App'
     , appUrl: ''
+    , authKey: true
     , resourceType: ''
     , files: undefined
   }
@@ -16,7 +17,7 @@ var App = Backbone.Model.extend({
     this.on('change:authKey', function() {
       var authKey = this.get('authKey');
       if (authKey) {
-        $.cookie('DPDAuthKey', authKey, {expires: 7});
+        $.cookie('DPDAuthKey', authKey, {expires: 31});
       } else {
         $.cookie('DPDAuthKey', null);
       }
@@ -24,7 +25,7 @@ var App = Backbone.Model.extend({
 
     this.set({
         appUrl: location.protocol + '//' + location.host
-      , authKey: $.cookie('DPDAuthKey')
+      , authKey: $.cookie('DPDAuthKey') || true
     });
     this.setDocLink();
   }

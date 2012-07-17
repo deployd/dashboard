@@ -27,20 +27,20 @@ define(function(require, exports, module) {
 
     this.authenticate();
     this.resources.fetch();
-    // app.on('change:authKey', this.authenticate, this);
+    app.on('change:authKey', this.authenticate, this);
     this.resources.on('reset', this.initRender, this);
     this.resources.on('error', this.modal.showError, this.modal);
   }
 
   , authenticate: function() {
 
-    this.resources.fetch();  
+    // this.resources.fetch();  
 
-    // if (app.get('authKey')) {
-    //   this.resources.fetch();  
-    // } else {
-    //   this.modal.show();
-    // }
+    if (app.get('authKey')) {
+      this.resources.fetch();  
+    } else {
+      this.modal.show();
+    }
 
   }
 

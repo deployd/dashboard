@@ -42,7 +42,7 @@ Backbone.sync = function(method, model, options) {
   }
 
   options.headers = {
-    'dpd-ssh-key': true
+    'dpd-ssh-key': app.get('authKey') || true
   };
 
   options.url = options.url || url;
