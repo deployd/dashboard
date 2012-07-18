@@ -46,7 +46,6 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(function(req,res,next) {
     res.cookie('DPDAppUrl', 'http://localhost:2403');
-    res.cookie('DPDAuthKey', key);
     next();
   })
   app.use(express.bodyParser());

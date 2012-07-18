@@ -24,7 +24,7 @@ define(function(require, exports, module) {
       this.hide();
 
       setTimeout(_.bind(function() {
-        var authKey = this.$el.find('[name=key]').val();
+        var authKey = this.$el.find('[name=key]').val().replace(/\s/g, '');
         app.set({
           authKey: authKey
         }, {silent: true});
